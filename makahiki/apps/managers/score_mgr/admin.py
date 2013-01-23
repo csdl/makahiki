@@ -28,8 +28,6 @@ class ScoreSettingAdmin(admin.ModelAdmin):
     """PointsTransaction administrator interface definition."""
     list_display = ["setup_points", "active_threshold_points",
                     "signup_bonus_points", "noshow_penalty_points", "feedback_bonus_points", ]
-    page_text = "Under normal circumstances, there is only one score setting instance per challenge.  <br>" +\
-"Select this instance; you will be able to change the score settings for this challenge."
 
 admin.site.register(ScoreSetting, ScoreSettingAdmin)
 
