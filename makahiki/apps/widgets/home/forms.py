@@ -15,7 +15,7 @@ class FacebookForm(forms.Form):
         required=False,
         initial=True,
         label="%s can post to my Facebook feed (at most 2 posts per day)" %
-              challenge_mgr.get_challenge().name
+              challenge_mgr.get_challenge().competition_name
     )
 
 

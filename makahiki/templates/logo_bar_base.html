@@ -35,8 +35,8 @@
                 {{ CHALLENGE.landing_slogan|markdown }} 
             </td>
             <td>
-                {% if CHALLENGE.logo %}
-                    <img class="logo-branding" src="{{CHALLENGE.logo.url }}"/>
+                {% if CHALLENGE.site_logo %}
+                    <img class="logo-branding" src="{{CHALLENGE.site_logo.url }}"/>
                 {% else %}
                     <img class="logo-branding" src="{{STATIC_URL}}images/old-logo.png"/>
                 {% endif %}

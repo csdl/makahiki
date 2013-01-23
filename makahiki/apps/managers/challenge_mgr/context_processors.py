@@ -58,7 +58,7 @@ def competition(request):
         "CHALLENGE": challenge,
         "SCORE_SETTINGS": score_mgr.score_setting(),
         "CSS_THEME": css_theme,
-        "TEAM_LABEL": challenge.team_label,
+        "TEAM_LABEL": challenge.competition_team_label,
         "MAKAHIKI_FACEBOOK_APP_ID":
             settings.MAKAHIKI_FACEBOOK_APP_ID if settings.MAKAHIKI_USE_FACEBOOK else '',
         "MAKAHIKI_USE_LESS": settings.MAKAHIKI_USE_LESS,

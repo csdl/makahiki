@@ -3,7 +3,7 @@
         "pk": 1,
         "model": "challenge_mgr.challengesetting",
         "fields": {
-            "location": "Demo Location",
+            "site_name": "Demo Game",
             "use_internal_auth": true,
             "email_enabled": false,
             "landing_introduction": "## Aloha! Welcome to the Kukui Cup Demo Game.",
@@ -14,21 +14,21 @@
             "theme": "theme-forest",
             "use_cas_auth": false,
             "email_host": "smtp.gmail.com",
-            "domain": "kukuicup-uh.herokuapp.com",
+            "site_domain": "kukuicup-uh.herokuapp.com",
             "landing_slogan": "The Kukui Cup: <br/> Lights Off.  Game On!",
             "internal_auth_text": "###Others",
-            "logo": "",
+            "site_logo": "",
             "contact_email": "kukuicup@hawaii.edu",
             "use_ldap_auth": false,
             "landing_non_participant_text": "###I stumbled onto this site somehow\r\n#####and want to know more about the Kukui Cup",
-            "name": "Demo Game",
+            "competition_name": "Demo Game",
             "cas_server_url": "",
             "email_use_tls": true,
             "email_port": 587,
             "ldap_auth_text": "###I have a LDAP email",
             "ldap_server_url": "",
             "landing_participant_text": "### I'm a participant\r\n##### Sign in using your registered username and password",
-            "team_label": "Team"
+            "competition_team_label": "Team"
         }
     },
     {

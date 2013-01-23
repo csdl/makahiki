@@ -472,7 +472,7 @@ def process_rsvp():
                           "click on the link to claim your points." % (
                     profile.name,
                     action.type.capitalize(),
-                    challenge_mgr.get_challenge().domain,
+                    challenge_mgr.get_challenge().site_domain,
                     reverse("activity_task", args=(action.type, action.slug,)),
                     action.title)
                 message += "<p/>Because you signed up for the "\
@@ -547,7 +547,7 @@ def check_new_submissions():
                                              sent=True)
 
                 challenge = challenge_mgr.get_challenge()
-                subject = "[%s] %d New Pending Action Submissions" % (challenge.name,
+                subject = "[%s] %d New Pending Action Submissions" % (challenge.competition_name,
                                                                       submission_count)
                 message = "There are %d new pending action submissions as of %s." % (
                     submission_count, datetime.datetime.today())
@@ -573,7 +573,7 @@ def check_daily_submissions():
 
     if submission_count:
         challenge = challenge_mgr.get_challenge()
-        subject = "[%s] %d Remaining Pending Action Submissions" % (challenge.name,
+        subject = "[%s] %d Remaining Pending Action Submissions" % (challenge.competition_name,
                                                                     submission_count)
         message = "There are %d remaining pending action submissions as of %s." % (
             submission_count, datetime.datetime.today())

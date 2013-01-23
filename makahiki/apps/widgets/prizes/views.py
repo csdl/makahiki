@@ -79,14 +79,14 @@ def prize_form(request, prize_id, user_id):
             'raffle': False,
             'prize': prize,
             'round': prize.round.name,
-            'competition_name': challenge.name,
+            'competition_name': challenge.competition_name,
         }, context_instance=RequestContext(request), mimetype='text/plain')
 
     message = template.render({
         'raffle': False,
         'prize': prize,
         'round': prize.round.name,
-        'competition_name': challenge.name,
+        'competition_name': challenge.competition_name,
     })
     return HttpResponse(message, content_type="text", mimetype='text/html')
 

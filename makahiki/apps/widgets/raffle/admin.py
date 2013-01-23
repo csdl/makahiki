@@ -76,7 +76,7 @@ class RafflePrizeAdmin(admin.ModelAdmin):
                 UserNotification.create_info_notification(obj.winner, message, True, obj)
 
                 challenge = challenge_mgr.get_challenge()
-                subject = "[%s] Congratulations, you won a prize!" % challenge.name
+                subject = "[%s] Congratulations, you won a prize!" % challenge.competition_name
                 UserNotification.create_email_notification(
                     obj.winner.email, subject, message, message)
 

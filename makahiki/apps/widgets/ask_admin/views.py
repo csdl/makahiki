@@ -41,7 +41,7 @@ def send_feedback(request):
             challenge = challenge_mgr.get_challenge()
             # Using adapted version from Django source code
             subject = u'[%s] %s asked a question' % (
-                challenge.name,
+                challenge.competition_name,
                 request.user.get_profile().name)
 
             if challenge.email_enabled or True:

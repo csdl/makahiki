@@ -8,13 +8,13 @@
                     <span class="icon-bar"></span>
                 </a>
                 <div class="brand">
-                    {% if CHALLENGE.logo %}
-                        <img src="{{ CHALLENGE.logo.url }}" width="54"
+                    {% if CHALLENGE.site_logo %}
+                        <img src="{{ CHALLENGE.site_logo.url }}" width="54"
                     {% else %}
                         <img src="{{ STATIC_URL }}images/old-logo.png" width="54"
                     {% endif %}
-                        alt="{{ CHALLENGE.name }}" />
-                    <div class="caption">{{ CHALLENGE.name }}</div>
+                        alt="{{ CHALLENGE.site_name }}" />
+                    <div class="caption">{{ CHALLENGE.competition_name }}</div>
                 </div>
 
                 <div class="nav-collapse">

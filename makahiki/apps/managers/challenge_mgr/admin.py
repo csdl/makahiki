@@ -89,11 +89,11 @@ class ChallengeSettingAdmin(admin.ModelAdmin):
     """ChallengeSetting administrator interface definition."""
 
     fieldsets = (
-        ("Challenge",
+        (None,
             {"fields":
-                  (("name", "location"),
-                   ("logo", "domain"),
-                   ("team_label", "theme"),
+                  (("site_name", "site_logo"),
+                   ("competition_name", "site_domain"),
+                   ("competition_team_label", "theme"),
                   )}),
         ("Authentication",
             {"fields":

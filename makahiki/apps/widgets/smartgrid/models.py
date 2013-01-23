@@ -676,18 +676,18 @@ class ActionMember(models.Model):
 
             # only send out email notification for rejected action
             subject = "[%s] Your response to '%s' was %s" % (
-                challenge.name, self.action.title, status_nicely)
+                challenge.competition_name, self.action.title, status_nicely)
 
             message = render_to_string("email/rejected_activity.txt", {
                 "object": self,
-                "COMPETITION_NAME": challenge.name,
-                "domain": challenge.domain,
+                "COMPETITION_NAME": challenge.competition_name,
+                "domain": challenge.site_domain,
                 "status_nicely": status_nicely,
                 })
             html_message = render_to_string("email/rejected_activity.html", {
                 "object": self,
-                "COMPETITION_NAME": challenge.name,
-                "domain": challenge.domain,
+                "COMPETITION_NAME": challenge.competition_name,
+                "domain": challenge.site_domain,
                 "status_nicely": status_nicely,
                 })
 
@@ -819,19 +819,19 @@ class EmailReminder(Reminder):
         """
         if not self.sent:
             challenge = challenge_mgr.get_challenge()
-            subject = "[%s] Reminder for %s" % (challenge.name,
+            subject = "[%s] Reminder for %s" % (challenge.competition_name,
                                                 self.action.title)
             message = render_to_string("email/activity_reminder.txt", {
                 "action": self.action,
                 "user": self.user,
-                "COMPETITION_NAME": challenge.name,
-                "domain": challenge.domain,
+                "COMPETITION_NAME": challenge.competition_name,
+                "domain": challenge.site_domain,
                 })
             html_message = render_to_string("email/activity_reminder.html", {
                 "action": self.action,
                 "user": self.user,
-                "COMPETITION_NAME": challenge.name,
-                "domain": challenge.domain,
+                "COMPETITION_NAME": challenge.competition_name,
+                "domain": challenge.site_domain,
                 })
 
             UserNotification.create_email_notification(self.email_address, subject, message,
