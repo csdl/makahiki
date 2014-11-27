@@ -39,10 +39,12 @@ class Wattdepot(ResourceStorage):
     def get_latest_resource_data_wattdepot3(self, session, source_name, date):
         """Returns the latest usage of the specified resource for the current date."""
         _ = date
+        source_name = source_name.lower()
+
         session.params = {'sensor': source_name,
                           'latest': "true"}
         url = "%s/depository/energy/value/" % (challenge_mgr.get_challenge().wattdepot_server_url)
-        return self._get_energy_usage(session, url, source_name)
+        return self._get_energy_usage(session, url, source_name) / 1000
 
     def get_history_resource_data_wattdepot3(self, session, source_name, date, hour):
         """Return the history energy usage of the team for the date and hour."""
@@ -51,11 +53,12 @@ class Wattdepot(ResourceStorage):
         else:
             timestamp = (date + datetime.timedelta(days=1)).strftime("%Y-%m-%dT00:00:00.000")
 
+        source_name = source_name.lower()
         session.params = {'sensor': source_name,
                           'timestamp': timestamp}
         url = "%s/depository/energy/value/" % (challenge_mgr.get_challenge().wattdepot_server_url)
 
-        return self._get_energy_usage(session, url, source_name)
+        return self._get_energy_usage(session, url, source_name) / 1000
 
     def get_latest_resource_data_wattdepot2(self, session, source_name, date):
         """Returns the latest usage of the specified resource for the current date."""
@@ -117,6 +120,8 @@ class Wattdepot(ResourceStorage):
 
             return abs(int(round(float(usage))))
 
+        except ValueError:
+            print 'Wattdepot data retrieval for team %s error: No JSON object.' % source
         except Timeout:
             print 'Wattdepot data retrieval for team %s error: connection timeout.' % source
         except ParseError as exception:

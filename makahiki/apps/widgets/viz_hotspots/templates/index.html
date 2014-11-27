@@ -1,5 +1,5 @@
 
-{% with all_lounges=view_objects.viz_hotspots.all_lounges %}
+{% with all_lounges=view_objects.viz_hotspots.all_lounges wattdepot_version=view_objects.viz_hotspots.wattdepot_version%}
 
 <p/>
 
@@ -52,7 +52,7 @@
 
 <script type="text/javascript">
     var SERVER_URL = "{{ CHALLENGE.wattdepot_server_url }}";
-    var WATTDEPOT_VERSION = "WATTDEPOT2";
+    var WATTDEPOT_VERSION = "{{wattdepot_version}}";
 </script>
 
 <script type="text/javascript" src="{{ STATIC_URL}}js/com.iskitz.ajile.js"></script>

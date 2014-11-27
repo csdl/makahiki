@@ -1,4 +1,5 @@
 """Handle rendering of the Energy Power Meter widget."""
+from django.conf import settings
 from apps.widgets.resource_goal import resource_goal
 
 
@@ -14,13 +15,21 @@ def supply(request, page_name):
         wattdepot_source_name = goal.wattdepot_source_name
         if not wattdepot_source_name:
             wattdepot_source_name = team.name
+
+        if settings.MAKAHIKI_USE_WATTDEPOT3:
+            wattdepot_version = "WATTDEPOT3"
+            wattdepot_source_name = wattdepot_source_name.lower()
+        else:
+            wattdepot_version = "WATTDEPOT2"
     else:
         interval = None
         wattdepot_source_name = None
+
     width = 300
     height = 100
     return {"interval": interval,
             "wattdepot_source_name": wattdepot_source_name,
+            "wattdepot_version": wattdepot_version,
             "width": width,
             "height": height
             }

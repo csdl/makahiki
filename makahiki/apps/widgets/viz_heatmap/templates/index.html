@@ -1,4 +1,4 @@
-{% with all_groups=view_objects.viz_heatmap.all_groups %}
+{% with all_groups=view_objects.viz_heatmap.all_groups wattdepot_version=view_objects.viz_heatmap.wattdepot_version %}
 <p/>
 <div>
     <center><b>Heat Map Analysis</b></center>
@@ -53,7 +53,7 @@
 
 <script type="text/javascript">
     var SERVER_URL = "{{ CHALLENGE.wattdepot_server_url }}";
-    var WATTDEPOT_VERSION = "WATTDEPOT2";
+    var WATTDEPOT_VERSION = "{{wattdepot_version}}";
 </script>
 
 <script type="text/javascript" src="{{ STATIC_URL}}js/com.iskitz.ajile.js"></script>

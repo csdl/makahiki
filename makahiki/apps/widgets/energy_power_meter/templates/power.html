@@ -20,6 +20,7 @@
         var refreshInterval = {{ view_objects.energy_power_meter.interval }};
         var server_url = "{{ CHALLENGE.wattdepot_server_url }}";
         var source = "{{ view_objects.energy_power_meter.wattdepot_source_name }}";
+        var version = "{{ view_objects.energy_power_meter.wattdepot_version }}";
         var options = {
         	title: "{{ user.profile.team.name }}",
             source: source,
@@ -28,7 +29,7 @@
 
         // Load the visualization API and the spreadsheet, then call displayEnergy.
         new Makahiki_PowerMeter( server_url,
-                        "WATTDEPOT2",
+                        version,
                         source,
                         refreshInterval,
                         'visualization',
