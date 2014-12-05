@@ -21,8 +21,8 @@ class MakahikiSeleniumTestCase(LiveServerTestCase):
     @classmethod
     def tearDownClass(cls):
         """Tear down for all tests in this class."""
-        super(MakahikiSeleniumTestCase, cls).tearDownClass()
         cls.selenium.quit()
+        super(MakahikiSeleniumTestCase, cls).tearDownClass()
 
     def login(self, username, password):
         """Log in using the standard login."""
