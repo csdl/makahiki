@@ -24,8 +24,8 @@ def supply(request, page_name):
         team.source_name = team.energygoalsetting_set.all()[0].wattdepot_source_name
         if not team.source_name:
             team.source_name = team.name
-            if settings.MAKAHIKI_USE_WATTDEPOT3:
-                team.source_name = team.name.lower()
+        if settings.MAKAHIKI_USE_WATTDEPOT3:
+            team.source_name = team.source_name.lower()
 
     if settings.MAKAHIKI_USE_WATTDEPOT3:
         wattdepot_version = "WATTDEPOT3"

@@ -8,6 +8,8 @@ def supply(request, page_name):
 
     _ = page_name
 
+    wattdepot_version = "WATTDEPOT2"
+
     team = request.user.profile.team
     if team:
         goal = resource_goal.team_goal_settings(team, "energy")
@@ -19,8 +21,6 @@ def supply(request, page_name):
         if settings.MAKAHIKI_USE_WATTDEPOT3:
             wattdepot_version = "WATTDEPOT3"
             wattdepot_source_name = wattdepot_source_name.lower()
-        else:
-            wattdepot_version = "WATTDEPOT2"
     else:
         interval = None
         wattdepot_source_name = None
