@@ -5,7 +5,7 @@ Install Heroku
 --------------
 
 Sign up for an account and install the Heroku toolbelt following
-the instructions in the `Heroku Cheat Sheet`_ 
+the instructions in the `Heroku Cheat Sheet`_
 
 .. _Heroku Cheat Sheet: http://devcenter.heroku.com/articles/quickstart
 
@@ -101,7 +101,7 @@ This command will:
   * initialize the system with data.
   * set up static files.
 
-This command will produce lots of output and may take more than 20 minutes to upload Makahiki to 
+This command will produce lots of output and may take more than 20 minutes to upload Makahiki to
 Heroku, depending on your network.  After uploading Makahiki you will have to answer 'Y' to the question
 "Do you wish to continue (Y/n)?" during the process.
 
@@ -139,6 +139,12 @@ replaced by your app's name, for example, makahiki-hpu).  This should retrieve t
    :align: center
 
 
+(Optional) Enable SSL
+---------------------
+To enable SSL for the Heroku app, run::
+
+  % heroku addons:add ssl
+
 Configure your Makahiki instance
 --------------------------------
 
@@ -164,9 +170,3 @@ simple, and consists of the following steps.
 #. Finally, restart your server::
 
      % heroku ps:restart --app makahiki-hpu
-
-
-
-
-
-
