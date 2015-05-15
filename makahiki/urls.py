@@ -1,10 +1,11 @@
 """Defines the Main URLS."""
+# pylint: disable=E1120
 
 import os
 from django.conf import settings
-from django.conf.urls.defaults import url, patterns, include
+from django.conf.urls import url, patterns, include
 from django.contrib import admin
-from django.views.generic.simple import direct_to_template
+from django.views.generic import TemplateView
 from apps.admin.admin import sys_admin_site, challenge_designer_site, \
     challenge_manager_site, developer_site
 
@@ -53,16 +54,20 @@ urlpatterns = patterns('',
     url(r'^player/bulk_create/$', 'apps.managers.player_mgr.views.bulk_create',
         name="bulk_create"),
 
-    url(r'^landing/$', direct_to_template, {'template': 'landing.html'}, name='landing'),
-    url(r'^restricted/$', direct_to_template, {"template": 'restricted.html'}, name="restricted"),
-    url(r'^about/$', direct_to_template, {'template': 'about.html'}, name='about'),
-    url(r'^browser-check/$', direct_to_template, {'template': 'browser_check.html'},
+    url(r'^landing/$', TemplateView.as_view(template_name='landing.html'),
+        name='landing'),
+    url(r'^restricted/$', TemplateView.as_view(template_name='restricted.html'),
+        name="restricted"),
+    url(r'^about/$', TemplateView.as_view(template_name='about.html'),
+        name='about'),
+    url(r'^browser-check/$', TemplateView.as_view(template_name='browser_check.html'),
         name='browser_check'),
-    url(r'^coming-soon/$', direct_to_template, {'template': 'coming_soon.html'},
+    url(r'^coming-soon/$', TemplateView.as_view(template_name='coming_soon.html'),
         name='coming_soon'),
-    url(r'^badge-display/$', direct_to_template, {'template': 'admin/badge-display.html'},
+    url(r'^badge-display/$', TemplateView.as_view(template_name='admin/badge-display.html'),
         name='badge-display'),
-    url(r'^theme-display/$', direct_to_template, {'template': 'theme.html'}, name="theme-display"),
+    url(r'^theme-display/$', TemplateView.as_view(template_name='theme.html'),
+        name="theme-display"),
 
     url(r'^404/$', 'django.views.defaults.page_not_found'),
     url(r'^500/$', 'django.views.defaults.server_error'),

@@ -3,10 +3,10 @@
 <li class="user-post">
     <div class="{{cycle_class}} row">
         <div class="wallpost-image span1">
-            <img src="{% avatar_url post.user 40 %}" alt="Photo of {{ post.user.get_profile.name }}" align="top"/>
+            <img src="{% avatar_url post.user 40 %}" alt="Photo of {{ post.user.profile.name }}" align="top"/>
         </div>
         <div class="wallpost-text span5">
-            <p><span class="wallpost-username">{{ post.user.get_profile.name }}</span> {{ post.text }}
+            <p><span class="wallpost-username">{{ post.user.profile.name }}</span> {{ post.text }}
             </p>
 
             <div class="wallpost-posted">Posted

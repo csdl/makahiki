@@ -1,6 +1,6 @@
 """urls definition for status widget."""
 
-from django.conf.urls.defaults import url, patterns
+from django.conf.urls import url, patterns
 
 urlpatterns = patterns('',
     url(r'^analysis/(?P<command>[\w]+)/$',

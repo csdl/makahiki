@@ -1,5 +1,5 @@
 
-{% if user.get_profile.team %}
+{% if user.profile.team %}
     <div id="visualization"></div>
 {% else %}
     <table >
@@ -19,14 +19,17 @@
     (function () {
         var refreshInterval = {{ view_objects.energy_power_meter.interval }};
         var server_url = "{{ CHALLENGE.wattdepot_server_url }}";
-        var source = "{{user.get_profile.team.name}}";
+        var source = "{{ view_objects.energy_power_meter.wattdepot_source_name }}";
+        var version = "{{ view_objects.energy_power_meter.wattdepot_version }}";
         var options = {
+        	title: "{{ user.profile.team.name }}",
             source: source,
             width: 300,
             powerRange: 2000};
 
         // Load the visualization API and the spreadsheet, then call displayEnergy.
         new Makahiki_PowerMeter( server_url,
+                        version,
                         source,
                         refreshInterval,
                         'visualization',

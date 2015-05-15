@@ -1,4 +1,4 @@
-Hi {{object.user.get_profile.name}},
+Hi {{object.user.profile.name}},
 
 {% with object.action as action %}
 Your response to {{action.title}} was {{status_nicely}}.  
@@ -14,7 +14,7 @@ Here is our feedback:
   click the following link to go to this {{action.type}}.
 {% endif %}
 
-http://{{domain}}{% url activity_task action.type action.slug %}
+http://{{domain}}{% url 'activity_task' action.type action.slug %}
 
 Thank you,
 

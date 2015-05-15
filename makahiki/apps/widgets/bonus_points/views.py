@@ -1,4 +1,5 @@
 """Prepare the rendering for the bonus_points widget."""
+import json
 from apps.widgets.bonus_points.models import BonusPoint
 from apps.widgets.bonus_points.forms import GenerateBonusPointsForm
 from django.core.urlresolvers import reverse
@@ -14,7 +15,6 @@ Created on Aug 5, 2012
 @author: Cam Moore
 '''
 
-import simplejson as json
 from apps.widgets.bonus_points.forms import BonusPointForm
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 
@@ -51,7 +51,7 @@ def bonus_code(request):
 
     user = request.user
     message = None
-    profile = user.get_profile()
+    profile = user.profile
 
     if request.is_ajax() and request.method == "POST":
         form = BonusPointForm(request.POST)

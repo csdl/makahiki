@@ -1,7 +1,6 @@
 """Views handler for ask admin page rendering."""
+import json
 from django.core.urlresolvers import reverse
-
-import simplejson as json
 
 from django.http import Http404, HttpResponse
 from django.template.loader import render_to_string
@@ -42,7 +41,7 @@ def send_feedback(request):
             # Using adapted version from Django source code
             subject = u'[%s] %s asked a question' % (
                 challenge.name,
-                request.user.get_profile().name)
+                request.user.profile.name)
 
             if challenge.email_enabled or True:
                 mail = EmailMultiAlternatives(subject, message, challenge.contact_email,

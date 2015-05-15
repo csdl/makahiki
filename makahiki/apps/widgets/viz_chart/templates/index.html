@@ -1,4 +1,4 @@
-{% with all_lounges=view_objects.viz_chart.all_lounges %}
+{% with all_lounges=view_objects.viz_chart.all_lounges wattdepot_version=view_objects.viz_chart.wattdepot_version %}
 
 <p/>
 <div id="Wattdepot-Visualizer">
@@ -8,8 +8,8 @@
     <div id="control">
         {{ TEAM_LABEL }} : <br/>
         {% for lounge in all_lounges %}
-            <input type="checkbox" name="lounge" value="{{ lounge.name}}"
-                    {% if user.get_profile.team.name == lounge.name %}
+            <input type="checkbox" name="lounge" value="{{ lounge.wattdepot_source_name}}"
+                    {% if user.profile.team.name == lounge.name %}
                    checked="checked" {% endif %}
                    onchange='update();'/>
             {{ lounge.name }}
@@ -28,11 +28,10 @@
         last 21 days
         <br/>
         Data :
-        <input type="radio" name="datatype" value="energyConsumed" checked="checked"
-               onchange="update();"/>
-        Energy Consumed
-        <input type="radio" name="datatype" value="powerConsumed" onchange="update();"/>
+        <input type="radio" name="datatype" value="power" checked="checked" onchange="update();"/>
         Power Consumed
+        <input type="radio" name="datatype" value="energy" onchange="update();"/>
+        Energy Consumed
     </div>
 
 
@@ -58,6 +57,7 @@
 
 <script type="text/javascript">
     var SERVER_URL = "{{ CHALLENGE.wattdepot_server_url }}";
+    var WATTDEPOT_VERSION = "{{wattdepot_version}}";
 </script>
 
 <script type="text/javascript" src="{{ STATIC_URL}}js/com.iskitz.ajile.js"></script>

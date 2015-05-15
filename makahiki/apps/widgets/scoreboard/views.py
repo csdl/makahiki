@@ -10,7 +10,7 @@ def supply(request, page_name):
 
     user = request.user
 
-    team = user.get_profile().team
+    team = user.profile.team
     num_results = 10 if page_name != "status" else None
     round_standings = {}
 
@@ -35,6 +35,7 @@ def supply(request, page_name):
                 "user_team_standings": team.points_leaders(num_results, key) if \
                                        team and page_name != "status" else None,
             }
+    """
     # add an overall scoreboard
     round_standings["Overall"] = {
         #"group_standings": team_mgr.group_points_leaders(num_results, "Overall"),
@@ -45,11 +46,11 @@ def supply(request, page_name):
         "team_participation": team_mgr.team_active_participation(num_results, "Overall") if \
             page_name == "status" else None,
     }
-
+    """
     count = len(rounds)
 
     return {
-        "profile": user.get_profile(),
+        "profile": user.profile,
         "team": team,
         "current_round": current_round,
         "round_standings": round_standings,

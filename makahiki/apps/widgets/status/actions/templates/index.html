@@ -13,7 +13,7 @@
                         {% for task in tasks %}
                             <tr>
                                 <td class="column-text" width="60%">
-                                    <a href="{% url activity_task task.type task.slug %}">
+                                    <a href="{% url 'activity_task' task.type task.slug %}">
                                         {{ task.name }}</a>
                                 </td>
                                 <td class="column-number" width="20%">{{ task.submissions }}</td>

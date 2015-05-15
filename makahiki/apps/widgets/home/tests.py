@@ -188,7 +188,7 @@ class SetupWizardFunctionalTestCase(TransactionTestCase):
 
     def testSetupProfile(self):
         """Check that we can access the profile page of the setup wizard."""
-        profile = self.user.get_profile()
+        profile = self.user.profile
         profile.name = "Test User"
         profile.save()
         response = self.client.get(reverse("setup_profile"), {},
@@ -203,7 +203,7 @@ class SetupWizardFunctionalTestCase(TransactionTestCase):
     def testSetupProfileUpdate(self):
         """Check that we can update the profile of the user in the setup
         wizard."""
-        profile = self.user.get_profile()
+        profile = self.user.profile
         points = profile.points()
         response = self.client.post(reverse("setup_profile"), {
             "display_name": "Test User",
@@ -212,9 +212,9 @@ class SetupWizardFunctionalTestCase(TransactionTestCase):
         self.assertTemplateUsed(response, "first-login/activity.html")
 
         user = User.objects.get(username="user")
-        self.assertEqual(points + 5, user.get_profile().points(),
+        self.assertEqual(points + 5, user.profile.points(),
             "Check that the user has been awarded points.")
-        self.assertTrue(user.get_profile().setup_profile,
+        self.assertTrue(user.profile.setup_profile,
             "Check that the user has now set up their profile.")
 
         # Check that updating again does not award more points.
@@ -222,7 +222,7 @@ class SetupWizardFunctionalTestCase(TransactionTestCase):
             "display_name": "Test User",
             }, follow=True)
         user = User.objects.get(username="user")
-        self.assertEqual(points + 5, user.get_profile().points(),
+        self.assertEqual(points + 5, user.profile.points(),
             "Check that the user was not awarded any more points.")
         self.failUnlessEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "first-login/activity.html")
@@ -230,7 +230,7 @@ class SetupWizardFunctionalTestCase(TransactionTestCase):
     def testSetupProfileWithoutName(self):
         """Test that there is an error when the user does not supply a
         username."""
-        _ = self.user.get_profile()
+        _ = self.user.profile
         response = self.client.post(reverse("setup_profile"), {
             "display_name": "",
             })
@@ -240,10 +240,10 @@ class SetupWizardFunctionalTestCase(TransactionTestCase):
     def testSetupProfileWithDupName(self):
         """Test that there is an error when the user uses a duplicate display
          name."""
-        _ = self.user.get_profile()
+        _ = self.user.profile
 
         user2 = User.objects.create_user("user2", "user2@test.com")
-        profile2 = user2.get_profile()
+        profile2 = user2.profile
         profile2.name = "Test U."
         profile2.save()
 
@@ -305,11 +305,11 @@ class SetupWizardFunctionalTestCase(TransactionTestCase):
             self.fail("Response JSON could not be decoded.")
 
         user = User.objects.get(username="user")
-        self.assertTrue(user.get_profile().setup_complete,
+        self.assertTrue(user.profile.setup_complete,
             "Check that the user has completed the profile setup.")
 
         # Test a normal POST request (answer was correct).
-        profile = user.get_profile()
+        profile = user.profile
         profile.setup_complete = False
         profile.save()
 
@@ -322,5 +322,5 @@ class SetupWizardFunctionalTestCase(TransactionTestCase):
             self.fail("Response JSON could not be decoded.")
 
         user = User.objects.get(username="user")
-        self.assertTrue(user.get_profile().setup_complete,
+        self.assertTrue(user.profile.setup_complete,
             "Check that the user has completed the profile setup.")

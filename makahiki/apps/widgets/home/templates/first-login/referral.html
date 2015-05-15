@@ -11,7 +11,7 @@
             If you complete the setup and earn <b>at least {{ active_threshold_points }} points</b>,
             you will both be awarded <b>{{ referral_points }} extra points</b>!
         </p>
-        <form id="setup-referrer-form" class="well" action="{% url setup_referral %}" method="post">
+        <form id="setup-referrer-form" class="well" action="{% url 'setup_referral' %}" method="post">
             {% csrf_token %}
             {{ form.as_p }}
         </form>
@@ -34,7 +34,7 @@
     <div style="clear:both"></div>
 
     <div id="progressbar-header">
-        <p>Introduction progress, points: {{ user.get_profile.points }}</p>
+        <p>Introduction progress, points: {{ user.profile.points }}</p>
     </div>
     <div id="progressbar" class="progress">
         <div class="bar" style="width: 0%;">
@@ -51,7 +51,7 @@
 
         $("#back").button().click(function () {
             $(this).button("option", "disabled", true);
-            $.get("{% url setup_terms %}?from=referral", function (data) {
+            $.get("{% url 'setup_terms' %}?from=referral", function (data) {
                 $("#ui-dialog-title-setup-dialog").html(data.title);
                 $("#setup-dialog").html(data.contents);
             });
@@ -59,7 +59,7 @@
 
         $("#next").button().click(function () {
             $(this).button("option", "disabled", true);
-            $.post("{% url setup_referral %}", $('#setup-referrer-form').serialize(), function (data) {
+            $.post("{% url 'setup_referral' %}", $('#setup-referrer-form').serialize(), function (data) {
                 $("#ui-dialog-title-setup-dialog").html(data.title);
                 $("#setup-dialog").html(data.contents);
             });

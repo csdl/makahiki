@@ -6,7 +6,7 @@
     <div class="content-box-contents">
         Got a question that's not answered here? Type it below and an admin will email you
         the answer.
-        <form id="help-ask-form" action="{% url ask_admin_feedback %}"
+        <form id="help-ask-form" action="{% url 'ask_admin_feedback' %}"
                                  method="POST">
             {% csrf_token %}
             {{ ask_admin.form.url }}

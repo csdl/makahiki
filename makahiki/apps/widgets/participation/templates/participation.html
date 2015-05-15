@@ -16,8 +16,8 @@
         {% for f in participation %}
             <tr>
                 <td></td>
-                <td>{% if f.team == user.get_profile.team %}<b>{% endif %}{{ f.team }}{% if f.team == user.get_profile.team %}</b>{% endif %}</td>
-                <td class="column-number">{% if f.team == user.get_profile.team %}<b>{% endif %}{{ f.participation }}%{% if f.team == user.get_profile.team %}</b>{% endif %}</td>
+                <td>{% if f.team == user.profile.team %}<b>{% endif %}{{ f.team }}{% if f.team == user.profile.team %}</b>{% endif %}</td>
+                <td class="column-number">{% if f.team == user.profile.team %}<b>{% endif %}{{ f.participation }}%{% if f.team == user.profile.team %}</b>{% endif %}</td>
             </tr>
         {% endfor %}
         </tbody>

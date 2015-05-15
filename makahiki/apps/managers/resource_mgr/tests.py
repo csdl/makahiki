@@ -16,7 +16,7 @@ class ResourceManagerTestCase(TransactionTestCase):
         """Initialize a user and log them in."""
         self.user = test_utils.setup_user("user", "changeme")
         test_utils.set_competition_round()
-        self.team = self.user.get_profile().team
+        self.team = self.user.profile.team
 
     def testEnergy(self):
         """test Energy."""

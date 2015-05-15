@@ -38,7 +38,7 @@
     				{% elif act.availablity == 0 %}  {# --- between pub date and expire date --- #}
     					
 	                    {% if act.is_unlock %}
-                    <a href="{% url tester_view_action act.type act.slug %}"
+                    <a href="{% url 'tester_view_action' act.type act.slug %}"
                        title="{{act.unlock_condition}}" rel="tooltip"
                        onClick="setLevel({{level.priority}})">
                            {% if act.type != 'commitment' %}
@@ -120,7 +120,7 @@
                     </a>
                         {% endif %}
                     {% elif act.availablity == 1 %}  {# expired #}
-                    <a href="{% url tester_view_action act.type act.slug %}"
+                    <a href="{% url 'tester_view_action' act.type act.slug %}"
                        title="{{act.name}}" onClick="setLevel({{level.priority}})">
 	                    <br/>
     	                <b>Expired</b>

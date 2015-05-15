@@ -2,6 +2,7 @@
 import datetime
 
 from django.db import models
+from django.template.defaultfilters import slugify
 from apps.managers.cache_mgr import cache_mgr
 
 from apps.managers.team_mgr.models import Team
@@ -100,6 +101,13 @@ class ResourceGoalSetting(models.Model):
         max_length=20,
         help_text="The storage service of the usage data."
     )
+
+    wattdepot_source_name = models.CharField(
+        default=team.name,
+        max_length=100,
+        blank=True, null=True,
+        help_text="The source name in wattdepot server for the team. It defaults to the team name.")
+
     goal_points = models.IntegerField(
         default=20,
         help_text="The amount of points to award for completing a goal.")
@@ -130,7 +138,8 @@ class EnergyGoalSetting(ResourceGoalSetting):
     def save(self, *args, **kwargs):
         """Custom save method to set fields."""
         super(EnergyGoalSetting, self).save(args, kwargs)
-        cache_mgr.delete("goal_setting-%s-%s" % ("energy", self.team.name))
+        cache_key = "goal_setting-%s-%s" % ("energy", slugify(self.team.name))
+        cache_mgr.delete(cache_key)
 
 
 class WaterGoalSetting(ResourceGoalSetting):
@@ -139,7 +148,8 @@ class WaterGoalSetting(ResourceGoalSetting):
     def save(self, *args, **kwargs):
         """Custom save method to set fields."""
         super(WaterGoalSetting, self).save(args, kwargs)
-        cache_mgr.delete("goal_setting-%s-%s" % ("water", self.team.name))
+        cache_key = "goal_setting-%s-%s" % ("water", slugify(self.team.name))
+        cache_mgr.delete(cache_key)
 
 
 class ResourceBaselineDaily(models.Model):

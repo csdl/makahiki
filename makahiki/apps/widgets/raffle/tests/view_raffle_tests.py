@@ -58,7 +58,7 @@ class RafflePrizesTestCase(TransactionTestCase):
         #    msg_prefix="Raffle should have the correct deadline.")
 
         # Give the user some points and see if their tickets update.
-        profile = self.user.get_profile()
+        profile = self.user.profile
         profile.add_points(25, datetime.datetime.today(), "test")
         profile.save()
         response = self.client.get(reverse("win_index"))
@@ -82,7 +82,7 @@ class RafflePrizesTestCase(TransactionTestCase):
         )
         raffle_prize.save()
 
-        profile = self.user.get_profile()
+        profile = self.user.profile
         profile.add_points(25, datetime.datetime.today(), "test")
         profile.save()
 

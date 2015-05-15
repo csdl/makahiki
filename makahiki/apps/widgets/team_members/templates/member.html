@@ -8,7 +8,7 @@
 <td class="column-text">{{ member.name }}</td>
 <td>
 {% for awarded in member.badgeaward_set.all %}
-    <a href="{% url profile_badges %}"><div class="badge-theme-{{awarded.badge.theme}}"><p>{{awarded.badge.label}}</p></div></a>
+    <a href="{% url 'profile_badges' %}"><div class="badge-theme-{{awarded.badge.theme}}"><p>{{awarded.badge.label}}</p></div></a>
 {% endfor %}
 </td>
 <td>
@@ -36,7 +36,7 @@
        {% for action_member in action_members %}
           {% if not action_member.award_date and not action_member.action.activity %}
              <li>
-                 <a href="{% url activity_task action_member.action.type action_member.action.slug %}">{{ action_member.action }}</a>
+                 <a href="{% url 'activity_task' action_member.action.type action_member.action.slug %}">{{ action_member.action }}</a>
              </li>
           {% endif %}
        {% endfor %}

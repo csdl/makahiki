@@ -2,7 +2,7 @@
 
 <div id="avatar-fb-form" style="display: none">
   <h4 style="margin-top: 0px">Use your picture from Facebook:</h4>
-  <form action="{% url avatar_upload_fb %}" method="POST">
+  <form action="{% url 'avatar_upload_fb' %}" method="POST">
       {% csrf_token %}
       <img src=""/>
       {{ fb_form.facebook_photo }}

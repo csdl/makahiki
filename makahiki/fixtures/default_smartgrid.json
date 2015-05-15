@@ -377,7 +377,7 @@
             "priority": 2,
             "unlock_condition_text": "Complete at least two Level 1 actions including the Power & Energy activity.",
             "name": "Level 2",
-            "unlock_condition": "submitted_some_of_level(2, \"Level 1\") and submitted_action(\"power-energy\")",
+            "unlock_condition": "submitted_some_of_level(1, 2) and submitted_action(\"power-energy\")",
             "slug": "level-2"
         }
     },
@@ -388,7 +388,7 @@
             "priority": 3,
             "unlock_condition_text": "Complete at least two Level 2 actions",
             "name": "Level 3",
-            "unlock_condition": "submitted_some_of_level(2, \"Level 2\")",
+            "unlock_condition": "submitted_some_of_level(2, 2)",
             "slug": "level-3"
         }
     },
@@ -637,7 +637,7 @@
         "model": "smartgrid.action",
         "fields": {
             "social_bonus": 0,
-            "video_id": "T37kNTkZCrA",
+            "video_id": "LZJwMPd3T0k",
             "name": "Intro video",
             "video_source": "youtube",
             "pub_date": "2010-10-12",

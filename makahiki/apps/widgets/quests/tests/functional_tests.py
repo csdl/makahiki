@@ -13,7 +13,7 @@ class QuestFunctionalTestCase(TransactionTestCase):
     def setUp(self):
         """setup"""
         self.user = User.objects.create_user("user", "user@test.com", password="changeme")
-        profile = self.user.get_profile()
+        profile = self.user.profile
         profile.setup_profile = True
         profile.setup_complete = True
         profile.save()

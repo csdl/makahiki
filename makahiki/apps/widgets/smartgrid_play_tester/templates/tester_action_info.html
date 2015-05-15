@@ -66,10 +66,10 @@
                 done this.
             {% endif %}
             <br/>
-            {% cache 2592000 team_avatar action.id user.get_profile.team_id %}
+            {% cache 2592000 team_avatar action.id user.profile.team_id %}
                 {% for member in team_members %}
                     <img src="{% avatar_url member.user 40 %}"
-                         title="{{member.user.get_profile.name}}"/>
+                         title="{{member.user.profile.name}}"/>
                 {% endfor %}
             {% endcache %}
         {% endwith %}

@@ -47,7 +47,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Makahiki'
-copyright = u'2012, George Lee, Yongwen Xu, Robert Brewer, Philip Johnson'
+copyright = u'2015, Yongwen Xu, George Lee, Carleton Moore, Philip Johnson, Robert Brewer'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -190,7 +190,7 @@ latex_elements = {
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
   ('index', 'Makahiki.tex', u'Makahiki Documentation',
-   u'George Lee, Yongwen Xu, Robert Brewer, Philip Johnson', 'manual'),
+   u'Yongwen Xu, George Lee, Carleton Moore, Philip Johnson, Robert Brewer', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -220,7 +220,7 @@ latex_documents = [
 # (source start file, name, description, authors, manual section).
 man_pages = [
     ('index', 'makahiki', u'Makahiki Documentation',
-     [u'George Lee, Yongwen Xu, Robert Brewer, Philip Johnson'], 1)
+     [u'Yongwen Xu, George Lee, Carleton Moore, Philip Johnson, Robert Brewer'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -234,7 +234,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
   ('index', 'Makahiki', u'Makahiki Documentation',
-   u'George Lee, Yongwen Xu, Robert Brewer, Philip Johnson', 'Makahiki', 'One line description of project.',
+   u'Yongwen Xu, George Lee, Carleton Moore, Philip Johnson, Robert Brewer', 'Makahiki', 'One line description of project.',
    'Miscellaneous'),
 ]
 
@@ -272,7 +272,7 @@ def process_docstring(app, what, name, obj, options, lines):
     # Only look at objects that inherit from Django's base model class
     if inspect.isclass(obj) and issubclass(obj, models.Model):
         # Grab the field list from the meta class
-        fields = obj._meta._fields()
+        fields = obj._meta.fields
     
         for field in fields:
             # Decode and strip any html out of the field's help text
@@ -346,6 +346,8 @@ if on_rtd:
 
 
 #setup django
-import settings
-from django.core.management import setup_environ
-setup_environ(settings)
+#import settings
+#from django.core.management import setup_environ
+#setup_environ(settings)
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings") 

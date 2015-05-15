@@ -29,7 +29,7 @@
     <td class="number user-odds">{# {{prize|user_odds:user}} #}</td>
     <td class="ticket-add-remove">
         {% if raffle.tickets.available > 0 %}
-            <form action="{% url raffle_add_ticket prize.id %}" method="POST">
+            <form action="{% url 'raffle_add_ticket' prize.id %}" method="POST">
                 {% csrf_token %}
                 <a class="enabled ticket-add circle" href="#"
                    onclick="$(this).parent().submit(); return false;">+1</a>
@@ -38,7 +38,7 @@
             <div class="disabled ticket-add circle">+1</div>
         {% endif %}
         {% if prize.user_tickets > 0 %}
-        <form action="{% url raffle_remove_ticket prize.id %}" method="POST">
+        <form action="{% url 'raffle_remove_ticket' prize.id %}" method="POST">
             {% csrf_token %}
             <a class="enabled ticket-remove circle" href="#"
                onclick="$(this).parent().submit(); return false;">-1</a>

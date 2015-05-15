@@ -140,6 +140,7 @@ class LibraryActivityAdminForm(forms.ModelForm):
         return cleaned_data
 
     def save(self, *args, **kwargs):
+        """save"""
         activity = super(LibraryActivityAdminForm, self).save(*args, **kwargs)
         activity.type = 'activity'
         activity.save()
@@ -272,6 +273,7 @@ class LibraryCommitmentAdminForm(forms.ModelForm):
         return data
 
     def save(self, *args, **kwargs):
+        """save"""
         commitment = super(LibraryCommitmentAdminForm, self).save(*args, **kwargs)
         commitment.type = 'commitment'
         commitment.save()
@@ -338,6 +340,7 @@ class LibraryEventAdminForm(forms.ModelForm):
         return data
 
     def save(self, *args, **kwargs):
+        """save"""
         event = super(LibraryEventAdminForm, self).save(*args, **kwargs)
         event.type = 'event'
         event.save()
@@ -390,7 +393,7 @@ developer_site.register(LibraryEvent, LibraryEventAdmin)
 
 def redirect_urls(model_admin, url_type):
     """change the url redirection."""
-    from django.conf.urls.defaults import patterns, url
+    from django.conf.urls import patterns, url
     from functools import update_wrapper
 
     def wrap(view):

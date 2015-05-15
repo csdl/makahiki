@@ -22,12 +22,13 @@ def team_goal_settings(team, resource):
     elif resource == "water":
         goalsetting = WaterGoalSetting
 
-    goalsettings = cache_mgr.get_cache("goal_setting-%s-%s" % (resource, team.name))
+    cache_key = "goal_setting-%s-%s" % (resource, slugify(team.name))
+    goalsettings = cache_mgr.get_cache(cache_key)
     if goalsettings is None:
         goalsettings = goalsetting.objects.filter(team=team)
         if goalsettings:
             goalsettings = goalsettings[0]
-            cache_mgr.set_cache("goal_setting-%s-%s" % (resource, team.name), goalsettings, 2592000)
+            cache_mgr.set_cache(cache_key, goalsettings, 2592000)
     return goalsettings
 
 
@@ -221,7 +222,12 @@ def get_history_resource_usage(resource, session, team, date, hour):
 
     if not usage and goal_settings and not goal_settings.manual_entry:
         storage = get_resource_storage(goal_settings.data_storage)
-        usage = resource_mgr.get_history_resource_data(session, team, date, hour, storage)
+        if goal_settings.wattdepot_source_name:
+            team_resource_name = goal_settings.wattdepot_source_name
+        else:
+            team_resource_name = team.name
+        usage = resource_mgr.get_history_resource_data(session, team_resource_name, date, hour,
+                                                       storage)
 
     return usage
 
@@ -249,7 +255,13 @@ def update_resource_usage(resource, date):
         goal_settings = team_goal_settings(team, resource)
         if not goal_settings.manual_entry:
             storage = get_resource_storage(goal_settings.data_storage)
-            resource_mgr.update_team_resource_usage(resource, session, date, team, storage)
+            if goal_settings.wattdepot_source_name:
+                team_resource_name = goal_settings.wattdepot_source_name
+            else:
+                team_resource_name = team.name
+            resource_mgr.update_team_resource_usage(resource, session, date, team,
+                                                    team_resource_name,
+                                                    storage)
 
     # clear the cache for energy ranking, and RIB where it displays
     round_name = challenge_mgr.get_round_name(date)
@@ -375,7 +387,11 @@ def resource_goal_ranks(resource, round_name=None):
         goal_ranks = []
         goal = get_resource_goal(resource)
 
-        start, end = challenge_mgr.get_round_start_end(round_name)
+        start_end = challenge_mgr.get_round_start_end(round_name)
+        if start_end is not None:
+            start, end = start_end
+        else:
+            return None
 
         ranks = goal.objects.filter(
             goal_status="Below the goal",
@@ -412,11 +428,11 @@ def resource_goal_ranks(resource, round_name=None):
     return goal_ranks
 
 
-def resource_goal_leader(name, round_name=None):
+def resource_goal_leader(name, round_name=None, place=1):
     """Returns the leader (team name) of the resource use."""
     ranks = resource_goal_ranks(name, round_name)
-    if ranks:
-        return ranks[0]["team__name"]
+    if len(ranks) >= place:
+        return ranks[place - 1]["team__name"]
     else:
         return None
 

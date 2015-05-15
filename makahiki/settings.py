@@ -94,8 +94,6 @@ AUTHENTICATION_BACKENDS = (
     'apps.managers.auth_mgr.cas_backend.MakahikiCASBackend',
     )
 
-AUTH_PROFILE_MODULE = 'player_mgr.Profile'
-
 ###################
 # Authentication
 ###################
@@ -144,7 +142,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     #'django.contrib.admindocs',
-    'django.contrib.markup',
+    'markup_deprecated',
 
     # external
     'django_extensions',
@@ -248,6 +246,7 @@ INSTALLED_THEMES = (
     'theme-forest',
     'theme-google',
     'theme-hpu',
+    'theme-revolusun',
     'theme-sonora',
     'theme-space',
     'theme-wave',
@@ -262,6 +261,7 @@ SOUTH_TESTS_MIGRATE = False
 
 # Use Nose as the test runner.
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
 
 ##############################
 # LOGGING settings
@@ -376,9 +376,11 @@ Example: postgres://username:password@db_host:db_port/db_name"""
 if MAKAHIKI_USE_HEROKU:
     DATABASE_URL = env('DATABASE_URL', '')
     DATABASES = {'default': dj_database_url.parse(DATABASE_URL)}
+    DATABASES['default']['ATOMIC_REQUESTS'] = True
 else:
     if MAKAHIKI_DATABASE_URL:
         DATABASES = {'default': dj_database_url.parse(MAKAHIKI_DATABASE_URL)}
+        DATABASES['default']['ATOMIC_REQUESTS'] = True
     else:
         if 'READTHEDOCS' not in os.environ:
             print "Environment variable MAKAHIKI_DATABASE_URL not defined. Exiting."
@@ -432,7 +434,11 @@ if MAKAHIKI_USE_MEMCACHED:
         }
     else:
         CACHES = {'default':
-                    {'BACKEND': 'django_pylibmc.memcached.PyLibMCCache'}}
+                    {'BACKEND': 'django_pylibmc.memcached.PyLibMCCache',
+                     'LOCATION': '127.0.0.1',
+                     'BINARY': True,
+                     }
+                  }
 else:
     CACHES = {'default':
                 {'BACKEND': 'django.core.cache.backends.dummy.DummyCache'}}
@@ -488,7 +494,8 @@ if AUTH_LDAP_BIND_DN and AUTH_LDAP_BIND_PASSWORD:
         'apps.managers.auth_mgr.ldap_backend.MakahikiLDAPBackend',
         )
 
-MAKAHIKI_SECRET_KEY = env('MAKAHIKI_SECRET_KEY', '')
+MAKAHIKI_SECRET_KEY = env('MAKAHIKI_SECRET_KEY',
+                          'yvzg-s=^gb#)e6l7jq_$%ft=i7jln&izs2@4+3!5%#unumorn-')
 """[Optional] Specifies the Django secret key setting.
 See https://docs.djangoproject.com/en/dev/ref/settings/#secret-key"""
 SECRET_KEY = MAKAHIKI_SECRET_KEY
@@ -522,3 +529,20 @@ if MAKAHIKI_USE_LOGFILE:
         'filename': LOG_FILE,
         'formatter': 'simple',
         }
+
+MAKAHIKI_USE_WATTDEPOT3 = env('MAKAHIKI_USE_WATTDEPOT3', '').lower() == "true"
+"""[Required if using wattdepot3] wattdepot admin name."""
+WATTDEPOT_ADMIN_NAME = env('WATTDEPOT_ADMIN_NAME', '')
+"""[Required if using wattdepot3] wattdepot admin password."""
+WATTDEPOT_ADMIN_PASSWORD = env('WATTDEPOT_ADMIN_PASSWORD', '')
+
+# Allow the IPv4 address 192.169.56.4 for Vagrant testing
+# Variable is set in Vagrant's makahiki_env.sh
+MACHINE_IS_VAGRANT = env('MACHINE_IS_VAGRANT', '').lower() == "true"
+if MACHINE_IS_VAGRANT:
+    ALLOWED_HOSTS = ['192.168.56.4']
+# Set allowed host domains for normal operation.
+else:
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1',
+                     'kukuicup.manoa.hawaii.edu', 'demo.kukuicup.org',
+                     '.herokuapp.com', '.heroku.com']

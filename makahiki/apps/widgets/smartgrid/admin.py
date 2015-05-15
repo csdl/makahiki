@@ -140,6 +140,7 @@ class ActivityAdminForm(forms.ModelForm):
         return cleaned_data
 
     def save(self, *args, **kwargs):
+        """save"""
         activity = super(ActivityAdminForm, self).save(*args, **kwargs)
         activity.type = 'activity'
         activity.save()
@@ -250,6 +251,7 @@ class CommitmentAdminForm(forms.ModelForm):
         return data
 
     def save(self, *args, **kwargs):
+        """save"""
         commitment = super(CommitmentAdminForm, self).save(*args, **kwargs)
         commitment.type = 'commitment'
         commitment.save()
@@ -334,6 +336,7 @@ class EventAdminForm(forms.ModelForm):
         return cleaned_data
 
     def save(self, *args, **kwargs):
+        """save"""
         event = super(EventAdminForm, self).save(*args, **kwargs)
         event.type = 'event'
         event.save()
@@ -382,6 +385,7 @@ class FillerAdminForm(forms.ModelForm):
         model = Filler
 
     def save(self, *args, **kwargs):
+        """save"""
         filler = super(FillerAdminForm, self).save(*args, **kwargs)
         filler.type = 'filler'
         filler.unlock_condition = "False"
@@ -528,7 +532,7 @@ class QuestionChoiceInline(admin.TabularInline):
 
 def redirect_urls(model_admin, url_type):
     """change the url redirection."""
-    from django.conf.urls.defaults import patterns, url
+    from django.conf.urls import patterns, url
     from functools import update_wrapper
 
     def wrap(view):

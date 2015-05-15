@@ -15,7 +15,7 @@ class EGauge(ResourceStorage):
         """returns the name of the resource storage."""
         return "eGauge"
 
-    def get_latest_resource_data(self, session, team, date):
+    def get_latest_resource_data(self, session, source_name, date):
         """Returns the latest usage of the specified resource for the current date."""
 
         start_time = datetime(date.year, date.month, date.day)
@@ -25,9 +25,9 @@ class EGauge(ResourceStorage):
 
         session.params = {"T": "%d,%d" % (start_timestamp, end_timestamp)}
 
-        return self._get_energy_usage(session, team.name)
+        return self._get_energy_usage(session, source_name)
 
-    def get_history_resource_data(self, session, team, date, hour):
+    def get_history_resource_data(self, session, source_name, date, hour):
         """Return the history energy usage of the team for the date and hour."""
         start_time = datetime(date.year, date.month, date.day)
         start_timestamp = int(mktime(start_time.timetuple()) + 1e-6 * start_time.microsecond)
@@ -39,9 +39,9 @@ class EGauge(ResourceStorage):
         end_timestamp = int(mktime(end_time.timetuple()) + 1e-6 * end_time.microsecond)
 
         session.params = {"T": "%d,%d" % (start_timestamp, end_timestamp)}
-        return self._get_energy_usage(session, team.name)
+        return self._get_energy_usage(session, source_name)
 
-    def _get_source_name(self, team_name):
+    def _get_source_name(self, source_name):
         """returns the eGauge meter name for the team."""
         team_source = {
             "Lehua": "hawaii1108",  # hawaii1108
@@ -51,12 +51,12 @@ class EGauge(ResourceStorage):
             "Melia": "hawaii1195",
             "Lokelani": "hawaii1199",
         }
-        return team_source[team_name]
+        return team_source[source_name]
 
-    def _get_energy_usage(self, session, team_name):
+    def _get_energy_usage(self, session, source_name):
         """Return the energy usage from eGauge."""
 
-        rest_url = "http://%s.egaug.es/cgi-bin/egauge-show?a&C" % self._get_source_name(team_name)
+        rest_url = "http://%s.egaug.es/cgi-bin/egauge-show?a&C" % self._get_source_name(source_name)
 
         # xpath for cgi-bin/egauge?tot
         # ".//*[@title='Student Usage V']/energy"
@@ -86,8 +86,8 @@ class EGauge(ResourceStorage):
             return abs(int(usage)) / 3600
 
         except Timeout:
-            print 'eGauge data retrieval for team %s error: connection timeout.' % team_name
+            print 'eGauge data retrieval for team %s error: connection timeout.' % source_name
         except ParseError as exception:
-            print 'eGauge data retrieval for team %s ParseError : %s' % (team_name, exception)
+            print 'eGauge data retrieval for team %s ParseError : %s' % (source_name, exception)
 
         return 0

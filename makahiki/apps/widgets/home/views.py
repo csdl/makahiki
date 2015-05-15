@@ -1,5 +1,4 @@
 """Provides the views for the home page and the first login wizard."""
-
 import cgi
 import json
 import datetime
@@ -105,7 +104,7 @@ def referral(request):
     """Display page 3 (referral bonus) of the first login wizard."""
 
     if request.is_ajax():
-        profile = request.user.get_profile()
+        profile = request.user.profile
         form = None
 
         if request.method == 'POST':
@@ -154,7 +153,7 @@ def setup_profile(request):
     # Fields with file uploads are not AJAX requests.
     if request.method == "POST":
         form = ProfileForm(request.POST, user=request.user)
-        profile = request.user.get_profile()
+        profile = request.user.profile
 
         if form.is_valid():
             profile.name = form.cleaned_data["display_name"].strip()
@@ -209,7 +208,7 @@ def _get_profile_form(request, form=None, non_xhr=False):
 
     if not form:
         form = ProfileForm(initial={
-            "display_name": request.user.get_profile().name,
+            "display_name": request.user.profile.name,
             "facebook_photo": facebook_photo,
             })
 
@@ -291,7 +290,7 @@ def setup_complete(request):
     """Display page 7 (complete) of the first login wizard."""
 
     if request.is_ajax():
-        profile = request.user.get_profile()
+        profile = request.user.profile
 
         if request.method == "POST":
             # User got the question right.

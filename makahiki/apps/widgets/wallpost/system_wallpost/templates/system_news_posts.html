@@ -10,7 +10,7 @@
     {% if forloop.last and wallpost.more_posts %}
         <li id="view-more-system-posts">
             <a href="#" onclick='
-                    $.get("{% url news_more_system_posts %}?last_post={{post.id}}&page_name={{ wallpost.page_name }}", function(data) {
+                    $.get("{% url 'news_more_system_posts' %}?last_post={{post.id}}&page_name={{ wallpost.page_name }}", function(data) {
                     $("#view-more-system-posts").remove();
                     $(".system-wall-posts").append(data.contents);
                     });

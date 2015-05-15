@@ -18,7 +18,7 @@ def resource_supply(request, resource, page_name):
        :return: team, goals_scoreboard, resource_round_ranks"""
 
     user = request.user
-    team = user.get_profile().team
+    team = user.profile.team
     round_resource_ranks = {}
     round_group_resource_ranks = {}
     round_resource_goal_ranks = {}
@@ -33,13 +33,15 @@ def resource_supply(request, resource, page_name):
             round_group_resource_ranks[key] = resource_mgr.group_resource_ranks(resource, key)
             round_resource_goal_ranks[key] = resource_goal.resource_goal_ranks(resource, key)
 
+    """
     round_resource_ranks["Overall"] = resource_mgr.resource_ranks(resource, "Overall")
     round_group_resource_ranks["Overall"] = resource_mgr.group_resource_ranks(resource, "Overall")
     round_resource_goal_ranks["Overall"] = resource_goal.resource_goal_ranks(resource, "Overall")
+    """
 
     resource_setting = resource_mgr.get_resource_setting(resource)
     return {
-        "profile": user.get_profile(),
+        "profile": user.profile,
         "team": team,
         "resource": resource_setting,
         "round_resource_goal_ranks": round_resource_goal_ranks,

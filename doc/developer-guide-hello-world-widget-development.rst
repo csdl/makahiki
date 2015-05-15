@@ -184,7 +184,7 @@ provides a user profile that has the player's name and team. Let's add that info
   def supply(request, page_name):
       """Supply view_objects contents, which are the player name, team and points."""
       _ = page_name
-      profile = request.user.get_profile()
+      profile = request.user.profile
       name = profile.name
       team = profile.team      
       return {
@@ -206,7 +206,7 @@ at the supply function again::
   def supply(request, page_name):
       """Supply view_objects contents, which are the player name, team and points."""
       _ = page_name
-      profile = request.user.get_profile()
+      profile = request.user.profile
       name = profile.name
       team = profile.team
       points = score_mgr.player_points(profile)

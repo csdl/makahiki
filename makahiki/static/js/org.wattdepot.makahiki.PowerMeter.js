@@ -1,7 +1,7 @@
 google.load("visualization", "1", {packages:['corechart', 'imagechart']});
 
 // Visualization to show current power data.
-function Makahiki_PowerMeter(server_url, source, refresh_interval, viz_id, options) {
+function Makahiki_PowerMeter(server_url, wattdepot_version, source, refresh_interval, viz_id, options) {
     // http://code.google.com/apis/visualization/documentation/gallery/genericimagechart.html
 
     var query = null;
@@ -12,10 +12,25 @@ function Makahiki_PowerMeter(server_url, source, refresh_interval, viz_id, optio
 
     return change_source;
 
-    function callback(source) {
-        var gviz_url = server_url + "/sources/" +
+    function getWattdepotGvizURL(source) {
+        var gviz_url = null;
+        if (wattdepot_version == "WATTDEPOT2") {
+    	  // wattdepot2:
+           gviz_url = server_url + "/sources/" +
             source + "/gviz/sensordata/latest?tq=select%20timePoint%2C%20powerConsumed";
+        }
 
+        if (wattdepot_version == "WATTDEPOT3") {
+          // wattdepot3
+    	  gviz_url = server_url + "/depository/power/value/gviz/?sensor=" + source + "&latest=true";
+        }
+
+        return gviz_url;
+    }
+    
+    function callback(source) {
+    	var gviz_url = getWattdepotGvizURL(source);
+    	
         query = new google.visualization.Query(gviz_url);
         query.setRefreshInterval(refresh_interval);
 
@@ -27,8 +42,7 @@ function Makahiki_PowerMeter(server_url, source, refresh_interval, viz_id, optio
 
     function change_source(new_source) {
         source = new_source
-        gviz_url = server_url + "/sources/" +
-            source + "/gviz/sensordata/latest?tq=select%20timePoint%2C%20powerConsumed";
+        var gviz_url = getWattdepotGvizURL(source);
 
         query.abort()
         query = new google.visualization.Query(gviz_url);
@@ -38,14 +52,14 @@ function Makahiki_PowerMeter(server_url, source, refresh_interval, viz_id, optio
         });
     }
 
-    /** Once dorm data is retrieved, create and display the chart with tooltips. */
+    /** Once data is retrieved, create and display the chart with tooltips. */
     function responseHandler(response) {
         // Process errors, if any.
         if (response.isError()) {
             debug('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
             return;
         }
-        // Get the dorm data table.
+        // Get the data table.
         var datatable = response.getDataTable();
 
         // Make the image element.
@@ -61,7 +75,7 @@ function Makahiki_PowerMeter(server_url, source, refresh_interval, viz_id, optio
         var titleStyle = options.titleStyle || {fontWeight:'bold'};
         var captionStyle = options.captionStyle || {fontSize:'0.70em'};
         var powerRange = options.powerRange || 6000;
-        var title = options.title || source;
+        var title = options.title;
 
         // Create a datatable with this source's data and baseline.
         datatable = addBaseline(datatable);
@@ -115,7 +129,8 @@ function Makahiki_PowerMeter(server_url, source, refresh_interval, viz_id, optio
         div.style.textAlign = 'center';
         addStyleProperties(div, titleStyle);
         div.style.width = width + 'px';
-        div.innerHTML = title;
+        if (title)
+        	div.innerHTML = title;
     }
 
     // Updates the divElement style attribute with all properties in styleObject.

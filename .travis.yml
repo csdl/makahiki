@@ -5,22 +5,23 @@ branches:
     - master
     - production
     - development
+notifications:
+    email:
+        - cammymoore07@gmail.com
+        - yongwen.xu@gmail.com
+        - j.k.takayama@gmail.com
 env:
   global:
     - MAKAHIKI_DATABASE_URL=postgres://postgres@127.0.0.1:5432/makahiki
     - MAKAHIKI_ADMIN_INFO=admin:admin
     - MAKAHIKI_DEBUG=True
-postgres:
-    adapter: postgresql
-    database: makahiki
-    username: postgres
 before_install:
     - sudo apt-get install libjpeg8 libjpeg8-dev libfreetype6 libfreetype6-dev zlib1g-dev tree python-imaging
     - sudo ln -s /usr/lib/`uname -i`-linux-gnu/libjpeg.so.8 /usr/lib
     - sudo ln -s /usr/lib/`uname -i`-linux-gnu/libfreetype.so /usr/lib
     - sudo ln -s /usr/lib/`uname -i`-linux-gnu/libz.so /usr/lib
 install: 
-    - pip install -r requirements.txt --use-mirrors --quiet
+    - pip install -r requirements.txt --use-mirrors --allow-external PIL --allow-unverified PIL --allow-external elementtree --allow-unverified elementtree --allow-external newrelic
     - pip install -U selenium
 
 before_script:
@@ -34,6 +35,3 @@ after_script:
     - cd makahiki;
     - scripts/run_pylint.sh
     - scripts/run_pep8.sh
-notifications:
-    email:
-        - cammymoore07@gmail.com

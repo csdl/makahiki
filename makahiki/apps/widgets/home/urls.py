@@ -1,6 +1,6 @@
 """Url definitions for the home page and first login wizard."""
 
-from django.conf.urls.defaults import url, patterns
+from django.conf.urls import url, patterns
 
 urlpatterns = patterns('',
     url(r'^restricted/$', 'apps.widgets.home.views.restricted', name="home_restricted"),

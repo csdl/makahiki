@@ -5,7 +5,7 @@ Created on Aug 5, 2012
 @author: Cam Moore
 '''
 
-from django.conf.urls.defaults import url, patterns
+from django.conf.urls import url, patterns
 
 urlpatterns = patterns('',
     url(r'^bonus_code/$',

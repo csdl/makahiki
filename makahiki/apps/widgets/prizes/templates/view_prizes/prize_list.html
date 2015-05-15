@@ -28,17 +28,18 @@
             </td>
             <td>
                {{ prize.short_description|markdown }} <br/>
+
                {% if prize.winner %}
                    {% if prize.winner.points %}
-                       Winner: {{ prize.winner }}
+                       {{ prize.place_text }} place Winner: {{ prize.winner }}
                    {% else %}
-                       Winner: {{ prize.winner|safe }}
+                       {{ prize.place_text }} place Winner: {{ prize.winner|safe }}
                    {% endif %}
                {% else %}
                    {% if prize.current_leader.points %}
-                       Current leader: {{ prize.current_leader }}
+                       Currently {{ prize.place_text }} place: {{ prize.current_leader }}
                    {% else %}
-                       Current leader: {{ prize.current_leader|safe }}
+                       Currently {{ prize.place_text }} place: {{ prize.current_leader|safe }}
                    {% endif %}
                {% endif %}
             </td>

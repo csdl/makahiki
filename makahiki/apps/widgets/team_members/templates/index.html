@@ -13,11 +13,11 @@
     </div>
     <div class="scrollable">
         <ul>
-        {% cache 2592000 team_member_avatar user.get_profile.team_id %}
+        {% cache 2592000 team_member_avatar user.profile.team_id %}
         {% for member in team_members.team_members %}
         <li>
             <div style="position:relative;top:0;left:0;">  
-                <a href="{% url news_team_members %}#{{member.profile.name|slugify}}">
+                <a href="{% url 'news_team_members' %}#{{member.profile.name|slugify}}">
                     <img src="{% avatar_url member.profile.user 40 %}" alt="Photo of {{ member.profile.name }}"
                          title="Photo of {{ member.profile.name }}" align="top"/>
                     {{ member.profile.name }}
@@ -29,7 +29,7 @@
         {% for member in team_members.zero_members %}
         <li>
             <div>
-                <a href="{% url news_team_members %}#{{member.name|slugify}}">
+                <a href="{% url 'news_team_members' %}#{{member.name|slugify}}">
                     <img src="{% avatar_url member.user 40 %}" alt="Photo of {{ member.name }}"
                          title="Photo of {{ member.name }}" align="top"/>
                     {{ member.name }}
@@ -41,7 +41,7 @@
     </div>
 
     <div class='news-members-link'>
-        <a href="{% url news_team_members %}">View Details</a>
+        <a href="{% url 'news_team_members' %}">View Details</a>
     </div>
 </div>
 {% endwith%}

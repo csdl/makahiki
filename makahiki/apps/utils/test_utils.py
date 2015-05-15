@@ -22,7 +22,7 @@ def setup_superuser(username, password):
     user.save()
     group, _ = Group.objects.get_or_create(name="testgroup")
     team, _ = Team.objects.get_or_create(name="test_team", group=group)
-    profile = user.get_profile()
+    profile = user.profile
     profile.team = team
     profile.setup_complete = True
     profile.setup_profile = True
@@ -36,7 +36,7 @@ def setup_user(username, password):
                                     password=password)
     group, _ = Group.objects.get_or_create(name="testgroup")
     team, _ = Team.objects.get_or_create(name="test_team", group=group)
-    profile = user.get_profile()
+    profile = user.profile
     profile.team = team
     profile.setup_complete = True
     profile.setup_profile = True
@@ -209,8 +209,8 @@ def create_teams(testcase):
         "test%d" % i, "test@test.com") for i in range(0, 4)]
     # Assign users to teams.
     for index, user in enumerate(testcase.users):
-        user.get_profile().team = testcase.teams[index % 2]
-        user.get_profile().save()
+        user.profile.team = testcase.teams[index % 2]
+        user.profile.save()
 
 
 def setup_prize(award_to, competition_type):

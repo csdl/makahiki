@@ -13,7 +13,7 @@
           <p style="margin: 5px 0">
               According to our records, your name
               is <b>{{ user.first_name }} {{ user.last_name }}</b> and you live
-              in <b>{{ user.get_profile.team }}</b>.<br/>If this is not correct, please <a class="btn btn-widget contact-link" href="mailto:{{ CHALLENGE.contact_email }}">email the admins</a>.
+              in <b>{{ user.profile.team }}</b>.<br/>If this is not correct, please <a class="btn btn-widget contact-link" href="mailto:{{ CHALLENGE.contact_email }}">email the admins</a>.
           </p>
       </div>
   </div>
@@ -24,7 +24,7 @@
            <img src="{{ STATIC_URL}}images/right.png" width="24" align="top">
       </a> 
       <div id="progressbar-header">
-          <p>Introduction progress, points: {{ user.get_profile.points }}</p>
+          <p>Introduction progress, points: {{ user.profile.points }}</p>
       </div>
   </div>
       <div id="progressbar" class="progress">
@@ -41,7 +41,7 @@
 
         $("#next").button().unbind('click').click(function () {
             $(this).button("option", "disabled", true);
-            $.get("{% url setup_terms %}", function (data) {
+            $.get("{% url 'setup_terms' %}", function (data) {
                 $("#ui-dialog-title-setup-dialog").html(data.title);
                 $("#setup-dialog").html(data.contents);
             });

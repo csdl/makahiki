@@ -4,7 +4,7 @@
         <h3>Send Feedback</h3>
     </div>
     <div class="modal-body" id="modal-body">
-        <form id="feedback-form" action="{% url ask_admin_feedback %}" method="POST">
+        <form id="feedback-form" action="{% url 'ask_admin_feedback' %}" method="POST">
             {% csrf_token %}
             <p>Having issues? Just want to tell us something? Let us know!</p>
             <input id="id_url" type="hidden" name="url" value=""/>

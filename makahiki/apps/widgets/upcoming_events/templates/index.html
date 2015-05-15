@@ -1,6 +1,6 @@
 <div class="content-box">
     <div class="content-box-title">
-        Upcoming Events (Next 7 days)
+        Upcoming Events
         <a href="#" style="float: right">
             <img src="{{ STATIC_URL}}images/icons/icon-help-sm.png" width="20" align="center"
                  title="Click to get help about this window"
@@ -21,7 +21,7 @@
                 {% for event in view_objects.upcoming_events.events %}
                     <tr>
                         <td>
-                            <a href="{% url activity_task event.type event.slug %}">{{ event.title }}</a>
+                            <a href="{% url 'activity_task' event.type event.slug %}">{{ event.title }}</a>
                         </td>
                         <td>{{ event.event_date|date:"D m/d, f A" }}</td>
                         <td>{{ event.event_location }}</td>
@@ -38,7 +38,7 @@
         </table>
         <p/>
 
-        <form id="event-code-form" action="{% url activity_attend_code %}"
+        <form id="event-code-form" action="{% url 'activity_attend_code' %}"
                                                          method="POST">
             {% csrf_token %}
             <div class="event-code">
@@ -68,7 +68,7 @@
         var height = 0;
 
         $("#event-code-submit").click(function () {
-            $.post("{% url activity_attend_code %}", $("#event-code-form").serialize(), function (data) {
+            $.post("{% url 'activity_attend_code' %}", $("#event-code-form").serialize(), function (data) {
                 if (data.message) {
                     $("#event-code-errors").html(data.message);
                     $("#event-code-errors").show();

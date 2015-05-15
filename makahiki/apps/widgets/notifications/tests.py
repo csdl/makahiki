@@ -39,7 +39,7 @@ class NotificationFunctionalTests(TransactionTestCase):
 
     def setUp(self):
         self.user = test_utils.setup_user(username="user", password="test")
-        self.team = self.user.get_profile().team
+        self.team = self.user.profile.team
 
         challenge_mgr.register_page_widget("help", "help.faq")
         challenge_mgr.register_page_widget("home", "home")

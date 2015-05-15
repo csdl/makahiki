@@ -38,17 +38,23 @@ def main(args):
             continue
 
         # roster format: Last Name,First Name,e-mail,Building_ID,Room_ID,Building_Name
-        lastname = items[0].strip().capitalize()
-        firstname = items[1].strip().capitalize()
-        email = items[2].strip()
+        # Resident.ID Number,Resident.Last Name,Resident.First Name,Resident.Gender,
+        # Contract.Name,Resident.e-mail
+        lastname = items[1].strip().capitalize()
+        firstname = items[2].strip().capitalize()
+        email = items[5].strip()
         if not email.endswith("@hawaii.edu"):
             print "==== ERROR ==== non-hawaii edu email: %s" % email
             sys.exit(1)
-        building = items[3].strip()
-        room = items[4].strip()
+
+        building_room = items[4].strip().split(" ")
+        # Hale Aloha Ilima 1026-2
+        building = building_room[2]
+        room = building_room[3]
+        room = room.split("-")[0]
+        team = get_team(building, room)
 
         username = email.split("@")[0]
-        team = get_team(building, room)
 
         # output format: team, firstname, lastname, email, username, password[, RA]
         writer.writerow([team, firstname, lastname, email, username, ''])
@@ -61,6 +67,7 @@ def main(args):
 
 def get_team(building, room):
     """return the lounge name from the building and room info."""
+
     if building == 'LE':
         building = 'Lehua'
     elif building == 'MO':

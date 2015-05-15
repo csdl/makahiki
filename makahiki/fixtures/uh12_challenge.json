@@ -13,7 +13,7 @@
             "theme": "theme-forest",
             "use_cas_auth": true,
             "cas_server_url": "https://login.its.hawaii.edu/cas/",
-            "wattdepot_server_url": "http://server.wattdepot.org:8194/wattdepot",
+            "wattdepot_server_url": "http://server.wattdepot.org:8190/wattdepot",
             "contact_email": "kukuicup@hawaii.edu",
             "email_enabled": false,
             "logo": "media/challenge/icon-uh-logo.png",

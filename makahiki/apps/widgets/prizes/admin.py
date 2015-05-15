@@ -14,7 +14,7 @@ from apps.admin.admin import challenge_designer_site, challenge_manager_site, de
 
 class PrizeAdmin(admin.ModelAdmin):
     """raffle admin"""
-    list_display = ('round', 'title', 'value', 'award_to', 'competition_type',
+    list_display = ('round', 'title', 'value', 'award_to', 'competition_type', 'place',
                     'winner', 'notice_sent')
     list_display_links = ('title',)
     list_filter = ['round']
@@ -35,7 +35,7 @@ class PrizeAdmin(admin.ModelAdmin):
 
     def _notification_exists(self, prize, leader):
         """returns true if the notification already created."""
-        return leader and UserNotification.objects.filter(
+        return prize.competition_type == "points" and leader and UserNotification.objects.filter(
             recipient=leader.user,
             content_type=ContentType.objects.get(model="prize"),
             object_id=prize.id).exists()
@@ -80,7 +80,7 @@ class PrizeAdmin(admin.ModelAdmin):
 
     def winner(self, obj):
         """return the winner and link to pickup form."""
-        if obj.award_to == 'individual_overall':
+        if obj.award_to == 'individual_overall' and obj.competition_type == "points":
             leader = obj.leader()
             if leader:
                 return "%s (<a href='%s'>View pickup form</a>)" % (leader,

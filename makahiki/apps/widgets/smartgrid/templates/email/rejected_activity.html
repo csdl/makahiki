@@ -1,9 +1,9 @@
-Hi {{ object.user.get_profile.name }},
+Hi {{ object.user.profile.name }},
 
 {% with object.action as action %}
     <p>
         Your response to "<a
-            href='http://{{domain}}{% url activity_task action.type action.slug %}'>{{ action.title }}</a>"
+            href='http://{{domain}}{% url 'activity_task' action.type action.slug %}'>{{ action.title }}</a>"
         was {{ status_nicely }}.        
     </p>
     {% if object.admin_comment %}
@@ -15,10 +15,10 @@ Hi {{ object.user.get_profile.name }},
     <p>
     {% if status_nicely != "approved" %}
         You can still receive points for this {{ action.type.lower }}. Please click <a
-            href='http://{{domain}}{% url activity_task action.type action.slug %}'>here</a> to
+            href='http://{{domain}}{% url 'activity_task' action.type action.slug %}'>here</a> to
         try again.
     {% else %}
-        Click <a href='http://{{domain}}{% url activity_task action.type action.slug %}'>here</a>
+        Click <a href='http://{{domain}}{% url 'activity_task' action.type action.slug %}'>here</a>
         to go to this {{action.type}}.
     {% endif %}
     </p>

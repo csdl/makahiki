@@ -1,0 +1,153 @@
+/*
+ * One of the Makahiki2 styles. Based upon the Eldon theme.
+ * 
+ * Copyright 2012 CSDL.
+ * 
+ * Uses Twitter Bootstrap v2.
+ */
+ 
+// makahiki base style
+@import "makahiki.less";
+
+// Bootstrap color palette
+@black:                 #000;
+@grayDarker:            #222;
+@grayDark:              #333;
+@gray:                  #555;
+@grayLight:             #999;
+@grayLighter:           #eee;
+@white:                 #fff;
+@blue:                  #049cdb;
+@blueDark:              #0064cd;
+@green:                 #46a546;
+@red:                   #9d261d;
+@yellow:                #ffc40d;
+@orange:                #f89406;
+@pink:                  #c3325f;
+@purple:                #7a43b6;
+
+// Revolusun theme palette
+@revolusun-steelBlue:      #0069BB;
+@revolusun-gray: 	    #BBBBBB;
+@revolusun-darkerSteelBlue:#A2C0D2;
+@revolusun-lightPaleBlue:  #E0FFFF;
+@revolusun-orange:         #DF5D22;
+@revolusun-lightorange:     #EC7C23;
+@revolusun-darkblue: 		#0069BB;
+@revolusun-veryDarkBlueBlack: #24333B;
+@revolusun-lightGrayBlue:  #b6d7ee;
+@revolusun-darkGreen:      #468250;
+@revolusun-lightCyan:      #E3F9F8;
+@revolusun-brightyellow:    #FFE600; 
+
+// Theme stylable elements
+// every page
+@use-bkg-image: true;
+@page-bkg-color-start: @revolusun-darkblue; 
+@page-bkg-color-end: @revolusun-darkblue; 
+@page-bkg-image: "images/revolusun.jpg";
+@page-font-color: @black;
+@page-link-color: @blueDark;
+
+// Questbar
+@questbar-bkg-color-start: @revolusun-brightyellow;
+@questbar-bkg-color-end: @revolusun-brightyellow;
+@questbar-font-color: @black;
+@questbar-transparency: 55%;
+
+// Navbar
+@navbar-bkg-color-start: @revolusun-orange;
+@navbar-bkg-color-end: @revolusun-lightorange;
+@navbar-font-color: @white;
+@navbar-curr-page-bkg-color: @navbar-bkg-color-end;
+@navbar-curr-path-font-color: @black;
+@navbar-transparency: 20%;
+
+// Infobar
+@infobar-bkg-color-start: @revolusun-orange;
+@infobar-bkg-color-end: @revolusun-orange;
+@infobar-font-color: @black;
+@infobar-feedback-button-bkg-color-start: darken(@revolusun-darkblue, 10%); 
+@infobar-feedback-button-bkg-color-end: lighten(@revolusun-darkblue, 10%); 
+@infobar-feedback-button-font-color: @white;
+@infobar-transparency: 0%;
+
+// Notifications
+@notification-bkg-color-start: @revolusun-gray;
+@notification-bkg-color-end: @revolusun-gray;
+@notification-font-color: @black;
+@notification-transparency: 45%;
+
+// Modal dialog box
+@modal-title-bkg-color-start: @revolusun-orange;
+@modal-title-bkg-color-end: @revolusun-orange;
+@modal-title-font-color: @black;
+@modal-body-bkg-color: @revolusun-lightorange;
+@modal-body-font-color: @white;
+
+// Page infobox
+@pageinfobox-bkg-color-start: @white;
+@pageinfobox-bkg-color-end: @white;
+@pageinfobox-font-color: @black;
+@pageinfobox-header-font-color: @black;
+@pageinfobox-transparency: 20%;
+
+// Widgets
+@widget-title-bkg-color-start: @revolusun-orange;
+@widget-title-bkg-color-end: @revolusun-orange;
+@widget-title-font-color: @black;
+@widget-title-transparency: 0%;
+@widget-body-bkg-color: @revolusun-gray; 
+@widget-body-font-color: @black;
+@widget-body-transparency: 0%;
+@widget-button-bkg-color-start: darken(@widget-body-bkg-color, 50%);
+@widget-button-bkg-color-end: darken(@widget-body-bkg-color, 20%);
+@widget-button-font-color: @white; 
+@widget-table-row-color-1: @widget-body-bkg-color;
+@widget-table-row-color-2: lighten(@widget-body-bkg-color, 40%);
+@widget-subtitle-bkg-color: @revolusun-brightyellow;
+@widget-subtitle-font-color: @black;
+@widget-text-area-bkg-color: @white;
+@widget-text-area-font-color: @grayDarker;
+
+// Smart grid game
+@sgg-header-bkg-color: @revolusun-orange;
+@sgg-header-font-color: @revolusun-orange; 
+@sgg-entry-font-color: @black;
+@sgg-activity-cell-bkg-color: @revolusun-lightorange;
+@sgg-commitment-cell-bkg-color: @revolusun-darkblue;  
+@sgg-event-cell-bkg-color: @revolusun-brightyellow;   
+@sgg-excursion-cell-bkg-color: @white;
+@sgg-filler-cell-bkg-color: @blueDark;
+
+// Prizes
+@prizes-raffle-table-entry-color: @revolusun-orange;
+@prizes-raffle-ticket-font-color: @white;
+
+// My Info
+@myinfo-textarea-highlight-color: darken(@widget-body-bkg-color, 20%);
+
+// Badges
+@badge-theme-1-bkg-color-start: @revolusun-orange;
+@badge-theme-1-bkg-color-end: @revolusun-orange;
+@badge-theme-1-text-color: @white;
+
+@badge-theme-2-bkg-color-start: @revolusun-lightGrayBlue;
+@badge-theme-2-bkg-color-end: @revolusun-darkblue;
+@badge-theme-2-text-color: @white;
+
+@badge-theme-3-bkg-color-start: @revolusun-darkblue;
+@badge-theme-3-bkg-color-end: @revolusun-darkblue;
+@badge-theme-3-text-color: @white;
+
+@badge-theme-4-bkg-color-start: @revolusun-lightCyan;
+@badge-theme-4-bkg-color-end: @revolusun-brightyellow;
+@badge-theme-4-text-color: @revolusun-darkblue;
+
+@badge-theme-5-bkg-color-start: @revolusun-lightorange;
+@badge-theme-5-bkg-color-end: @revolusun-lightorange;
+@badge-theme-5-text-color: @white;
+
+@badge-theme-summary-bkg-color-start: @revolusun-brightyellow;
+@badge-theme-summary-bkg-color-end: @revolusun-orange;
+@badge-theme-summary-text-color: @revolusun-veryDarkBlueBlack;

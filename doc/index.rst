@@ -20,11 +20,6 @@ This manual is available in both `PDF`_ and `HTML`_ formats.
    developer-guide
    reference-guide
 
-To Do List
-----------
-
-.. todolist::
-
 Indices and tables
 ------------------
 

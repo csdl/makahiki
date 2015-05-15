@@ -5,7 +5,7 @@ from apps.widgets.smartgrid import smartgrid
 from apps.widgets.smartgrid.forms import CommitmentCommentForm
 import datetime
 
-from django.db import  IntegrityError
+from django.db import IntegrityError
 from django.http import HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
@@ -26,8 +26,10 @@ def add(request, commitment):
     form = CommitmentCommentForm(request.POST, user=request.user.username)
     if not form.is_valid():
         # invalid form
-        request.session['form'] = form
-        return  HttpResponseRedirect(
+        request.session["form_dict"] = form.data
+        request.session["form_errors"] = form.errors
+
+        return HttpResponseRedirect(
             reverse("activity_task",
                     args=(commitment.type, commitment.slug,)) + "?display_form=True")
 
@@ -83,8 +85,12 @@ def view(request, action):
 
     session = request.session
     form = None
-    if "form" in session:
-        form = session.pop('form')
+    if "form_dict" in session:
+        form_dict = session.pop("form_dict")
+        form = CommitmentCommentForm(initial={
+            "social_email": form_dict["social_email"],
+        })
+        form._errors = session.pop("form_errors")
     else:
         form = CommitmentCommentForm(
             initial={

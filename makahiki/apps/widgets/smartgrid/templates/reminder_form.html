@@ -1,4 +1,4 @@
-<form id="task-reminder-form" action="{% url activity_reminder action.type action.slug %}"
+<form id="task-reminder-form" action="{% url 'activity_reminder' action.type action.slug %}"
       method="post">
     {% csrf_token %}
     <div style='padding-left: 10px'>

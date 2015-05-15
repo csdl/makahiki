@@ -47,7 +47,7 @@
     {% for analysis in view_objects.action_feedback.analysis.data %}
     <tr {% if analysis.average < view_objects.action_feedback.analysis.overall_average %} style="color: red" {%endif%}>
         <td width="60%"><a href="
-        {% url view_feedback analysis.action__type analysis.action__slug %}"
+        {% url 'view_feedback' analysis.action__type analysis.action__slug %}"
                 >{{analysis.action__name}}</a> </td>
         <td width="20%">{{analysis.average|floatformat:2}}</td>
         <td width="20%">{{analysis.count}}</td>

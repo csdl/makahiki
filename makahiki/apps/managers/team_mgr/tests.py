@@ -27,15 +27,15 @@ class DormUnitTestCase(TransactionTestCase):
 
         # Assign users to teams.
         for index, user in enumerate(self.users):
-            user.get_profile().team = self.teams[index % 4]
-            user.get_profile().save()
+            user.profile.team = self.teams[index % 4]
+            user.profile.save()
 
         self.current_round = "Round 1"
         test_utils.set_competition_round()
 
     def testTeamPointsInRound(self):
         """Tests calculating the team points leaders in a round."""
-        profile = self.users[0].get_profile()
+        profile = self.users[0].profile
         profile.add_points(10,
             datetime.datetime.today() - datetime.timedelta(minutes=1), "test")
         profile.save()
@@ -46,7 +46,7 @@ class DormUnitTestCase(TransactionTestCase):
 
         # Test that a user in a different team but same dorm changes the
         # leader for the original user.
-        profile2 = self.users[2].get_profile()
+        profile2 = self.users[2].profile
         profile2.add_points(profile.points() + 1,
             datetime.datetime.today() - datetime.timedelta(minutes=1), "test")
         profile2.save()
@@ -57,7 +57,7 @@ class DormUnitTestCase(TransactionTestCase):
 
         # Test that adding points to a user in a different dorm does not
         # change affect these standings.
-        profile1 = self.users[1].get_profile()
+        profile1 = self.users[1].profile
         profile1.add_points(profile.points() + 1,
                             datetime.datetime.today() -\
                             datetime.timedelta(minutes=1),
@@ -82,7 +82,7 @@ class DormUnitTestCase(TransactionTestCase):
 
     def testTeamPointsOverall(self):
         """Tests calculating the team points leaders in a round."""
-        profile = self.users[0].get_profile()
+        profile = self.users[0].profile
         profile.add_points(10,
                            datetime.datetime.today() -\
                            datetime.timedelta(minutes=1),
@@ -95,7 +95,7 @@ class DormUnitTestCase(TransactionTestCase):
 
         # Test that a user in a different team but same dorm changes the
         # leader for the original user.
-        profile2 = self.users[2].get_profile()
+        profile2 = self.users[2].profile
         profile2.add_points(profile.points() + 1,
                             datetime.datetime.today() -\
                             datetime.timedelta(minutes=1),
@@ -118,7 +118,7 @@ class DormUnitTestCase(TransactionTestCase):
 
         # Test that adding points to a user in a different dorm does not
         # change affect these standings.
-        profile1 = self.users[1].get_profile()
+        profile1 = self.users[1].profile
         profile1.add_points(profile.points() + 1,
                             datetime.datetime.today() -
                             datetime.timedelta(minutes=1),
@@ -149,15 +149,15 @@ class TeamLeadersTestCase(TransactionTestCase):
 
         # Assign users to teams.
         for index, user in enumerate(self.users):
-            user.get_profile().team = self.teams[index % 2]
-            user.get_profile().save()
+            user.profile.team = self.teams[index % 2]
+            user.profile.save()
 
         self.current_round = "Round 1"
         test_utils.set_competition_round()
 
     def testTeamPointsInRound(self):
         """Tests calculating the team points leaders in a round."""
-        profile = self.users[0].get_profile()
+        profile = self.users[0].profile
         profile.add_points(10,
             datetime.datetime.today() - datetime.timedelta(minutes=1), "test")
         profile.save()
@@ -168,7 +168,7 @@ class TeamLeadersTestCase(TransactionTestCase):
 
         # Test that a user in a different team but same dorm changes the
         # leader for the original user.
-        profile2 = self.users[2].get_profile()
+        profile2 = self.users[2].profile
         profile2.add_points(profile.points() + 1,
                             datetime.datetime.today() -
                             datetime.timedelta(minutes=1),
@@ -189,7 +189,7 @@ class TeamLeadersTestCase(TransactionTestCase):
 
     def testIndividualPointsInRound(self):
         """Tests calculating the individual points leaders in a round."""
-        profile = self.users[0].get_profile()
+        profile = self.users[0].profile
         profile.add_points(10,
                            datetime.datetime.today() -
                            datetime.timedelta(minutes=1),
@@ -202,7 +202,7 @@ class TeamLeadersTestCase(TransactionTestCase):
 
         # Test that a user in a different team but same dorm does not change
         # the leader for the original team.
-        profile1 = self.users[1].get_profile()
+        profile1 = self.users[1].profile
         profile1.add_points(15,
                             datetime.datetime.today() -
                             datetime.timedelta(minutes=1),
@@ -218,7 +218,7 @@ class TeamLeadersTestCase(TransactionTestCase):
                          "User 1 should be leading in their own team.")
 
         # Test another user going ahead in the user's team.
-        profile2 = self.users[2].get_profile()
+        profile2 = self.users[2].profile
         profile2.add_points(15,
                             datetime.datetime.today() -
                             datetime.timedelta(minutes=1),
@@ -239,7 +239,7 @@ class TeamLeadersTestCase(TransactionTestCase):
 
     def testTeamPointsOverall(self):
         """Tests calculating the team points leaders in a round."""
-        profile = self.users[0].get_profile()
+        profile = self.users[0].profile
         profile.add_points(10,
                            datetime.datetime.today() -
                            datetime.timedelta(minutes=1),
@@ -252,7 +252,7 @@ class TeamLeadersTestCase(TransactionTestCase):
 
         # Test that a user in a different team but same dorm does not change
         # the leader for the original team.
-        profile1 = self.users[1].get_profile()
+        profile1 = self.users[1].profile
         profile1.add_points(15,
                             datetime.datetime.today() -
                             datetime.timedelta(minutes=1),
@@ -268,7 +268,7 @@ class TeamLeadersTestCase(TransactionTestCase):
                          "User 1 should be leading in their own team.")
 
         # Test another user going ahead in the user's team.
-        profile2 = self.users[2].get_profile()
+        profile2 = self.users[2].profile
         profile2.add_points(15,
                             datetime.datetime.today() -
                             datetime.timedelta(minutes=1),
@@ -302,15 +302,15 @@ class TeamsUnitTestCase(TransactionTestCase):
         user = User(username="test_user", password="test_password")
         user.save()
         user_points = 10
-        user.get_profile().team = self.test_team
+        user.profile.team = self.test_team
 
         self.assertEqual(self.test_team.points(),
                          0,
                          "Check that the team does not have any points yet.")
 
-        user.get_profile().add_points(user_points, datetime.datetime.today(),
+        user.profile.add_points(user_points, datetime.datetime.today(),
             "test")
-        user.get_profile().save()
+        user.profile.save()
 
         self.assertEqual(self.test_team.points(),
                          user_points,
@@ -320,11 +320,11 @@ class TeamsUnitTestCase(TransactionTestCase):
         # Create another test user and check again.
         user = User(username="test_user1", password="test_password")
         user.save()
-        user.get_profile().team = self.test_team
-        user.get_profile().add_points(user_points,
+        user.profile.team = self.test_team
+        user.profile.add_points(user_points,
                                       datetime.datetime.today(),
                                       "test")
-        user.get_profile().save()
+        user.profile.save()
 
         self.assertEqual(self.test_team.points(), 2 * user_points,
             "Check that the number of points are equal for two users.")
@@ -336,7 +336,7 @@ class TeamsUnitTestCase(TransactionTestCase):
 
         user = User(username="test_user", password="test_password")
         user.save()
-        profile = user.get_profile()
+        profile = user.profile
         profile.team = self.test_team
         profile.save()
 
@@ -358,17 +358,17 @@ class TeamsUnitTestCase(TransactionTestCase):
         user = User(username="test_user", password="test_password")
         user.save()
         user_points = 10
-        user.get_profile().team = self.test_team
+        user.profile.team = self.test_team
 
         # Test the team is ranked last if they haven't done anything yet.
         team_rank = 1
         self.assertEqual(self.test_team.rank(), team_rank,
             "Check the team is ranked last.")
 
-        user.get_profile().add_points(user_points,
+        user.profile.add_points(user_points,
                                       datetime.datetime.today(),
                                       "test")
-        user.get_profile().save()
+        user.profile.save()
 
         self.assertEqual(self.test_team.rank(),
                          1,
@@ -380,11 +380,11 @@ class TeamsUnitTestCase(TransactionTestCase):
 
         user2 = User(username="test_user1", password="test_password")
         user2.save()
-        user2.get_profile().team = test_team2
-        user2.get_profile().add_points(user_points + 1,
+        user2.profile.team = test_team2
+        user2.profile.add_points(user_points + 1,
                                        datetime.datetime.today(),
                                        "test")
-        user2.get_profile().save()
+        user2.profile.save()
 
         self.assertEqual(self.test_team.rank(),
                          2,
@@ -399,18 +399,18 @@ class TeamsUnitTestCase(TransactionTestCase):
         user = User(username="test_user", password="test_password")
         user.save()
         user_points = 10
-        user.get_profile().team = self.test_team
-        user.get_profile().save()
+        user.profile.team = self.test_team
+        user.profile.save()
 
         self.assertEqual(self.test_team.current_round_rank(),
                          1,
                          "Check the calculation works even if there's "
                          "no submission.")
 
-        user.get_profile().add_points(user_points,
+        user.profile.add_points(user_points,
                                       datetime.datetime.today(),
                                       "test")
-        user.get_profile().save()
+        user.profile.save()
         self.assertEqual(self.test_team.current_round_rank(),
                          1,
                          "Check the team is now ranked number 1.")
@@ -420,11 +420,11 @@ class TeamsUnitTestCase(TransactionTestCase):
 
         user2 = User(username="test_user1", password="test_password")
         user2.save()
-        user2.get_profile().team = test_team2
-        user2.get_profile().add_points(user_points + 1,
+        user2.profile.team = test_team2
+        user2.profile.add_points(user_points + 1,
                                        datetime.datetime.today(),
                                        "test")
-        user2.get_profile().save()
+        user2.profile.save()
 
         self.assertEqual(self.test_team.current_round_rank(),
                          2,
@@ -436,11 +436,11 @@ class TeamsUnitTestCase(TransactionTestCase):
         user = User(username="test_user", password="test_password")
         user.save()
         user_points = 10
-        user.get_profile().team = self.test_team
-        user.get_profile().add_points(user_points,
+        user.profile.team = self.test_team
+        user.profile.add_points(user_points,
                                       datetime.datetime.today(),
                                       "test")
-        user.get_profile().save()
+        user.profile.save()
 
         # Create a test user on a different team.
         test_team2 = Team(name="B", group=self.group)
@@ -448,11 +448,11 @@ class TeamsUnitTestCase(TransactionTestCase):
 
         user = User(username="test_user1", password="test_password")
         user.save()
-        user.get_profile().team = test_team2
-        user.get_profile().add_points(user_points,
+        user.profile.team = test_team2
+        user.profile.add_points(user_points,
                                       datetime.datetime.today() + datetime.timedelta(days=1),
                                       "test")
-        user.get_profile().save()
+        user.profile.save()
 
         self.assertEqual(self.test_team.rank(),
                          2,

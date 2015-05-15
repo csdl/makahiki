@@ -1,7 +1,7 @@
 {% load markup %}
 <div id="task-feedback">
 <br/>
-<form action="{% url add_activity_feedback action.type action.slug %}" method="post">
+<form action="{% url 'add_activity_feedback' action.type action.slug %}" method="post">
 <div style="text-align:left; margin-left:10px;">
 {% if not feedback_p %}
 You can also provide feedback and get more points:

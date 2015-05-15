@@ -79,7 +79,7 @@ class ProfileFunctionalTestCase(TransactionTestCase):
         # Test posting without a valid email
         user_form.update({"display_name": "Test User", "contact_email": "foo"})
         response = self.client.post(reverse("profile_save"), user_form, follow=True)
-        self.assertContains(response, "Enter a valid e-mail address",
+        self.assertContains(response, "Enter a valid email address",
             msg_prefix="User should not have a valid email address")
 
         # Test posting without a valid phone number
@@ -91,7 +91,7 @@ class ProfileFunctionalTestCase(TransactionTestCase):
     def testProfileWithDupName(self):
         """test profile without dupliate name"""
         user = User.objects.create_user("user2", "user2@test.com")
-        profile = user.get_profile()
+        profile = user.profile
         profile.name = "Test U."
         profile.save()
 
@@ -99,6 +99,7 @@ class ProfileFunctionalTestCase(TransactionTestCase):
             "display_name": "Test U.",
             "about": "I rock",
             "stay_logged_in": True,
+            "theme": "theme-forest",
             "contact_email": "user@test.com",
             "contact_text": "8088675309",
             "contact_carrier": "tmobile",

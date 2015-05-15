@@ -38,21 +38,9 @@ import hmac
 import urllib
 
 # Find a JSON parser
-try:
-    import json
+import json
 
-    _parse_json = lambda s: json.loads(s)
-except ImportError:
-    try:
-        import simplejson
-
-        _parse_json = lambda s: simplejson.loads(s)
-    except ImportError:
-        # For Google AppEngine
-        from django.utils import simplejson
-
-        _parse_json = lambda s: simplejson.loads(s)
-
+_parse_json = lambda s: json.loads(s)
 
 class GraphAPI(object):
     """A client for the Facebook Graph API.

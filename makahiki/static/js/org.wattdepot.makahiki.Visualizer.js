@@ -1,13 +1,15 @@
 
 Namespace("org.wattdepot.makahiki");
 
-  /**loads the visualization for both annotated timelines and for table. */
-  google.load('visualization','1',{'packages':['annotatedtimeline', 'table']}); 
+ var host_uri = SERVER_URL;
+ var wattdepot_version = WATTDEPOT_VERSION;
+
+ /**loads the visualization for both annotated timelines and for table. */
+ google.load('visualization','1',{'packages':['annotatedtimeline', 'table']});
 
  google.setOnLoadCallback(initialize);
 
- var host_uri = SERVER_URL;
- var powerSource;      
+ var powerSource;
  var table;
  var sourceNo;       
   
@@ -56,17 +58,12 @@ Namespace("org.wattdepot.makahiki");
 
           // Set the beginning and end dates
           endDate = new Date();
-          // Get on the hour data starting from last midnight.
-          endDate.setMinutes(0);
-          endDate.setHours(0);
 
           // Copy the endDate then subtract the necessary hours.
           // Last two 0's of the constructor sets the seconds and milliseconds to 0.
           begDate = new Date(endDate.getFullYear(), endDate.getMonth(), 
               endDate.getDate(), endDate.getHours(), endDate.getMinutes(), 0, 0);
-          begDate.setHours(0);
           begDate.setHours( begDate.getHours() - goBack );
-          begDate.setMinutes(0);
 
           // Initialize beginning and ending variables to hold the timestamp 
           // in XMLGregorian format that WattDepot requires.
@@ -90,12 +87,23 @@ Namespace("org.wattdepot.makahiki");
       /**sensor data and calculated data have different query a uri.  */
       var query = new Array();
       for (i=0; i<powerSource.length; i++){
-        var url = host_uri + '/sources/' + powerSource[i] +  '/gviz/calculated?startTime=' + startTime + '&endTime=' + endTime + '&samplingInterval='+interval;
-         //var url = host_uri + 'sources/' + powerSource[i] + '/sensordata?startTime=' + startTime + '&endTime=' + endTime; 
-        //debug(url) ;
-        
-        query[i] = new google.visualization.Query(url); 
-        query[i].setQuery('select timePoint, ' + dataType);
+          if (wattdepot_version == "WATTDEPOT2") {
+            var url = host_uri + '/sources/' + powerSource[i] +  '/gviz/calculated?startTime=' +
+                startTime + '&endTime=' + endTime + '&samplingInterval='+interval;
+            query[i] = new google.visualization.Query(url);
+
+            if (dataType == "power")
+                dataType = "powerConsumed";
+            if (dataType == "energy")
+                dataType = "energyConsumed";
+
+            query[i].setQuery('select timePoint, ' + dataType);
+          }
+          if (wattdepot_version == "WATTDEPOT3") {
+            var url = host_uri + '/depository/' + dataType + '/values/gviz/?sensor='+
+                powerSource[i] +'&start=' + startTime + '&end=' + endTime + '&interval='+interval;
+            query[i] = new google.visualization.Query(url);
+          }
       }
               
       /**begin processing query with first entry in array. passing the query response, the whole query, and the current index.*/
@@ -121,7 +129,7 @@ function debug(msg) {
     if (response.isError()) {
       alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
       /**Removes the "now working" notification from the webpage.*/
-      document.getElementById('working').style.display="none";
+      //document.getElementById('working').style.display="none";
       return;
     }
     

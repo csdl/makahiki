@@ -24,7 +24,7 @@
                 </button>
             </a>
         {% else %}
-            <form action='{% url activity_add_task action.type action.slug %}'
+            <form action='{% url 'activity_add_task' action.type action.slug %}'
                   method='post'>
                 {% csrf_token %}
                 <button id="submit_button4" style="cursor:pointer;" class="btn btn-widget"
@@ -54,7 +54,7 @@
         {% endif %}
     {% else %}
         {% if action.member.days_left > 0 %}
-            <form action='{% url activity_drop_task action.type action.slug %}'
+            <form action='{% url 'activity_drop_task' action.type action.slug %}'
                   method='post'>
                 {% csrf_token %}
                 <button id="submit_button2" style="cursor:pointer;" class="btn btn-widget"

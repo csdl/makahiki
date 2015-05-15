@@ -45,7 +45,7 @@ def view_action(request, action_type, slug):
     """individual action page"""
     action = smartgrid.get_action(slug=slug)
     user = request.user
-    team = user.get_profile().team
+    team = user.profile.team
     view_objects = {}
 
     action = smartgrid.annotate_action_details(user, action)

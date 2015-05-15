@@ -17,6 +17,15 @@
             <p>
                 Click the Choose File button to select the CSV file that contains user information.
             </p>
+            <p>
+                The information of each user in the CSV must be formatted as follows:
+                <pre>team,firstname,lastname,email,username,password</pre>
+                <span style="font-weight:bold">Warning:</span>
+                <ul>
+                    <li>Usernames must not contain uppercase letters.</li>
+                    <li>Uppercase letters will be converted to lowercase when the username is saved.</li>
+                </ul>
+            </p>
             <form enctype="multipart/form-data" method="POST" action="{% url 'bulk_create' %}">
                 {% csrf_token %}
                 {% if file_error %}

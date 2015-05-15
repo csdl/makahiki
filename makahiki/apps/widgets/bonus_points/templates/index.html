@@ -10,7 +10,7 @@
     <div class="content-box-contents">
         <p/>
 
-        <form id="bonus-code-form" action="{% url bonus_points_code %}"
+        <form id="bonus-code-form" action="{% url 'bonus_points_code' %}"
                                                          method="POST">
             {% csrf_token %}
             <div class="bonus-code">
@@ -33,7 +33,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#bonus-code-submit").click(function () {
-            $.post("{% url bonus_points_code %}", $("#bonus-code-form").serialize(), function (data) {
+            $.post("{% url 'bonus_points_code' %}", $("#bonus-code-form").serialize(), function (data) {
                 if (data.message) {
                     $("#bonus-code-errors").html(data.message);
                     $("#bonus-code-errors").show();

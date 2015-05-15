@@ -100,7 +100,7 @@ def create_heroku_app(heroku_app):
                 "MAKAHIKI_AWS_STORAGE_BUCKET_NAME=$MAKAHIKI_AWS_STORAGE_BUCKET_NAME "\
               % heroku_app)
 
-    os.system("heroku addons:add -a %s memcache" % heroku_app)
+    os.system("heroku addons:add -a %s memcachier:dev" % heroku_app)
 
 
 def load_fixtures(manage_command, fixture_path, prefix):

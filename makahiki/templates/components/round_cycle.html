@@ -11,7 +11,7 @@
 {% for event in AVAILABLE_EVENTS %}
 <div style="display:none;">
     <div class="rib-set-width-outer-width">
-    <h4><a href="{% url activity_task event.type event.slug %}">{{ event.title }}</a></h4>
+    <h4><a href="{% url 'activity_task' event.type event.slug %}">{{ event.title }}</a></h4>
     {{event.event_date}}
     </div>
 </div>

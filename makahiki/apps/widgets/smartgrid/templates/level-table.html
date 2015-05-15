@@ -37,7 +37,7 @@
     				</a>
     				{% elif act.availablity == 0 %}  {# --- between pub date and expire date --- #}
 	                    {% if act.is_unlock %}
-                    <a href="{% url activity_task act.type act.slug %}"
+                    <a href="{% url 'activity_task' act.type act.slug %}"
                        title="{{act.name}}" onClick="setLevel({{level.priority}})">
                            {% if act.type != 'commitment' %}
                                {% if act.completed %}
@@ -118,7 +118,7 @@
                     </a>
                         {% endif %}
                     {% elif act.availablity == 1 %}  {# expired #}
-                    <a href="{% url activity_task act.type act.slug %}"
+                    <a href="{% url 'activity_task' act.type act.slug %}"
                        title="{{act.name}}" onClick="setLevel({{level.priority}})">
 	                    <br/>
     	                <b>Expired</b>
@@ -136,25 +136,25 @@
 
 <table class="activities-grid-legend">
 	<tr>
-    	<td colspan="10"><b>Legend:</b></td>
+    	<td colspan="10"><b>Legend: </b></td>
     </tr>
     <tr>
         <td>
     	    <div class="activity-legend"></div>
         </td>
-        <td width=100>Activity</td>
+        <td width=100> Activity </td>
         <td>
             <div class="commitment-legend"></div>
         </td>
-        <td width=100>Commitment</td>
+        <td width=100> Commitment </td>
         <td>
             <div class="event-legend"></div>
         </td>
-        <td width=100>Event</td>
+        <td width=100> Event </td>
         <td>
             <div class="filler-legend"></div>
         </td>
-        <td width=100>Filler</td>
+        <td>Filler</td>
     </tr>
     <tr>
         <td>
@@ -162,19 +162,20 @@
                  width="12"
                  align="left"/>                
         </td>
-        <td width=100>Submitted</td>
+        <td width=100> Submitted </td>
         <td>
             <img src="{{ STATIC_URL}}images/icons/icon-done.png"
                  width="12"
                  align="left"/>                
         </td>
-        <td width=100>Approved</td>                
+        <td width=100> Approved </td>
         <td>
             <img src="{{ STATIC_URL}}images/icons/icon-exclamation2.png"
                  width="12"
                  align="left"/>                
         </td>
-        <td width=100>Rejected</td>                
+        <td >Need</td>
+        <td colspan="2">attention</td>
     </tr>
 </table>
 

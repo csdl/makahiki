@@ -1,7 +1,6 @@
 """handles rendering events."""
+import json
 import urlparse
-
-import simplejson as json
 
 from django.db import  IntegrityError
 from django.shortcuts import get_object_or_404, render_to_response
@@ -280,7 +279,7 @@ def attend_code(request):
                 # Model save method will award the points.
                 action_member.save()
             else:  # It was a bonus point code.
-                profile = user.get_profile()
+                profile = user.profile
                 value = code.point_value
                 s = "Bonus Points: claimed {0} points".format(value)
                 profile.add_points(value,

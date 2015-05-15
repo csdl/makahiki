@@ -29,7 +29,7 @@
                 {% if user.is_active and user.is_staff %}
                     <div id="user-tools">
                         {% block userlinks %}
-                            <a href="{% url 'admin:logout' %}">Log out</a>
+                            <a href="/account/logout">Log out</a>
                         {% endblock %}
                     </div>
                 {% endif %}

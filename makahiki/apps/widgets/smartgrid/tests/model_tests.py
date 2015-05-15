@@ -57,10 +57,10 @@ class ActivitiesTest(TransactionTestCase):
 
     def testApproveAddsPoints(self):
         """Test for verifying that approving a user awards them points."""
-        points = self.user.get_profile().points()
+        points = self.user.profile.points()
 
         # Setup to check round points.
-        (entry, _) = self.user.get_profile().scoreboardentry_set.get_or_create(
+        (entry, _) = self.user.profile.scoreboardentry_set.get_or_create(
             round_name=self.current_round)
         round_points = entry.points
         round_last_awarded = entry.last_awarded_submission
@@ -71,8 +71,8 @@ class ActivitiesTest(TransactionTestCase):
         activity_member.save()
 
         # Verify that nothing has changed.
-        self.assertEqual(points, self.user.get_profile().points())
-        entry = self.user.get_profile().scoreboardentry_set.get(round_name=self.current_round)
+        self.assertEqual(points, self.user.profile.points())
+        entry = self.user.profile.scoreboardentry_set.get(round_name=self.current_round)
         self.assertEqual(round_points, entry.points)
         self.assertEqual(round_last_awarded, entry.last_awarded_submission)
 
@@ -80,11 +80,11 @@ class ActivitiesTest(TransactionTestCase):
         activity_member.save()
 
         # Verify overall score changed.
-        new_points = self.user.get_profile().points()
+        new_points = self.user.profile.points()
         self.assertEqual(new_points - points, activity_points)
 
         # Verify round score changed.
-        entry = self.user.get_profile().scoreboardentry_set.get(round_name=self.current_round)
+        entry = self.user.profile.scoreboardentry_set.get(round_name=self.current_round)
         self.assertEqual(round_points + activity_points, entry.points)
         self.assertTrue(abs(
             activity_member.submission_date - entry.last_awarded_submission) < datetime.timedelta(
@@ -92,7 +92,7 @@ class ActivitiesTest(TransactionTestCase):
 
     def testRejectThenApprove(self):
         """Test that Reject then approve a user removes their points."""
-        points = self.user.get_profile().points()
+        points = self.user.profile.points()
 
         activity_member = ActionMember(user=self.user, action=self.activity,
             submission_date=datetime.datetime.today())
@@ -101,21 +101,21 @@ class ActivitiesTest(TransactionTestCase):
         activity_member.save()
         self.assertEqual(len(mail.outbox), 1, "Check that the rejection sent an email.")
         self.assertTrue(activity_member.award_date is None)
-        self.assertTrue(self.user.get_profile().last_awarded_submission() is None)
+        self.assertTrue(self.user.profile.last_awarded_submission() is None)
 
         activity_member.approval_status = "approved"
         activity_member.save()
-        new_points = self.user.get_profile().points()
+        new_points = self.user.profile.points()
 
         self.assertEqual(points + activity_member.points_awarded, new_points)
 
     def testDeleteRemovesPoints(self):
         """Test that deleting an approved ActionMember removes their points."""
 
-        points = self.user.get_profile().points()
+        points = self.user.profile.points()
 
         # Setup to check round points.
-        (entry, _) = self.user.get_profile().scoreboardentry_set.get_or_create(
+        (entry, _) = self.user.profile.scoreboardentry_set.get_or_create(
             round_name=self.current_round)
         round_points = entry.points
 
@@ -125,12 +125,12 @@ class ActivitiesTest(TransactionTestCase):
         award_date = activity_member.award_date
 
         activity_member.delete()
-        new_points = self.user.get_profile().points()
+        new_points = self.user.profile.points()
 
         self.assertEqual(points, new_points)
-        self.assertTrue(self.user.get_profile().last_awarded_submission() is None)
+        self.assertTrue(self.user.profile.last_awarded_submission() is None)
 
-        entry = self.user.get_profile().scoreboardentry_set.get(round_name=self.current_round)
+        entry = self.user.profile.scoreboardentry_set.get(round_name=self.current_round)
         self.assertEqual(round_points, entry.points)
         self.assertTrue(
             entry.last_awarded_submission is None or entry.last_awarded_submission < award_date)
@@ -187,10 +187,10 @@ class CommitmentsUnitTestCase(TransactionTestCase):
 
     def testCompletionAddsPoints(self):
         """Tests that completing a task adds points."""
-        points = self.user.get_profile().points()
+        points = self.user.profile.points()
 
         # Setup to check round points.
-        (entry, _) = self.user.get_profile().scoreboardentry_set.get_or_create(
+        (entry, _) = self.user.profile.scoreboardentry_set.get_or_create(
             round_name=self.current_round)
         round_points = entry.points
 
@@ -199,20 +199,20 @@ class CommitmentsUnitTestCase(TransactionTestCase):
         commitment_member.save()
 
         # Check that the user's signup point.
-        self.assertEqual(points + score_mgr.signup_points(), self.user.get_profile().points())
+        self.assertEqual(points + score_mgr.signup_points(), self.user.profile.points())
 
-        entry = self.user.get_profile().scoreboardentry_set.get(round_name=self.current_round)
+        entry = self.user.profile.scoreboardentry_set.get(round_name=self.current_round)
         self.assertEqual(round_points + score_mgr.signup_points(), entry.points)
 
         commitment_member.award_date = datetime.datetime.today()
         commitment_member.approval_status = "approved"
         commitment_member.save()
         points += commitment_member.action.commitment.point_value
-        self.assertEqual(points + score_mgr.signup_points(), self.user.get_profile().points())
-        self.assertEqual(self.user.get_profile().last_awarded_submission(),
+        self.assertEqual(points + score_mgr.signup_points(), self.user.profile.points())
+        self.assertEqual(self.user.profile.last_awarded_submission(),
             commitment_member.award_date)
 
-        entry = self.user.get_profile().scoreboardentry_set.get(round_name=self.current_round)
+        entry = self.user.profile.scoreboardentry_set.get(round_name=self.current_round)
         round_points += commitment_member.action.commitment.point_value
         self.assertEqual(round_points + score_mgr.signup_points(), entry.points)
         self.assertTrue(
@@ -222,10 +222,10 @@ class CommitmentsUnitTestCase(TransactionTestCase):
     def testDeleteRemovesPoints(self):
         """Test that deleting a commitment member after it is completed removes the user's
         points."""
-        points = self.user.get_profile().points()
+        points = self.user.profile.points()
 
         # Setup to check round points.
-        (entry, _) = self.user.get_profile().scoreboardentry_set.get_or_create(
+        (entry, _) = self.user.profile.scoreboardentry_set.get_or_create(
             round_name=self.current_round)
         round_points = entry.points
 
@@ -240,13 +240,13 @@ class CommitmentsUnitTestCase(TransactionTestCase):
         commitment_member.delete()
 
         # Verify nothing has changed.
-        profile = self.user.get_profile()
+        profile = self.user.profile
         self.assertTrue(
             profile.last_awarded_submission() is None or
             profile.last_awarded_submission() < award_date)
         self.assertEqual(points, profile.points())
 
-        entry = self.user.get_profile().scoreboardentry_set.get(round_name=self.current_round)
+        entry = self.user.profile.scoreboardentry_set.get(round_name=self.current_round)
         self.assertEqual(round_points, entry.points)
         self.assertTrue(
             entry.last_awarded_submission is None or entry.last_awarded_submission < award_date)

@@ -1,6 +1,6 @@
 """Specify the URL pattern to be associated with logging."""
 
-from django.conf.urls.defaults import patterns, url
+from django.conf.urls import patterns, url
 
 urlpatterns = patterns('',
     url(r'^(?P<obj_type>[\w\d\-]+)/(?P<obj>[\w\d\-]+)/(?P<action>[\w\d\-]+)/$',

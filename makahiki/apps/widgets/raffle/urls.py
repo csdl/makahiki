@@ -1,5 +1,5 @@
 """urls for raffle widget"""
-from django.conf.urls.defaults import url, patterns
+from django.conf.urls import url, patterns
 
 urlpatterns = patterns('',
     url(r'^(\d+)/add_ticket/$', 'apps.widgets.raffle.views.add_ticket',

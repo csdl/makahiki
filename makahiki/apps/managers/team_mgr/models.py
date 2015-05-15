@@ -77,7 +77,7 @@ class Team(models.Model):
         # also create the resource goal settings
         from apps.widgets.resource_goal.models import EnergyGoalSetting, WaterGoalSetting
         if not EnergyGoalSetting.objects.filter(team=self):
-            EnergyGoalSetting(team=self).save()
+            EnergyGoalSetting(team=self, wattdepot_source_name=self.name).save()
         if not WaterGoalSetting.objects.filter(team=self):
             WaterGoalSetting(team=self).save()
 

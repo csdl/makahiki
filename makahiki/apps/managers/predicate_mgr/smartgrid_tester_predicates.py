@@ -198,8 +198,8 @@ def submitted_some_of_level(user, draft_slug, level_priority, count=1):
     try:
         draft = smartgrid_mgr.get_designer_draft(draft_slug)
         c = 0
-        for action in DesignerGrid.objects.filter(draft=draft, level__priority=level_priority):
-            c += user.testeractionsubmittion_set.filter(action=action).count()
+        for grid in DesignerGrid.objects.filter(draft=draft, level__priority=level_priority):
+            c += user.testeractionsubmittion_set.filter(action=grid.action).count()
         return c >= count
     except Http404:
         return False

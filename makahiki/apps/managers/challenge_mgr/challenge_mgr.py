@@ -59,7 +59,7 @@ def create_admin_user():
             user.save()
     except ObjectDoesNotExist:
         user = User.objects.create_superuser(settings.ADMIN_USER, "", settings.ADMIN_PASSWORD)
-        profile = user.get_profile()
+        profile = user.profile
         profile.setup_complete = True
         profile.setup_profile = True
         profile.completion_date = datetime.datetime.today()
@@ -80,10 +80,16 @@ def get_challenge():
     if not challenge:
         challenge, _ = ChallengeSetting.objects.get_or_create(pk=1)
 
-        # check the WattDepot URL to ensure it does't end with '/'
         if challenge.wattdepot_server_url:
+            # check the WattDepot URL to ensure it does't end with '/'
             while challenge.wattdepot_server_url.endswith('/'):
                 challenge.wattdepot_server_url = challenge.wattdepot_server_url[:-1]
+            # append auth info
+            if settings.MAKAHIKI_USE_WATTDEPOT3:
+                challenge.wattdepot_server_url = challenge.wattdepot_server_url.replace(
+                    "://", "://%s:%s@" % (settings.WATTDEPOT_ADMIN_NAME,
+                                          settings.WATTDEPOT_ADMIN_PASSWORD))
+                print challenge.wattdepot_server_url
 
         # create the admin
         create_admin_user()

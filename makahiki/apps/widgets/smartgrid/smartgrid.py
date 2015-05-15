@@ -149,13 +149,17 @@ def get_level_actions(user):  # pylint: disable=R0914,R0912,R0915
             if level.is_unlock:  # only include unlocked levels
                 if level.unlock_condition != "True":
                     contents = "%s is unlocked." % level
-                    obj, created = UserNotification.objects.\
-                        get_or_create(recipient=user,
-                                      contents=contents,
-                                      level=UserNotification.LEVEL_CHOICES[2][0])
-                    if created:  # only show the notification if it is new
-                        obj.display_alert = True
-                        obj.save()
+
+                    msg_exists = UserNotification.objects.filter(recipient=user,
+                                                                 contents=contents).exists()
+                    if not msg_exists:
+                        obj, created = UserNotification.objects.\
+                            get_or_create(recipient=user,
+                                          contents=contents,
+                                          level=UserNotification.LEVEL_CHOICES[2][0])
+                        if created:  # only show the notification if it is new
+                            obj.display_alert = True
+                            obj.save()
                 level_ret = []
                 level.is_complete = True
                 level_ret.append(level)
@@ -296,8 +300,12 @@ def get_available_golow_actions(user, related_resource):
 
             unlock = is_unlock(user, action)
             if unlock:
-                for loc in Grid.objects.filter(action=action):
-                    unlock = unlock and is_level_unlock(user, loc.level)
+                locs = Grid.objects.filter(action=action)
+                if locs:
+                    for loc in locs:
+                        unlock = unlock and is_level_unlock(user, loc.level)
+                else:
+                    unlock = False
             if unlock:
                 golow_actions.append(action)
                 action_type = action.type
@@ -531,7 +539,7 @@ def process_rsvp():
     for member in members:
         action = member.action
         user = member.user
-        profile = user.get_profile()
+        profile = user.profile
 
         diff = datetime.date.today() - action.event.event_date.date()
         if diff.days == NOSHOW_PENALTY_DAYS:

@@ -30,10 +30,7 @@ import cgi
 import cStringIO
 import csv
 import datetime
-try:
-  import json
-except ImportError:
-  import simplejson as json
+
 import types
 
 

@@ -120,7 +120,7 @@ def _process_post(log, outfile, output, p):
     if partner:
         user = player_mgr.get_user_by_email(partner)
         if user and user != p.user:
-            partner_p = user.get_profile()
+            partner_p = user.profile
             if partner_p.team:
                 output += _output(",%s,%s,%s" % (
                     user, partner_p.team.group, _get_profile_room(partner_p)), outfile)
@@ -356,7 +356,7 @@ def _user_submissions(user):
 
 def _user_points(user):
     """user points."""
-    return user.get_profile().points()
+    return user.profile.points()
 
 
 def _user_time_spent(logs, start_date=None):

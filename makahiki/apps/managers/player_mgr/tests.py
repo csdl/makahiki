@@ -31,7 +31,7 @@ class ProfileLeadersTests(TransactionTestCase):
         Test that we can retrieve the leaders in a given round.
         """
         # Test one user
-        profile = self.users[0].get_profile()
+        profile = self.users[0].profile
         profile.add_points(10,
             datetime.datetime.today() - datetime.timedelta(minutes=1), "Test")
         profile.save()
@@ -41,7 +41,7 @@ class ProfileLeadersTests(TransactionTestCase):
             "Current leader is not the leading user.")
 
         # Have another user move ahead in points
-        profile2 = self.users[1].get_profile()
+        profile2 = self.users[1].profile
         profile2.add_points(profile.points() + 1, datetime.datetime.today(),
             "Test")
         profile2.save()
@@ -52,7 +52,7 @@ class ProfileLeadersTests(TransactionTestCase):
 
         # Have this user get the same amount of points,
         # but an earlier award date.
-        profile3 = self.users[2].get_profile()
+        profile3 = self.users[2].profile
         profile3.add_points(profile2.points(),
             datetime.datetime.today() - datetime.timedelta(minutes=1), "Test")
         profile3.save()
@@ -66,7 +66,7 @@ class ProfileLeadersTests(TransactionTestCase):
         Test that we can retrieve the leaders in a given round.
         """
         # Test one user
-        profile = self.users[0].get_profile()
+        profile = self.users[0].profile
         profile.add_points(10,
             datetime.datetime.today() - datetime.timedelta(minutes=1), "Test")
         profile.save()
@@ -75,7 +75,7 @@ class ProfileLeadersTests(TransactionTestCase):
             "Current leader is not the leading user.")
 
         # Have another user move ahead in points
-        profile2 = self.users[1].get_profile()
+        profile2 = self.users[1].profile
         profile2.add_points(profile.points() + 1, datetime.datetime.today(),
             "Test")
         profile2.save()
@@ -85,7 +85,7 @@ class ProfileLeadersTests(TransactionTestCase):
 
         # Have this user get the same amount of points,
         # but an earlier award date.
-        profile3 = self.users[2].get_profile()
+        profile3 = self.users[2].profile
         profile3.add_points(profile2.points(),
             datetime.datetime.today() - datetime.timedelta(minutes=1), "Test")
         profile3.save()
@@ -111,11 +111,11 @@ class ProfileUnitTests(TransactionTestCase):
         user2 = User(username="test_user1", password="changeme")
         user2.save()
 
-        profile1 = user1.get_profile()
+        profile1 = user1.profile
         profile1.name = "Test User"
         profile1.save()
 
-        profile2 = user2.get_profile()
+        profile2 = user2.profile
         profile2.name = "Test User"
         self.assertRaises(IntegrityError, profile2.save)
 
@@ -133,13 +133,13 @@ class ProfileUnitTests(TransactionTestCase):
 
         test_utils.enable_game("Referral Game Mechanics")
 
-        profile1 = user1.get_profile()
+        profile1 = user1.profile
         profile1.setup_profile = True
         profile1.setup_complete = True
         points1 = profile1.points()
         profile1.save()
 
-        profile2 = user2.get_profile()
+        profile2 = user2.profile
         profile2.setup_profile = True
         profile2.setup_complete = True
         profile2.referring_user = user1
@@ -178,14 +178,14 @@ class ProfileUnitTests(TransactionTestCase):
 
         test_utils.enable_game("Referral Game Mechanics")
 
-        profile1 = user1.get_profile()
+        profile1 = user1.profile
         profile1.setup_profile = True
         profile1.setup_complete = True
         profile1.referring_user = user2
         profile1.add_points(45, datetime.datetime.today(), 'test 1')
         profile1.save()
 
-        profile2 = user2.get_profile()
+        profile2 = user2.profile
         profile2.setup_profile = True
         profile2.setup_complete = True
         profile2.referring_user = user1
@@ -211,7 +211,7 @@ class ProfileUnitTests(TransactionTestCase):
         team = Team(name="A", group=group)
         team.save()
 
-        profile = user.get_profile()
+        profile = user.profile
         profile.team = team
 
         # Check that the user is ranked last if they haven't done anything.
@@ -231,7 +231,7 @@ class ProfileUnitTests(TransactionTestCase):
         user2 = User(username="test_user2", password="changeme")
         user2.save()
 
-        profile2 = user2.get_profile()
+        profile2 = user2.profile
         profile2.add_points(profile.points() + 1, datetime.datetime.today(),
             "Test")
         profile2.save()
@@ -256,7 +256,7 @@ class ProfileUnitTests(TransactionTestCase):
         team = Team(name="A", group=group)
         team.save()
 
-        profile = user.get_profile()
+        profile = user.profile
         profile.team = team
         top_user = player_mgr.points_leader()
         profile.add_points(top_user.points() + 1,
@@ -269,7 +269,7 @@ class ProfileUnitTests(TransactionTestCase):
         user2 = User(username="test_user2", password="changeme")
         user2.save()
 
-        profile2 = user2.get_profile()
+        profile2 = user2.profile
         profile2.add_points(profile.points(), datetime.datetime.today(), "Test")
         profile2.save()
 
@@ -284,7 +284,7 @@ class ProfileUnitTests(TransactionTestCase):
         points."""
         user = User(username="test_user", password="changeme")
         user.save()
-        profile = user.get_profile()
+        profile = user.profile
 
         # Check if the rank works if the user has done nothing.
         rank = 1
@@ -303,7 +303,7 @@ class ProfileUnitTests(TransactionTestCase):
         user2 = User(username="test_user2", password="changeme")
         user2.save()
 
-        profile2 = user2.get_profile()
+        profile2 = user2.profile
         profile2.add_points(profile.points() + 1, datetime.datetime.today(),
             "Test")
         profile2.save()
@@ -317,7 +317,7 @@ class ProfileUnitTests(TransactionTestCase):
         user = User(username="test_user", password="changeme")
         user.save()
 
-        profile = user.get_profile()
+        profile = user.profile
         top_user = Profile.objects.all()[0]
         profile.add_points(top_user.points() + 1,
             datetime.datetime.today() - datetime.timedelta(days=1), "Test")
@@ -329,7 +329,7 @@ class ProfileUnitTests(TransactionTestCase):
         user2 = User(username="test_user2", password="changeme")
         user2.save()
 
-        profile2 = user2.get_profile()
+        profile2 = user2.profile
         profile2.add_points(profile.points(), datetime.datetime.today(), "Test")
         profile2.save()
 
@@ -344,7 +344,7 @@ class ProfileUnitTests(TransactionTestCase):
         user = User(username="test_user", password="changeme")
         user.save()
 
-        profile = user.get_profile()
+        profile = user.profile
         top_user = player_mgr.points_leader()
         profile.add_points(top_user.points() + 1, datetime.datetime.today(),
             "Test")
@@ -356,7 +356,7 @@ class ProfileUnitTests(TransactionTestCase):
         user2 = User(username="test_user2", password="changeme")
         user2.save()
 
-        profile2 = user2.get_profile()
+        profile2 = user2.profile
         profile2.add_points(profile.points() + 1, datetime.datetime.today(),
             "Test")
         profile2.save()
@@ -377,7 +377,7 @@ class ProfileUnitTests(TransactionTestCase):
         user = User(username="test_user", password="changeme")
         user.save()
 
-        profile = user.get_profile()
+        profile = user.profile
         top_user = Profile.objects.all()[0]
         profile.add_points(top_user.points() + 1, datetime.datetime.today(),
             "Test")
@@ -390,7 +390,7 @@ class ProfileUnitTests(TransactionTestCase):
         user2 = User(username="test_user2", password="changeme")
         user2.save()
 
-        profile2 = user2.get_profile()
+        profile2 = user2.profile
         profile2.add_points(profile.points() + 1, datetime.datetime.today(),
             "Test")
         profile2.team = team
@@ -407,7 +407,7 @@ class ProfileUnitTests(TransactionTestCase):
         user = User(username="test_user", password="changeme")
         user.save()
 
-        profile = user.get_profile()
+        profile = user.profile
         points = profile.points()
         profile.add_points(10, datetime.datetime.today(), "Test")
         profile.save()

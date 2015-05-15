@@ -12,7 +12,7 @@
         "model": "notifications.noticetemplate",
         "fields": {
             "notice_type": "commitment-ready", 
-            "template": "Your commitment '{{COMMITMENT.title}}' is ready for redemption! Click <a href='{% url activity_task \"commitment\" COMMITMENT.slug %}'>here</a> to get your points."
+            "template": "Your commitment '{{COMMITMENT.title}}' is ready for redemption! Click <a href='{% url 'activity_task' \"commitment\" COMMITMENT.slug %}'>here</a> to get your points."
         }
     }, 
     {

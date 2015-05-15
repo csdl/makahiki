@@ -5,7 +5,7 @@ Created on Feb 4, 2013
 @author: Cam Moore
 '''
 
-from django.conf.urls.defaults import url, patterns
+from django.conf.urls import url, patterns
 
 urlpatterns = patterns('',
     url(r'^newcol/(?P<col_slug>[\w\d\-]+)/(?P<level_slug>[\w\d\-]+)/(?P<column>[\d]+)/' +

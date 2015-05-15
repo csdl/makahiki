@@ -6,7 +6,7 @@
             "use_internal_auth": true,
             "email_enabled": false,
             "landing_introduction": "## Aloha! Welcome to the Kukui Cup Demo Game.",
-            "wattdepot_server_url": "http://server.wattdepot.org:8194/wattdepot",
+            "wattdepot_server_url": "http://server.wattdepot.org:8190/wattdepot",
             "cas_auth_text": "###I have a CAS email",
             "ldap_search_base": "",
             "theme": "theme-forest",

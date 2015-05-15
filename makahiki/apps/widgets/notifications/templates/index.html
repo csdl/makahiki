@@ -45,7 +45,7 @@
     <script type="text/javascript">
         jQuery(document).ready(function ($) {
             $("#notification-unread .notification-read").click(function () {
-                $.post("{% url notifications_read 0 %}", function (data) {
+                $.post("{% url 'notifications_read' 0 %}", function (data) {
                     $("#notification-unread").hide();
                 });
             });

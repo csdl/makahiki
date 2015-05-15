@@ -45,7 +45,7 @@ class RafflePrizeTests(TransactionTestCase):
         self.prize.round = RoundSetting.objects.get(name="Round 1")
         self.prize.save()
 
-        profile = self.user.get_profile()
+        profile = self.user.profile
         profile.add_points(25, datetime.datetime.today(), "test")
         profile.save()
 
@@ -63,7 +63,7 @@ class RafflePrizeTests(TransactionTestCase):
         # Have another user add a ticket to the prize.
         user2 = User.objects.create_user("user2", "user2@test.com", password="changeme")
 
-        profile = user2.get_profile()
+        profile = user2.profile
         profile.add_points(25, datetime.datetime.today(), "test")
         profile.save()
 

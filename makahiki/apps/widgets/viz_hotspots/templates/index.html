@@ -1,5 +1,5 @@
 
-{% with all_lounges=view_objects.viz_hotspots.all_lounges %}
+{% with all_lounges=view_objects.viz_hotspots.all_lounges wattdepot_version=view_objects.viz_hotspots.wattdepot_version%}
 
 <p/>
 
@@ -10,9 +10,9 @@
         <b> Hot Spot Analysis : {{ TEAM_LABEL }} </b>
         <select id='lounge' onchange='updateLounge();'>
             {% for lounge in all_lounges %}
-                <option {% if user.get_profile.team.name == lounge.name %}
+                <option {% if user.profile.team.name == lounge.name %}
                     selected {% endif %}
-                    value='{{ lounge.name}}'>{{ lounge.name }}
+                    value='{{ lounge.wattdepot_source_name}}'>{{ lounge.name }}
                 </option>
             {% endfor %}
         </select>
@@ -52,6 +52,7 @@
 
 <script type="text/javascript">
     var SERVER_URL = "{{ CHALLENGE.wattdepot_server_url }}";
+    var WATTDEPOT_VERSION = "{{wattdepot_version}}";
 </script>
 
 <script type="text/javascript" src="{{ STATIC_URL}}js/com.iskitz.ajile.js"></script>

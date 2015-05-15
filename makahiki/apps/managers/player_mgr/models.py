@@ -1,12 +1,12 @@
 """Define the model for Player state."""
 from django.conf import settings
-from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
-from django.contrib.localflavor.us.models import PhoneNumberField
+from localflavor.us.models import PhoneNumberField
 from apps.managers.challenge_mgr import challenge_mgr
 from apps.managers.score_mgr import score_mgr
 from apps.managers.team_mgr.models import Team
+from django.db import models
 
 
 class Profile(models.Model):
@@ -15,12 +15,10 @@ class Profile(models.Model):
     """
     THEME_CHOICES = ((key, key) for key in settings.INSTALLED_THEMES)
 
-    user = models.ForeignKey(User, unique=True, verbose_name='user', related_name='profile',
-                             help_text="The login user")
-    name = models.CharField('name', unique=True, max_length=50,
-                            help_text="The name of the player")
-    is_ra = models.BooleanField(default=False,
-                                help_text="Is RA?")
+    user = models.OneToOneField(User)
+
+    name = models.CharField('Display Name', unique=True, max_length=50,
+                            help_text="The display name of the player")
     team = models.ForeignKey(Team, null=True, blank=True,
                              help_text="The team of the player")
     theme = models.CharField(null=True, blank=True, choices=THEME_CHOICES, max_length=50,
@@ -29,11 +27,14 @@ class Profile(models.Model):
                                     help_text="The contact phone number")
     contact_carrier = models.CharField(max_length=50, null=True, blank=True,
                                        help_text="The phone carrier of the contact number")
+    is_ra = models.BooleanField(default=False,
+                                help_text="Is RA?")
+
     # Check first login completion.
     setup_profile = models.BooleanField(default=False, editable=False,
                                         help_text="Has the player's profile setup?")
     setup_complete = models.BooleanField(default=False,
-                                        help_text="Has the player completed the first login?")
+                                         help_text="Has the player completed the first login?")
     completion_date = models.DateTimeField(null=True, blank=True,
                                            help_text="The date of the first login completed")
     # Check visits for daily visitor badge.
@@ -48,10 +49,10 @@ class Profile(models.Model):
     referrer_awarded = models.BooleanField(default=False, editable=False,
                                            help_text="Has the referral bonus awarded?")
     properties = models.TextField(blank=True,
-                               help_text="Optional properties for the profile.")
+                                  help_text="Optional properties for the profile.")
 
     class Meta:
-        """Meta sets verbosse name and plural."""
+        """Meta sets verbose name and plural."""
         verbose_name = 'profile'
         verbose_name_plural = 'profiles'
 
@@ -61,6 +62,7 @@ class Profile(models.Model):
     def user_link(self):
         """return the user first_name."""
         return '<a href="%s/%d/">%s</a>' % ("/admin/auth/user", self.user.pk, self.user.username)
+
     user_link.allow_tags = True
     user_link.short_description = 'Link to User'
 
@@ -110,7 +112,7 @@ class Profile(models.Model):
         has_referral = self.referring_user is not None and not self.referrer_awarded
 
         if has_referral and self.points() >= score_mgr.active_threshold_points():
-            referrer = self.referring_user.get_profile()
+            referrer = self.referring_user.profile
             if referrer.setup_profile:
                 self.referrer_awarded = True
                 self.save()
@@ -125,22 +127,30 @@ class Profile(models.Model):
         score_mgr.player_remove_related_points(self, related_object)
 
 
+def create_user_profile(user):
+    """create a profile related to the user."""
+    profile, is_create = Profile.objects.get_or_create(user=user)
+    if is_create or profile.name == user.username:
+        if user.first_name and user.last_name:
+            firstname = user.first_name.capitalize()
+            lastname = user.last_name.capitalize()
+            profile.name = "%s %s." % (firstname, lastname[:1])
+
+            if Profile.objects.filter(name=profile.name).exclude(user=user).exists():
+                profile.name = firstname + " " + lastname
+        else:
+            profile.name = user.username
+        profile.save()
+
+
 def create_profile(sender, instance=None, **kwargs):
     """ Create a profile automatically when creating a user."""
     _ = sender
     if not kwargs.get('raw', False):
-        profile, is_create = Profile.objects.get_or_create(user=instance)
-        if is_create or profile.name == instance.username:
-            if instance.first_name and instance.last_name:
-                firstname = instance.first_name.capitalize()
-                lastname = instance.last_name.capitalize()
-                profile.name = "%s %s." % (firstname, lastname[:1])
-
-                if Profile.objects.filter(name=profile.name).exclude(user=instance).exists():
-                    profile.name = firstname + " " + lastname
-            else:
-                profile.name = instance.username
-            profile.save()
-
+        create_user_profile(instance)
 
 post_save.connect(create_profile, sender=User)
+
+from south.modelsinspector import add_introspection_rules
+
+add_introspection_rules([], ["^localflavor\.us\.models\.PhoneNumberField"])

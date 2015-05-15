@@ -92,7 +92,7 @@ class RafflePrizeAdmin(admin.ModelAdmin):
     def winner_form(self, obj):
         """return the winner and link to pickup form."""
         if obj.winner:
-            return "%s (<a href='%s'>View pickup form</a>)" % (obj.winner.get_profile(),
+            return "%s (<a href='%s'>View pickup form</a>)" % (obj.winner.profile,
             reverse('raffle_view_form', args=(obj.pk,)))
         else:
             return '(None)'

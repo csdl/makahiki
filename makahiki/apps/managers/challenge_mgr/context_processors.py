@@ -1,4 +1,5 @@
 """Provides competition settings in the request context to be used within a template."""
+from django.contrib.auth.models import User
 from django.utils import importlib
 import re
 from apps.managers.challenge_mgr import challenge_mgr
@@ -33,35 +34,40 @@ def competition(request):
     challenge = challenge_mgr.get_challenge()
     css_theme = challenge.theme
     page_name = request.path[1:][:-1]
+
     if user.is_authenticated():
-        profile = user.get_profile()
+        try:
+            profile = user.profile
+        except User.DoesNotExist:
+            profile = None
 
-        default_view_objects = _get_default_view_objects(request)
-        all_page_info = challenge_mgr.all_page_info(user)
+        if profile:
+            default_view_objects = _get_default_view_objects(request)
+            all_page_info = challenge_mgr.all_page_info(user)
 
-        if profile.team:
-            team_member_count = profile.team.profile_set.count()
-            team_count = Team.objects.count()
-            overall_member_count = Profile.objects.count()
-            available_events = smartgrid.get_next_available_event(user)
+            if profile.team:
+                team_member_count = profile.team.profile_set.count()
+                team_count = Team.objects.count()
+                overall_member_count = Profile.objects.count()
+                available_events = smartgrid.get_next_available_event(user)
 
-        # override the site theme if there is any
-        if profile.theme:
-            css_theme = profile.theme
+            # override the site theme if there is any
+            if profile.theme:
+                css_theme = profile.theme
 
-        if page_name == "sys_admin/challenge_mgr/challengesetting/1":
-            page_name = "admin"
-        if page_name in ("challenge_setting_admin", "challenge_admin", "developer_admin"):
-            page_name = "admin"
-            designer_models[0] = \
-                challenge_mgr.get_designer_challenge_info_models()
-            designer_models[1] = \
-                challenge_mgr.get_designer_game_info_models()
-            admin_models[0] = \
-                challenge_mgr.get_admin_challenge_info_models()
-            admin_models[1] = challenge_mgr.get_admin_game_info_models()
-            developer_models[0] = challenge_mgr.get_developer_challenge_info_models()
-            developer_models[1] = challenge_mgr.get_developer_game_info_models()
+            if page_name == "sys_admin/challenge_mgr/challengesetting/1":
+                page_name = "admin"
+            if page_name in ("challenge_setting_admin", "challenge_admin", "developer_admin"):
+                page_name = "admin"
+                designer_models[0] = \
+                    challenge_mgr.get_designer_challenge_info_models()
+                designer_models[1] = \
+                    challenge_mgr.get_designer_game_info_models()
+                admin_models[0] = \
+                    challenge_mgr.get_admin_challenge_info_models()
+                admin_models[1] = challenge_mgr.get_admin_game_info_models()
+                developer_models[0] = challenge_mgr.get_developer_challenge_info_models()
+                developer_models[1] = challenge_mgr.get_developer_game_info_models()
 
     return {
         "CHALLENGE": challenge,

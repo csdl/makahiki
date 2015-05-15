@@ -117,6 +117,7 @@ class TestActivityFreeResponseForm(forms.Form):
         super(TestActivityFreeResponseForm, self).__init__(*args, **kwargs)
 
     def clean(self):
+        """clean"""
         cleaned_data = self.cleaned_data
         _validate_social_email(self.request, self.action, cleaned_data, self._errors)
         return cleaned_data
@@ -134,6 +135,7 @@ class TestActivityImageForm(forms.Form):
         super(TestActivityImageForm, self).__init__(*args, **kwargs)
 
     def clean(self):
+        """clean"""
         cleaned_data = self.cleaned_data
         _validate_social_email(self.request, self.action, cleaned_data, self._errors)
         return cleaned_data
@@ -152,6 +154,7 @@ class TestActivityFreeResponseImageForm(forms.Form):
         super(TestActivityFreeResponseImageForm, self).__init__(*args, **kwargs)
 
     def clean(self):
+        """clean"""
         cleaned_data = self.cleaned_data
         _validate_social_email(self.request, self.action, cleaned_data, self._errors)
         return cleaned_data
@@ -195,6 +198,7 @@ class SurveyForm(forms.Form):
                 )
 
     def clean(self):
+        """clean"""
         cleaned_data = self.cleaned_data
         return cleaned_data
 
@@ -221,7 +225,7 @@ class EventCodeForm(forms.Form):
         required=False)
 
 #------ Reminder form ---------
-from django.contrib.localflavor.us.forms import USPhoneNumberField
+from localflavor.us.forms import USPhoneNumberField
 
 REMINDER_TIME_CHOICES = (
     ("1", "1 hour"),

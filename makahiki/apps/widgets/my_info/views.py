@@ -12,12 +12,21 @@ def supply(request, page_name):
 
     session = request.session
     form = None
-    if "form" in session:
-        form = session.pop('form')
+    if "form_dict" in session:
+        form_dict = session.pop("form_dict")
+        form = ProfileForm(initial={
+            "display_name": form_dict["display_name"],
+            "contact_email": form_dict["contact_email"],
+            "contact_text": form_dict["contact_text"],
+            "contact_carrier": form_dict["contact_carrier"],
+            "theme": form_dict["theme"],
+        })
+        form.message = session.pop("message")
+        form._errors = session.pop("form_errors")
 
     if not form:
         user = request.user
-        profile = user.get_profile()
+        profile = user.profile
         user_theme = profile.theme
         if not user_theme:
             user_theme = challenge_mgr.get_challenge().theme
@@ -43,8 +52,9 @@ def save(request):
     if request.method == "POST":
         user = request.user
         form = ProfileForm(request.POST, user=request.user.username)
+
         if form.is_valid():
-            profile = user.get_profile()
+            profile = user.profile
             name = form.cleaned_data["display_name"].strip()
 
             if name != profile.name:
@@ -66,10 +76,12 @@ def save(request):
             # Invalidate info bar cache.
             cache_mgr.invalidate_template_cache("RIB", user.username)
 
-            form.message = "Your changes have been saved"
+            message = "Your changes have been saved"
         else:
-            form.message = "Please correct the errors below."
+            message = "Please correct the errors below."
 
-        request.session['form'] = form
+        request.session["form_dict"] = form.data
+        request.session["form_errors"] = form.errors
+        request.session["message"] = message
 
     return HttpResponseRedirect(reverse("profile_index", args=()))

@@ -45,3 +45,10 @@ doc/_build
 
 # Ignore celerybeat
 celerybeat-schedule
+
+# Ignore .vagrant folder created when Vagrant virtual machine is initialized
+*.vagrant/
+
+# Ignore copies of Python libraries from the Vagrant virtual machine
+makahiki/dist-packages
+makahiki/org.python.pydev_*

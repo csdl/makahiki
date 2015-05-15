@@ -32,7 +32,8 @@ load-plugins=
 # Disable the message, report, category or checker with the given id(s). You
 # can either give multiple identifier separated by comma (,) or put this option
 # multiple time.
-disable=E1101,E1103, W0232, R0201, R0903, R0904, C0103, W0105, W0212, W0703, R0913, R0801, W0201
+disable=E1002, E1101,E1103, W0232, R0201, R0903, R0904, C0103, W0105, W0212, W0703, R0913, R0801, W0201
+# E1002:    Use of super on an old style class
 # E1101:	%s %r has no %r member. Used when a variable is accessed for an unexistent member.
 # E1103:	%s %r has no %r member (but some types could not be inferred). Used when a variable is accessed for an unexistent member, but astng was not able to interpret all possible types of this variable.
 

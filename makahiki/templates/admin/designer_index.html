@@ -29,7 +29,7 @@
                 {% if user.is_active and user.is_staff %}
                     <div id="user-tools">
                         {% block userlinks %}
-                            <a href="{% url 'admin:logout' %}">Log out</a>
+                            <a href="/account/logout">Log out</a>
                         {% endblock %}
                     </div>
                 {% endif %}
@@ -48,9 +48,9 @@
     						<li> Edit the Challenge Settings. Next determine the number and length of the Rounds. Then edit the
     				Score Settings.
     						</li>
-    						<li> Create the Groups, there must be at least one Group. The the Teams, finally the individual players.
+    						<li> Create the Groups, there must be at least one Group. Then the Teams, and finally the individual players.
     						</li>
-    						<li> Checkout the PageInfo items to determine which pages are displayed in the Challenge. Update
+    						<li> Check out the PageInfo items to determine which pages are displayed in the Challenge. Update
     						any of the Help Topics and Notice Templates. 
     						</li>
     						<li> (Optionally) Edit the Scheduler information. The default settings should be good.

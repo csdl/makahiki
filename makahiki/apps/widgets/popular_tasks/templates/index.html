@@ -32,7 +32,7 @@
                             {% for task in value %}
                                 <tr>
                                     <td>
-                                        <a href="{% url activity_task task.type task.slug %}">{{ task.title }}</a>
+                                        <a href="{% url 'activity_task' task.type task.slug %}">{{ task.title }}</a>
                                     </td>
                                     <td>{{ task.completions }}</td>
                                 </tr>

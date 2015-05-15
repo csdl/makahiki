@@ -13,7 +13,7 @@
         <div class="content-box-content wallpost-content">
             {{ wallpost.description }}
             <div>
-              <form id="news-post-form" action="{% url news_post %}" method="POST">
+              <form id="news-post-form" action="{% url 'news_post' %}" method="POST">
                   {% csrf_token %}
                   <div id="wall-post-errors"></div>
                   <div id="wall-post" class="control-group">

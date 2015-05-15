@@ -15,7 +15,7 @@
                 {% for event in events %}
                     <tr>
                         <td width="60%"><a
-                                href='{% url activity_view_rsvps event.type event.id %}'>
+                                href='{% url 'activity_view_rsvps' event.type event.id %}'>
                             {{ event.name }}</a>
                         </td>
                         <td class="column-number" width="20%">{{ event.event.event_max_seat }}</td>

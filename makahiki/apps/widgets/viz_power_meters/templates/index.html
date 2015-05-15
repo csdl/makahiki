@@ -1,4 +1,4 @@
-{% with all_lounges=view_objects.viz_power_meters.all_lounges group_lounges=view_objects.viz_power_meters.group_lounges group_lounges_count=view_objects.viz_power_meters.group_lounges_count %}
+{% with all_lounges=view_objects.viz_power_meters.all_lounges group_lounges=view_objects.viz_power_meters.group_lounges group_lounges_count=view_objects.viz_power_meters.group_lounges_count wattdepot_version=view_objects.viz_power_meters.wattdepot_version %}
 
 <div id="PowerMeter">
     <center><b>Power Meters</b></center>
@@ -18,7 +18,7 @@
                     {% for lounge in all_lounges %}
                         <option {% if team == lounge or team == lounge.name %}
                             selected {% endif %}
-                            value='{{ lounge.name}}'>{{ lounge.name }}
+                            value='{{ lounge.wattdepot_source_name}}'>{{ lounge.name }}
                         </option>
                     {% endfor %}
                 </select>
@@ -63,6 +63,7 @@
         document.getElementById('loading_' + id).style.display = 'none';
 
         return Makahiki_PowerMeter( server_url,
+                "{{wattdepot_version}}",
                 source,
                 refreshInterval,
                 'visualization_' + id,

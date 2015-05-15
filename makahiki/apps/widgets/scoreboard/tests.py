@@ -31,7 +31,7 @@ class ScoreboardTest(TransactionTestCase):
         test_utils.set_competition_round()
 
         # Give the user points in the round and then check the queryset used in the page.
-        profile = self.user.get_profile()
+        profile = self.user.profile
         profile.add_points(10, datetime.datetime.today(), "test")
         profile.save()
 

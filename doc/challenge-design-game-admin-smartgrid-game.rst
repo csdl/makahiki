@@ -297,12 +297,14 @@ shown the figure below.
    :align: center
 
 If there are no Draft grids when you start the Designer Makahiki presents you with the 
-'First Draft' choice dialog shown below.
+'New Draft' choice dialog shown below when you click on "New Draft."
 
-.. figure:: figs/configuration/configuration-game-admin-smartgrid-game-first-draft.png
+.. figure:: figs/configuration/configuration-game-admin-smartgrid-game-new-draft.png
    :width: 600px
    :align: center
 
+.. warning:: The names of Draft grids cannot contain spaces or uppercase letters.
+ 
 You can choose from five different example Smart Grid Game templates, Empty Grid, Demo,
 Kukui Cup/UH12, and test. These templates provide a variety of different Smart Grid Game examples.
 
@@ -521,7 +523,7 @@ First, create the level(s) in your grid.
  
    - Deleting a level moves all the actions in the level to the palette.
   
-   - Adding a new level creates an empty level. Just supply the unique new level name.
+   - Adding a new level creates an empty level. Just supply the unique new level name and a predicate for the unlock condition.
 
    .. figure:: figs/configuration/configuration-game-admin-smartgrid-designer-new-level.png
       :width: 500px
@@ -551,7 +553,7 @@ The finished level:
    :width: 600px
    :align: center
  
-3. Edit the Desginer Actions by clicking on the action names.  Make sure the contents of the 
+3. Edit the Designer Actions by clicking on the action names.  Make sure the contents of the 
 actions is what you want. Pay attention to the unlock_conditions from step 2 and the Social
 Bonus Points from step 3.
 

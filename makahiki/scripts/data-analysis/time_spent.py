@@ -160,7 +160,7 @@ def calculate_user_time():
         users_file.write('%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n' % (
         user.id, total, home_time, activity_time, energy_time,
         prize_time, news_time, profile_time, help_time, canopy_time))
-        lounge = str(user.get_profile().team)
+        lounge = str(user.profile.team)
         lounges[lounge] = lounges.get(lounge, {})
         lounges[lounge]['total'] = lounges[lounge].get('total', 0) + total
         lounges[lounge]['home'] = lounges[lounge].get('home', 0) + home_time

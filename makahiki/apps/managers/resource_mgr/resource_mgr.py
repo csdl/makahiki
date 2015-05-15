@@ -48,9 +48,9 @@ def team_resource_usage(date, team, resource):
         return 0
 
 
-def update_team_resource_usage(resource, session, date, team, storage):
+def update_team_resource_usage(resource, session, date, team, source_name, storage):
     """update the latest energy usage for the team."""
-    usage = storage.get_latest_resource_data(session, team, date)
+    usage = storage.get_latest_resource_data(session, source_name, date)
     if usage:
         resource_usage = _get_resource_usage(resource)
         try:
@@ -64,9 +64,9 @@ def update_team_resource_usage(resource, session, date, team, storage):
         print 'team %s energy usage from %s: %d at %s.' % (team, storage.name(), usage, date)
 
 
-def get_history_resource_data(session, team, date, hour, storage):
+def get_history_resource_data(session, source_name, date, hour, storage):
     """Return the history energy usage of the team for the date and hour."""
-    return storage.get_history_resource_data(session, team, date, hour)
+    return storage.get_history_resource_data(session, source_name, date, hour)
 
 
 def update_fake_water_usage(date):
@@ -116,7 +116,11 @@ def resource_ranks(name, round_name=None):
         else:
             ordering = "-total"
 
-        start, end = challenge_mgr.get_round_start_end(round_name)
+        start_end = challenge_mgr.get_round_start_end(round_name)
+        if start_end is not None:
+            start, end = start_end
+        else:
+            return None
 
         usage_ranks = resource_usage.objects.filter(
             date__lte=end,
@@ -147,7 +151,11 @@ def group_resource_ranks(name, round_name=None):
         else:
             ordering = "-total"
 
-        start, end = challenge_mgr.get_round_start_end(round_name)
+        start_end = challenge_mgr.get_round_start_end(round_name)
+        if start_end is not None:
+            start, end = start_end
+        else:
+            return None
 
         usage_ranks = resource_usage.objects.filter(
             date__lte=end,
@@ -176,10 +184,10 @@ def resource_team_rank_info(team, resource):
         return None
 
 
-def resource_leader(name, round_name=None):
+def resource_leader(name, round_name=None, place=1):
     """Returns the leader (team name) of the resource use."""
     ranks = resource_ranks(name, round_name)
-    if ranks:
-        return ranks[0]["team__name"]
+    if len(ranks) >= place:
+        return ranks[place - 1]["team__name"]
     else:
         return None

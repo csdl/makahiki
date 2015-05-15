@@ -122,8 +122,8 @@ def submitted_some(user, count=1):
 def submitted_some_of_level(user, level_priority, count=1):
     """Returns true if the user has completed count Actions of the specified level."""
     c = 0
-    for action in Grid.objects.filter(level__priority=level_priority):
-        c += user.actionmember_set.filter(action=action).count()
+    for grid in Grid.objects.filter(level__priority=level_priority):
+        c += user.actionmember_set.filter(action=grid.action).count()
     return c >= count
 
 
@@ -174,7 +174,7 @@ def unlock_on_date(user, date_string):
     """Returns true if the current date is equal to or after the date_string."""
     _ = user
     today = datetime.today()
-    unlock_date = datetime.strptime(date_string, "%y-%m-%d")
+    unlock_date = datetime.strptime(date_string, "%Y-%m-%d")
     return today >= unlock_date
 
 

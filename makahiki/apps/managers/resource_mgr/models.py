@@ -1,5 +1,6 @@
 """The model for the resource manager."""
 import datetime
+
 from django.db import models
 from apps.managers.cache_mgr import cache_mgr
 

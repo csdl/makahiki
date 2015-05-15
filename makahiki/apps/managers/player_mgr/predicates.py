@@ -9,7 +9,7 @@ from apps.widgets.resource_goal.models import EnergyGoal
 
 def has_points(user, points):
     """Returns True if the user has more than the specified points."""
-    return user.get_profile().points() >= points
+    return user.profile.points() >= points
 
 
 def is_admin(user):
@@ -24,7 +24,7 @@ def allocated_ticket(user):
 
 def badge_awarded(user, badge_slug):
     """Returns True if the badge is awarded to the user."""
-    for awarded in BadgeAward.objects.filter(profile=user.get_profile()):
+    for awarded in BadgeAward.objects.filter(profile=user.profile):
         if awarded.badge.slug == badge_slug:
             return True
     return False
@@ -46,12 +46,12 @@ def set_profile_pic(user):
 
 def daily_visit_count(user, count):
     """Returns True if the number of the user daily visit equals to count."""
-    return user.get_profile().daily_visit_count >= count
+    return user.profile.daily_visit_count >= count
 
 
 def change_theme(user):
     """returns True if the user change their theme."""
-    theme = user.get_profile().theme
+    theme = user.profile.theme
     if not theme:
         return False
     else:
@@ -60,7 +60,7 @@ def change_theme(user):
 
 def daily_energy_goal_count(user, count):
     """Returns True if the number of consecutively meeting daily energy goal equals to count."""
-    team = user.get_profile().team
+    team = user.profile.team
     if team:
         goals = EnergyGoal.objects.filter(team=team, goal_status='Below the goal').order_by("date")
         if goals:
@@ -87,7 +87,7 @@ def referring_count(user, count):
 
 def team_member_point_percent(user, points, percent):
     """Returns True if the user's team has at least [percent] members got at least [points]."""
-    team = user.get_profile().team
+    team = user.profile.team
     if team:
         current_round = challenge_mgr.get_round_name()
         point_count = ScoreboardEntry.objects.filter(profile__team=team,

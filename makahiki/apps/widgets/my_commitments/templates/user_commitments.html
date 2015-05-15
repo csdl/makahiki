@@ -11,7 +11,7 @@
             {% for member in view_objects.my_commitments.commitment_members %}
                 <tr>
                     <td class="column-text">
-                        <a href="{% url activity_task 'commitment' member.action.slug %}">
+                        <a href="{% url 'activity_task' 'commitment' member.action.slug %}">
                             {{ member.action.title }}</a>
                     </td>
                     <td class="column-text">{{ member.completion_date }}</td>

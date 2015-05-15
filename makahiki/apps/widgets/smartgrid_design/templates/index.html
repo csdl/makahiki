@@ -31,7 +31,7 @@
 								<ul>
 									<li><a href="#" class="sgg-action" onclick="copyLibraryAction('{{action.slug}}');return false;">Copy {{action.name}}</a></li>
 									<hr/>
-									<li><a href="{% url preview_library_action action.slug %}" class="sgg-action" >Pre-view {{action.name}}</a></li>
+									<li><a href="{% url 'preview_library_action' action.slug %}" class="sgg-action" >Pre-view {{action.name}}</a></li>
 								</ul>
 							</div>			
 							<div id="library-{{action.slug}}" data-slug="{{action.slug}}" data-type="{{action.type}}" data-pk="{{action.pk}}"
@@ -48,7 +48,7 @@
 								<ul>
 									<li><a href="#" class="sgg-action" onclick="copyLibraryAction('{{action.slug}}');return false;">Copy {{action.name}}</a></li>
 									<hr/>
-									<li><a href="{% url preview_library_action action.slug %}" class="sgg-action" >Pre-view {{action.name}}</a></li>									
+									<li><a href="{% url 'preview_library_action' action.slug %}" class="sgg-action" >Pre-view {{action.name}}</a></li>									
 								</ul>
 							</div>			
 							<div id="library-{{action.slug}}" data-slug="{{action.slug}}" data-type="{{action.type}}" data-pk="{{action.pk}}"
@@ -64,7 +64,7 @@
 								<ul>
 									<li><a href="#" class="sgg-action" onclick="copyLibraryAction('{{action.slug}}');return false;">Copy {{action.name}}</a></li>
 									<hr/>
-									<li><a href="{% url preview_library_action action.slug %}" class="sgg-action" >Pre-view {{action.name}}</a></li>
+									<li><a href="{% url 'preview_library_action' action.slug %}" class="sgg-action" >Pre-view {{action.name}}</a></li>
 								</ul>
 							</div>			
 							<div id="library-{{action.slug}}" data-slug="{{action.slug}}" data-type="{{action.type}}" data-pk="{{action.pk}}"
@@ -149,7 +149,7 @@ $(document).click(function() {
 									<hr/>
 									<li><a href="#" class="sgg-action" onclick="deleteDesignerAction('{{action.slug}}');return false;">Delete {{action.name}}</a></li>
 									<hr/>
-									<li><a href="{% url preview_draft_action action.slug view_objects.smartgrid_design.draft.slug %}" class="sgg-action">Pre-view {{action.name}}</a></li>
+									<li><a href="{% url 'preview_draft_action' action.slug view_objects.smartgrid_design.draft.slug %}" class="sgg-action">Pre-view {{action.name}}</a></li>
 								</ul>
 							</div>										
 							<div id="designer-{{action.slug}}" data-slug="{{action.slug}}" class="sgg-action sgg-{{action.type}}-palette palette-draggable"
@@ -218,7 +218,7 @@ $(document).click(function() {
 				</div>
 				<div class="left">
 					{% if view_objects.smartgrid_design.draft %}
-					<form id="revert-form" action="{% url revert_to_grid view_objects.smartgrid_design.draft.slug %}" method="post">
+					<form id="revert-form" action="{% url 'revert_to_grid' view_objects.smartgrid_design.draft.slug %}" method="post">
    		    	  		{% csrf_token %} {{ view_objects.smartgrid_design.reset_form.as_p }}
        		  			<input class="btn btn-widget" rel="tooltip" 
 							title="Deletes all changes made in the designer and loads the current Smart Grid Game." 
@@ -228,7 +228,7 @@ $(document).click(function() {
 		        	{% endif %}
 		        </div>
 		        <div class="center">
-	        		<a href="{% url tester_view %}" class="btn btn-widget" 
+	        		<a href="{% url 'tester_view' %}" class="btn btn-widget"
 	        			style="margin: 4px 2px 4px 2px;padding: 4px 2px 4px 2px;">Play Test Grid</a>
 	        	</div>
 				<div class="right">
@@ -411,7 +411,7 @@ if ($('#hideWarnings').text() == 'Hide Warning Details') {
     </div>
     <div class="modal-body" id="modal-body">
 		Choose an example template from the choices below.
-		<form id="load-template-form" action="{% url load_first_template %}" method="post">
+		<form id="load-template-form" action="{% url 'load_first_template' %}" method="post">
 	    	{% csrf_token %} {{ view_objects.smartgrid_design.load_template_form.as_p }}
         	<input class="btn btn-widget" rel="tooltip" 
         		title="Load example template into the designer."
@@ -427,7 +427,7 @@ if ($('#hideWarnings').text() == 'Hide Warning Details') {
     </div>
     <div class="modal-body" id="modal-body">
 		Choose an example template from the choices below.
-		<form id="load-template-form" action="{% url load_template %}" method="post">
+		<form id="load-template-form" action="{% url 'load_template' %}" method="post">
 	    	{% csrf_token %} {{ view_objects.smartgrid_design.load_template_form.as_p }}
         	<input class="btn btn-widget" rel="tooltip" 
         		title="Load example template into the designer."
@@ -444,7 +444,7 @@ if ($('#hideWarnings').text() == 'Hide Warning Details') {
     <div class="modal-body" id="modal-body">
 		Choose an example template from the choices below.
 		{% if view_objects.smartgrid_design.draft %}
-		<form id="load-template-form" action="{% url change_settings view_objects.smartgrid_design.draft.slug %}" method="post">
+		<form id="load-template-form" action="{% url 'change_settings' view_objects.smartgrid_design.draft.slug %}" method="post">
 	    	{% csrf_token %} {{ view_objects.smartgrid_design.gcc_settings_form.as_p }}
         	<input class="btn btn-widget" rel="tooltip" 
         		title="Change the Grid Consistency Checker Settings."
@@ -462,7 +462,7 @@ if ($('#hideWarnings').text() == 'Hide Warning Details') {
     <div class="modal-body" id="modal-body">
         <p>
         	{% if view_objects.smartgrid_design.draft %}
-        	<form id="addLevelForm" action="{% url add_designer_level view_objects.smartgrid_design.draft.slug %}" method="post">
+        	<form id="addLevelForm" action="{% url 'add_designer_level' view_objects.smartgrid_design.draft.slug %}" method="post">
 				{% csrf_token %} {{ view_objects.smartgrid_design.add_level_form.as_p }}
 				<input class="btn btn-widget" rel="tooltip" title="Create a new DesignerLevel with the given name."
 					type="submit" value="Add Level" />
@@ -480,7 +480,7 @@ if ($('#hideWarnings').text() == 'Hide Warning Details') {
     <div class="modal-body" id="modal-body">
         <p><div id="levelName"></div>
         	{% if view_objects.smartgrid_design.draft %}
-   			<form id='delete-level-form' action="{% url delete_designer_level view_objects.smartgrid_design.draft.slug %}" method="post">
+   			<form id='delete-level-form' action="{% url 'delete_designer_level' view_objects.smartgrid_design.draft.slug %}" method="post">
 				{% csrf_token %} {{view_objects.smartgrid_design.delete_level_form.as_p }}
 				<input class="btn btn-widget" rel="tooltip" title="Delete this level moving all actions to the palette."
 					type="submit" value="Yes" />
@@ -498,7 +498,7 @@ if ($('#hideWarnings').text() == 'Hide Warning Details') {
     <div class="modal-body" id="modal-body">	
     	<div id="eventName"></div>
        	{% if view_objects.smartgrid_design.draft %}
-    	<form id='set-event-date-form' action="{% url set_designer_event_date view_objects.smartgrid_design.draft.slug %}" method="post">
+    	<form id='set-event-date-form' action="{% url 'set_designer_event_date' view_objects.smartgrid_design.draft.slug %}" method="post">
     		{% csrf_token %}{{view_objects.smartgrid_design.event_date_form.as_p}}
 			<input class="btn btn-widget" rel="tooltip" title="Set the event's date."
 					type="submit" value="Set Date" />
@@ -513,7 +513,7 @@ if ($('#hideWarnings').text() == 'Hide Warning Details') {
         <h3>Enter New Draft Name</h3>
 	</div>
 	<div class="modal-body">
-	<form id='new-draft-name-form' action="{% url new_draft %}" method="post">
+	<form id='new-draft-name-form' action="{% url 'new_draft' %}" method="post">
 		{% csrf_token %}{{view_objects.smartgrid_design.new_draft_form.as_p}}
 			<input class="btn btn-widget" rel="tooltip" title="Set the new draft's name."
 					type="submit" value="Set Draft Name" />
@@ -529,7 +529,7 @@ if ($('#hideWarnings').text() == 'Hide Warning Details') {
 	</div>
 	<div class="modal-body">
         <p><div id="draftName"></div></p>This will delete all the Actions, Levels and any changes you have made in the Draft.<p/>
-	<form id='delete-draft-form' action="{% url delete_draft %}" method="post">
+	<form id='delete-draft-form' action="{% url 'delete_draft' %}" method="post">
 		{% csrf_token %}{{view_objects.smartgrid_design.delete_draft_form.as_p}}
 			<input class="btn btn-widget" rel="tooltip" title="Delete the draft."
 					type="submit" value="Delete Draft" />
@@ -546,7 +546,7 @@ if ($('#hideWarnings').text() == 'Hide Warning Details') {
 	<div class="modal-body">
 		<div id="publish-warnings"></div>
 		{% if view_objects.smartgrid_design.draft %}
-		<form id="publish-form" action="{% url publish_to_grid view_objects.smartgrid_design.draft.slug %}" method="post">
+		<form id="publish-form" action="{% url 'publish_to_grid' view_objects.smartgrid_design.draft.slug %}" method="post">
 	  		{% csrf_token %} Use Fillers: {{ view_objects.smartgrid_design.publish_form.use_filler }}
 			<input class="btn btn-widget" rel="tooltip" 
 				title="Publish changes made in the designer to the Smart Grid Game."

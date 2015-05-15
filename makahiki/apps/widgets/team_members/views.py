@@ -13,7 +13,7 @@ def supply(request, page_name):
     _ = page_name
 
     # Get the team members.
-    team = request.user.get_profile().team
+    team = request.user.profile.team
     current_round = challenge_mgr.get_round_name()
     if team and current_round:
         members_with_points = ScoreboardEntry.objects.filter(

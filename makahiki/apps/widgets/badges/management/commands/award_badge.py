@@ -14,7 +14,7 @@ def award_badge(slug, username):
         user = User.objects.get(username=username)
         badge = badges.get_badge(slug)
         if badge:
-            badges.award_badge(profile=user.get_profile(), badge=badge)
+            badges.award_badge(profile=user.profile, badge=badge)
         else:
             sys.stderr.write("Badge with the slug %s does not exist.\n" % slug)
     except User.DoesNotExist:

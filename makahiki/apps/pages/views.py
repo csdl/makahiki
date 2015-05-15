@@ -44,7 +44,7 @@ def index(request):
         raise Http404
 
     # get user resource rank and usage
-    team = request.user.get_profile().team
+    team = request.user.profile.team
     if team:
         if challenge_mgr.is_page_unlock(request.user, "energy"):
             view_objects["energy_rank_info"] = resource_goal.resource_goal_rank_info(team, "energy")

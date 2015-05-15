@@ -30,7 +30,7 @@ class ParticipationTest(TransactionTestCase):
         """Test that the participation widget loads current round information."""
 
         # Give the user points in the round and then check the queryset used in the page.
-        profile = self.user.get_profile()
+        profile = self.user.profile
         profile.add_points(60, datetime.datetime.today(), "test")
         profile.save()
 

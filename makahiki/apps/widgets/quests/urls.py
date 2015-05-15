@@ -1,6 +1,6 @@
 """Quest related urls."""
 
-from django.conf.urls.defaults import url, patterns
+from django.conf.urls import url, patterns
 
 urlpatterns = patterns('',
     url(r'^(?P<slug>[-\w]+)/accept/$', 'apps.widgets.quests.views.accept', name="quests_accept"),

@@ -28,13 +28,13 @@ class TeamEnergyGoalTest(TransactionTestCase):
         )
 
         self.user = User.objects.create_user("user", "user@test.com")
-        profile = self.user.get_profile()
+        profile = self.user.profile
         profile.team = self.team
         profile.save()
 
     def testTeamEnergyGoal(self):
         """Test energy goal"""
-        profile = self.user.get_profile()
+        profile = self.user.profile
         points = profile.points()
 
         goal_settings = EnergyGoalSetting.objects.filter(team=self.team)

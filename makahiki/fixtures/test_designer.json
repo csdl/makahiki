@@ -801,7 +801,7 @@
         "model": "smartgrid_design.designeraction",
         "fields": {
             "social_bonus": 0,
-            "video_id": "T37kNTkZCrA",
+            "video_id": "LZJwMPd3T0k",
             "name": "Intro video",
             "video_source": "youtube",
             "pub_date": "2010-10-12",
@@ -980,7 +980,7 @@
             "video_id": null,
             "name": "Customize tshirt",
             "video_source": null,
-            "pub_date": "2013-11-19",
+            "pub_date": "2013-03-19",
             "image": "",
             "title": "Customize your Kukui Cup tshirt",
             "unlock_condition_text": "",
@@ -3418,7 +3418,7 @@
         "pk": 23,
         "model": "smartgrid_design.designerevent",
         "fields": {
-            "event_date": "2013-11-19T09:50:47.303",
+            "event_date": "2013-03-19T09:50:47.303",
             "event_max_seat": 1000,
             "event_location": "",
             "expected_duration": 30

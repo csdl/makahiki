@@ -1,6 +1,5 @@
 """Provides the view of a help topic."""
-
-import simplejson as json
+import json
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.template.loader import render_to_string

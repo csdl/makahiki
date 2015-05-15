@@ -55,7 +55,7 @@
               preventInstallDetection: true,
               onmissing: function() {
                 jQuery('#landing-button-participant').unbind('click').click(function() {
-                  location.href='{% url browser_check %}';
+                  location.href='{% url 'browser_check' %}';
                 });
               }
            });

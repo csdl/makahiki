@@ -173,7 +173,7 @@ def player_points(profile, round_name=None):
         return 0
 
 
-def player_points_leader(round_name=None):
+def player_points_leader(round_name=None, place=1):
     """Returns the points leader (the first place) out of all users, as a Profile object."""
     if not round_name:
         round_name = challenge_mgr.get_round_name()
@@ -181,8 +181,9 @@ def player_points_leader(round_name=None):
     entries = ScoreboardEntry.objects.filter(round_name=round_name,).order_by(
         "-points",
         "-last_awarded_submission")
-    if entries:
-        return entries[0].profile
+
+    if len(entries) >= place:
+        return entries[place - 1].profile
     else:
         return None
 
@@ -392,16 +393,17 @@ def team_points(team, round_name=None):
     return dictionary["points__sum"] or 0
 
 
-def team_points_leader(round_name=None):
-    """Returns the team points leader (the first place) across all groups, as a Team ID."""
+def team_points_leader(round_name=None, place=1):
+    """Returns the team points leader (the place) across all groups, as a Team ID."""
     if not round_name:
         round_name = challenge_mgr.get_round_name()
 
     entry = ScoreboardEntry.objects.values("profile__team").filter(round_name=round_name).annotate(
         points=Sum("points"),
         last=Max("last_awarded_submission")).order_by("-points", "-last")
-    if entry:
-        return entry[0]["profile__team"]
+
+    if len(entry) >= place:
+        return entry[place - 1]["profile__team"]
     else:
         return None
 
@@ -441,8 +443,8 @@ def team_points_leaders_in_group(group, num_results=None, round_name=None):
     return results
 
 
-def group_points_leader(round_name=None):
-    """Returns the group points leader (the first place) across all groups, as a Group ID."""
+def group_points_leader(round_name=None, place=1):
+    """Returns the group points leader (the place) across all groups, as a Group ID."""
     if not round_name:
         round_name = challenge_mgr.get_round_name()
 
@@ -450,8 +452,9 @@ def group_points_leader(round_name=None):
         round_name=round_name).annotate(
             points=Sum("points"),
             last=Max("last_awarded_submission")).order_by("-points", "-last")
-    if entry:
-        return entry[0]["profile__team__group"]
+
+    if len(entry) >= place:
+        return entry[place - 1]["profile__team__group"]
     else:
         return None
 

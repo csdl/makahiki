@@ -11,7 +11,7 @@
             <tr>
                 <td class="column-text">{{ member.created_at|date:"n/j/y" }}</td>
                 <td class="column-text">
-                    <a href="{% url activity_task member.action.type member.action.slug %}">
+                    <a href="{% url 'activity_task' member.action.type member.action.slug %}">
                         {{ member.action.type.capitalize }}: {{ member.action.name }}
                     </a>
                 </td>
@@ -26,7 +26,7 @@
                         {# Item is not pending and is not approved, so it should be rejected. #}
                         <td  class="column-text" title="Your request has not been approved.">
                         <a id="{{member.action.title|slugify}}-rejected"
-                           href="{% url activity_task member.action.type member.action.slug %}">{{ member.approval_status.capitalize }}</a>
+                           href="{% url 'activity_task' member.action.type member.action.slug %}">{{ member.approval_status.capitalize }}</a>
                     {% endif %}
                     </td>
                 {% endif %}
@@ -35,7 +35,7 @@
             <tr>
                 <td class="column-text">{{ member.created_at|date:"n/j/y" }}</td>
                 <td class="column-text">
-                    <a href="{% url activity_task 'commitment' member.action.slug %}">
+                    <a href="{% url 'activity_task' 'commitment' member.action.slug %}">
                         Commitment: {{ member.action.name }}
                     </a>
                 </td>

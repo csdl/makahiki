@@ -20,8 +20,8 @@ class PrizesFunctionalTestCase(TransactionTestCase):
         test_utils.set_competition_round()
         self.user = test_utils.setup_user(username="user", password="changeme")
 
-        test_utils.setup_round_prize("Round 1", "team_overall", "energy")
-        test_utils.setup_round_prize("Round 2", "team_overall", "energy")
+        test_utils.setup_round_prize("Round 1", "team_overall", "energy_usage")
+        test_utils.setup_round_prize("Round 2", "team_overall", "energy_usage")
         test_utils.setup_round_prize("Round 1", "team_overall", "points")
         test_utils.setup_round_prize("Round 2", "team_overall", "points")
         test_utils.setup_round_prize("Round 1", "individual_overall", "points")
@@ -36,7 +36,7 @@ class PrizesFunctionalTestCase(TransactionTestCase):
         from apps.managers.cache_mgr import cache_mgr
         cache_mgr.clear()
 
-        profile = self.user.get_profile()
+        profile = self.user.profile
         profile.add_points(10, datetime.datetime.today(), "test")
         profile.save()
 
@@ -61,18 +61,18 @@ class PrizesFunctionalTestCase(TransactionTestCase):
         from apps.managers.cache_mgr import cache_mgr
         cache_mgr.clear()
 
-        profile = self.user.get_profile()
+        profile = self.user.profile
         profile.name = "Test User"
         profile.add_points(10, datetime.datetime.today(), "test")
         team = profile.team
         profile.save()
 
         response = self.client.get(reverse("win_index"))
-        self.assertContains(response, "Current leader: " + str(profile), count=2,
+        self.assertContains(response, " place: " + str(profile), count=2,
             msg_prefix="Individual prizes should have user as the leader.")
-        self.assertContains(response, "Current leader: " + str(team), count=1,
+        self.assertContains(response, " place: " + str(team), count=1,
             msg_prefix="Team points prizes should have team as the leader")
-        self.assertContains(response, "Current leader: TBD", count=4,
+        self.assertContains(response, " place: TBD", count=4,
             msg_prefix="Round 2 prizes should not have a leader yet.")
 
         # Test XSS vulnerability.
@@ -89,8 +89,8 @@ class PrizesFunctionalTestCase(TransactionTestCase):
         print "testLeadersInRound2.1 prize count %d" % Prize.objects.count()
         test_utils.set_three_rounds()
         print "testLeadersInRound2.2 prize count %d" % Prize.objects.count()
-        test_utils.setup_round_prize("Round 1", "team_overall", "energy")
-        test_utils.setup_round_prize("Round 2", "team_overall", "energy")
+        test_utils.setup_round_prize("Round 1", "team_overall", "energy_usage")
+        test_utils.setup_round_prize("Round 2", "team_overall", "energy_usage")
         test_utils.setup_round_prize("Round 1", "team_overall", "points")
         test_utils.setup_round_prize("Round 2", "team_overall", "points")
         test_utils.setup_round_prize("Round 1", "individual_overall", "points")
@@ -99,7 +99,7 @@ class PrizesFunctionalTestCase(TransactionTestCase):
         test_utils.setup_round_prize("Round 2", "individual_team", "points")
         print "testLeadersInRound2.3 prize count %d" % Prize.objects.count()
 
-        profile = self.user.get_profile()
+        profile = self.user.profile
         profile.add_points(10, datetime.datetime.today(), "test")
         profile.name = "Test User"
         team = profile.team
@@ -112,9 +112,9 @@ class PrizesFunctionalTestCase(TransactionTestCase):
         response = self.client.get(reverse("win_index"))
         self.assertContains(response, "Winner: ", count=3,
             msg_prefix="There should be winners for three prizes.")
-        self.assertContains(response, "Current leader: " + str(profile), count=2,
+        self.assertContains(response, " place: " + str(profile), count=2,
             msg_prefix="Individual prizes should have user as the leader.")
-        self.assertContains(response, "Current leader: " + str(team), count=1,
+        self.assertContains(response, " place: " + str(team), count=1,
             msg_prefix="Team points prizes should have team as the leader")
 
         # Test XSS vulnerability.

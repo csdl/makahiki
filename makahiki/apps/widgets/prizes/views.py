@@ -23,7 +23,7 @@ from django.db.utils import IntegrityError
 def supply(request, page_name):
     """Supply view_object content, which is the prizes for this team."""
     _ = page_name
-    team = request.user.get_profile().team
+    team = request.user.profile.team
     prizes = _get_prizes(team)
     count = len(prizes)
     return {

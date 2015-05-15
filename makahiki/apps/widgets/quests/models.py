@@ -92,7 +92,7 @@ class QuestMember(models.Model):
         super(QuestMember, self).save(*args, **kwargs)
         if self.completed:
             message = "Quest: %s" % self.quest.name
-            self.user.get_profile().add_points(score_mgr.quest_points(),
+            self.user.profile.add_points(score_mgr.quest_points(),
                                                datetime.datetime.today(), message, self)
         cache_mgr.delete('get_quests-%s' % self.user.username)
 

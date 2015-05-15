@@ -34,14 +34,14 @@
 
     <div class="content-box landing-body"> 
     Sorry, but the page you requested could not be found.</br>
-    <a href="{% url root_index %}">Back to the home page</a>
+    <a href="{% url 'root_index' %}">Back to the home page</a>
     </div>
          <script>
             jQuery(document).ready(function ($) {
                 // Check if the browser supports opacity as another check for an up to date browser.
                 if (!jQuery.support.opacity) {
                     $('#landing-button-participant').unbind('click').click(function () {
-                        location.href = '{% url browser_check %}';
+                        location.href = '{% url 'browser_check' %}';
                     });
                 }
             });
@@ -62,7 +62,7 @@
               preventInstallDetection: true,
               onmissing: function() {
                 jQuery('#landing-button-participant').unbind('click').click(function() {
-                  location.href='{% url browser_check %}';
+                  location.href='{% url 'browser_check' %}';
                 });
               }
            });

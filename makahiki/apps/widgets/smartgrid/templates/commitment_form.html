@@ -7,7 +7,13 @@
         <p/>
         (Optional) If you want to do this with a friend or friends, please enter
         one of their Kukui Cup email addresses here for a social bonus:<br/>
-        {{ form.social_email.errors }}
+        {% if form.social_email.errors %}
+            <ul class="errorlist">
+                {% for error in form.social_email.errors %}
+                    <li> {{ error }} </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
         {{ form.social_email }}
     {% endif %}
     <div class="activity-task-form-content-button">
@@ -27,7 +33,13 @@
         <p/>
         (Optional) If you did this with a friend or friends, please enter
         one of their Kukui Cup email addresses here for a social bonus:<br/>
-        {{ form.social_email.errors }}
+        {% if form.social_email.errors %}
+            <ul class="errorlist">
+                {% for error in form.social_email.errors %}
+                    <li> {{ error }} </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
         {{ form.social_email }}
     {% endif %}
 

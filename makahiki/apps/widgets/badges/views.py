@@ -28,7 +28,7 @@ def badge_catalog(request):
 def get_awarded_badges(request):
     """returns the awarded badge for the user."""
     user = request.user
-    profile = user.get_profile()
+    profile = user.profile
     return profile.badgeaward_set.order_by("-badge__priority").select_related("badge")
 
 
@@ -36,7 +36,7 @@ def get_badge_catalog(request):
     """Returns the badge catalog."""
 
     user = request.user
-    profile = user.get_profile()
+    profile = user.profile
     awarded_badges = []
     locked_badges = []
 

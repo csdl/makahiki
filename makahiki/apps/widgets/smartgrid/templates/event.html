@@ -32,8 +32,8 @@
         </div>
         {% else %}
             {% if action.available_seat > 0 %}
-                {# <a href="{% url activity_add_task action.type action.slug %}"> #}
-                <form action='{% url activity_add_task action.type action.slug %}'
+                {# <a href="{% url 'activity_add_task' action.type action.slug %}"> #}
+                <form action='{% url 'activity_add_task' action.type action.slug %}'
                       method='post'>
                     {% csrf_token %}
                     <button id="submit_button5" style="cursor:pointer;" class="btn btn-widget"
@@ -62,7 +62,7 @@
             </a>
         </div>
         {% else %}
-            <form action='{% url activity_drop_task action.type action.slug %}'
+            <form action='{% url 'activity_drop_task' action.type action.slug %}'
                   method='post'>
                 {% csrf_token %}
                 <button id="submit_button1" style="cursor:pointer;" class="btn btn-widget"

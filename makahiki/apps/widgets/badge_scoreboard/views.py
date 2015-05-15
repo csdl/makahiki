@@ -7,7 +7,7 @@ def supply(request, page_name):
     """Supply the view_objects content for this widget, the badge scoreboard data."""
 
     user = request.user
-    team = user.get_profile().team
+    team = user.profile.team
     num_results = 10 if page_name != "status" else None
     all_profiles = Profile.objects.annotate(num_badges=Count('badgeaward')).order_by('-num_badges')
     if num_results:

@@ -27,13 +27,17 @@ def players(num_results=None):
     return results
 
 
-def points_leader(round_name=None):
+def points_leader(round_name=None, place=1):
     """Returns the points leader (the first place) out of all users, as a Profile object."""
-    entry = score_mgr.player_points_leader(round_name=round_name)
+    entry = score_mgr.player_points_leader(round_name=round_name, place=place)
     if entry:
         return entry
     else:
-        return Profile.objects.all()[0]
+        entries = Profile.objects.all()
+        if len(entries) >= place:
+            return entries[place - 1]
+        else:
+            return None
 
 
 def points_leaders(num_results=None, round_name=None):
@@ -52,6 +56,18 @@ def points_leaders(num_results=None, round_name=None):
         return results
 
 
+def username_is_lowercase(username):
+    """Check that user names do not include uppercase letter characters."""
+    username_input = username
+    username_lower = username.lower()
+    username_lowercase = False
+    if username_input == username_lower:
+        username_lowercase = True
+    else:
+        username_lowercase = False
+    return username_lowercase
+
+
 def create_player(username, password, email, firstname, lastname, team_name, is_ra):
     """Create a player with the assigned team"""
     try:
@@ -61,12 +77,22 @@ def create_player(username, password, email, firstname, lastname, team_name, is_
     except ObjectDoesNotExist:
         pass
 
+    # Change uppercase letters to lowercase
+    username_input = username
+    username_lower = username.lower()
+    invalid_username_message = "Username \"%s\" is invalid: usernames must not use uppercase \
+    letters. User will be created with username \"%s\" instead." % (username_input, username_lower)
+    if username_is_lowercase(username_input) == False:
+        username = username_lower
+        # Print warning message to console (not visible to the web UI)
+        print invalid_username_message
+    # Create user
     user = User.objects.create_user(username, email, password)
     user.first_name = firstname
     user.last_name = lastname
     user.save()
 
-    profile = user.get_profile()
+    profile = user.profile
     profile.is_ra = is_ra
 
     try:
@@ -74,6 +100,13 @@ def create_player(username, password, email, firstname, lastname, team_name, is_
     except ObjectDoesNotExist:
         print "Can not find team '%s', set the team of the player '%s' to None." % \
               (team_name, profile.name)
+
+    if user.first_name and user.last_name:
+        firstname = user.first_name.capitalize()
+        lastname = user.last_name.capitalize()
+        profile.name = "%s %s." % (firstname, lastname[:1])
+        if Profile.objects.filter(name=profile.name).exclude(user=user).exists():
+            profile.name = firstname + " " + lastname
 
     profile.save()
 
@@ -130,7 +163,7 @@ def reset_user(user):
     is_staff = user.is_staff
     is_superuser = user.is_superuser
 
-    profile = user.get_profile()
+    profile = user.profile
     d_name = profile.name
     team = profile.team
 
@@ -142,7 +175,7 @@ def reset_user(user):
     new_user.is_superuser = is_superuser
     new_user.save()
 
-    profile = new_user.get_profile()
+    profile = new_user.profile
     profile.name = d_name
     profile.team = team
 

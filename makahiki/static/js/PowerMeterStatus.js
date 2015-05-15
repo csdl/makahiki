@@ -1,13 +1,28 @@
 // Visualization to show current power data.
-Makahiki_PowerMeterStatus = function (server_url, source, refresh_interval, viz_name, options, id) {
+Makahiki_PowerMeterStatus = function (server_url, wattdepot_version, source, refresh_interval, viz_name, options, id) {
     var testDate = new Date();
     var catLength = testDate.toString().indexOf("GMT");
     var yearLoc = testDate.toString().indexOf(testDate.getFullYear()) + 4;
     return callback();
 
-    function callback() {
-        var gviz_url = server_url + "/sources/" +
+    function getWattdepotGvizURL(source) {
+        var gviz_url = null;
+        if (wattdepot_version == "WATTDEPOT2") {
+    	  // wattdepot2:
+           gviz_url = server_url + "/sources/" +
             source + "/gviz/sensordata/latest?tq=select%20timePoint%2C%20powerConsumed";
+        }
+
+        if (wattdepot_version == "WATTDEPOT3") {
+          // wattdepot3
+    	  gviz_url = server_url + "/depository/power/value/gviz/?sensor=" + source + "&latest=true";
+        }
+
+        return gviz_url;
+    }
+
+    function callback() {
+        var gviz_url = getWattdepotGvizURL(source);
 
         var query = new google.visualization.Query(gviz_url);
         query.setRefreshInterval(refresh_interval);

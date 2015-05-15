@@ -103,7 +103,7 @@ class Command(MakahikiBaseCommand):
                 user.last_name = "Test"
                 user.save()
 
-                profile = user.get_profile()
+                profile = user.profile
                 profile.name = username.capitalize()
                 profile.team = team
                 profile.save()

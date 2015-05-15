@@ -19,7 +19,7 @@ def supply(request, page_name):
 def resource_supply(request, page_name):
     """Supply the view_objects content for this widget."""
     user = request.user
-    team = user.get_profile().team
+    team = user.profile.team
     golow_activities = smartgrid.get_available_golow_actions(user, page_name)
     hourly_goal = None
     daily_goal = None

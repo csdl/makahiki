@@ -8,7 +8,7 @@ $(document).ready(function () {
 
     $("#back").button().click(function () {
         $(this).button("option", "disabled", true);
-        $.get("{% url setup_referral %}?from=profile", function (data) {
+        $.get("{% url 'setup_referral' %}?from=profile", function (data) {
             $("#ui-dialog-title-setup-dialog").html(data.title);
             $("#setup-dialog").html(data.contents);
         });

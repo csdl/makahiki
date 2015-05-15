@@ -39,7 +39,7 @@ def action_feedback(request, action_type, slug):
     _ = action_type
     action = smartgrid.get_action(slug=slug)
     user = request.user
-    profile = request.user.get_profile()
+    profile = request.user.profile
 
     form = ActionFeedbackForm(request.POST)
 

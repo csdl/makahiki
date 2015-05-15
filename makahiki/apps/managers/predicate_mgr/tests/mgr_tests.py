@@ -18,7 +18,7 @@ class Test(TransactionTestCase):
         self.user = test_utils.setup_user("user", "changeme")
         self.draft = Draft(name="test", slug="test")
         test_utils.set_competition_round()
-        self.team = self.user.get_profile().team
+        self.team = self.user.profile.team
         self.predicates = ["completed_action('intro-video')",
                             "submitted_all_of_type(action_type='commitment')",
                             "allocated_raffle_ticket()",
@@ -31,7 +31,7 @@ class Test(TransactionTestCase):
                             "set_profile_pic()",
                             "referring_count(4)",
                             "daily_visit_count(10)",
-                            "unlock_on_date('13-07-16')",
+                            "unlock_on_date('2013-07-16')",
                            "unlock_on_event(event_slug='kick-off', days=-3, lock_after_days=5)",
                            "approved_some_of_level(level_priority=3, count=3)",
                            "submitted_level(3)",

@@ -10,7 +10,7 @@ from django.contrib.contenttypes import generic
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.template.loader import render_to_string
-from django.contrib.localflavor.us.models import PhoneNumberField
+from localflavor.us.models import PhoneNumberField
 import os
 from apps.managers.challenge_mgr import challenge_mgr
 
@@ -450,7 +450,7 @@ class ActionMember(models.Model):
     def user_link(self):
         """return the user first_name."""
         return '<a href="%s/%d/">%s</a>' % ("/admin/player_mgr/profile",
-                                            self.user.get_profile().pk,
+                                            self.user.profile.pk,
                                             self.user.username)
     user_link.allow_tags = True
     user_link.short_description = 'Link to profile'
@@ -529,11 +529,11 @@ class ActionMember(models.Model):
 
         self.post_to_wall()
         self.invalidate_cache()
-        badges.award_possible_badges(self.user.get_profile(), "smartgrid")
+        badges.award_possible_badges(self.user.profile, "smartgrid")
 
     def _award_points(self):
         """Custom save method to award points."""
-        profile = self.user.get_profile()
+        profile = self.user.profile
 
         points = self.points_awarded
         if not points:
@@ -551,7 +551,7 @@ class ActionMember(models.Model):
     def _award_possible_social_bonus(self):
         """award possible social bonus."""
 
-        profile = self.user.get_profile()
+        profile = self.user.profile
         social_message = "%s (Social Bonus)" % self.action
 
         # award social bonus to others who referenced my email and successfully completed
@@ -562,7 +562,7 @@ class ActionMember(models.Model):
                                                       social_email=self.user.email)
             for m in ref_members:
                 if not m.social_bonus_awarded:
-                    ref_profile = m.user.get_profile()
+                    ref_profile = m.user.profile
                     ref_profile.add_points(m.action.social_bonus,
                                            m.award_date,
                                            social_message, self)
@@ -588,7 +588,7 @@ class ActionMember(models.Model):
         if self.action.type != "activity":
             #increase the point from signup
             message = "%s (Sign up)" % self.action
-            self.user.get_profile().add_points(score_mgr.signup_points(),
+            self.user.profile.add_points(score_mgr.signup_points(),
                                                self.submission_date,
                                                message,
                                                self)
@@ -599,7 +599,7 @@ class ActionMember(models.Model):
         if self.action.type != "activity":
             #increase the point from signup
             message = "%s (Drop Sign up)" % self.action
-            self.user.get_profile().remove_points(score_mgr.signup_points(),
+            self.user.profile.remove_points(score_mgr.signup_points(),
                                                self.submission_date,
                                                message,
                                                self)
@@ -608,7 +608,7 @@ class ActionMember(models.Model):
         """ reverse event noshow penalty."""
         if self._has_noshow_penalty():
             message = "%s (Reverse No Show Penalty)" % self.action
-            self.user.get_profile().add_points(
+            self.user.profile.add_points(
                 score_mgr.noshow_penalty_points() + score_mgr.signup_points(),
                 self.award_date,
                 message,
@@ -693,7 +693,7 @@ class ActionMember(models.Model):
 
     def post_to_wall(self):
         """post to team wall as system post."""
-        team = self.user.get_profile().team
+        team = self.user.profile.team
         if team:
             if self.approval_status == "approved":
                 # User completed the commitment
@@ -719,7 +719,7 @@ class ActionMember(models.Model):
         cache_mgr.delete('get_quests-%s' % username)
         cache_mgr.delete('golow_actions-%s' % username)
 
-        team = self.user.get_profile().team
+        team = self.user.profile.team
         if team:
             cache_mgr.invalidate_template_cache("team_avatar", self.action.id, team.id)
         cache_mgr.invalidate_template_cache("my_commitments", username)
@@ -728,7 +728,7 @@ class ActionMember(models.Model):
 
     def delete(self, using=None):
         """Custom delete method to remove the points for completed action."""
-        profile = self.user.get_profile()
+        profile = self.user.profile
 
         if self.approval_status == "approved":
             # remove all related point transaction

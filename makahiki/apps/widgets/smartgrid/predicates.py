@@ -17,7 +17,7 @@ def approved_all_of_level(user, level_name):
     c = 0
     count = len(Grid.objects.filter(level__name=level_name))
     for action in Grid.objects.filter(level__name=level_name):
-        c += user.actionmember_set.filter(action=action,
+        c += user.actionmember_set.filter(action=action.action,
                                           approval_status="approved").count()
     return c >= count
 
@@ -45,7 +45,7 @@ def approved_some_of_level(user, level_name, count=1):
     """Returns True if the user has had count Actions approved for the given level."""
     c = 0
     for action in Grid.objects.filter(level__name=level_name):
-        c += user.actionmember_set.filter(action=action,
+        c += user.actionmember_set.filter(action=action.action,
                                           approval_status="approved").count()
     return c >= count
 
@@ -80,7 +80,7 @@ def submitted_all_of_level(user, level_name):
     c = 0
     count = len(Grid.objects.filter(level__name=level_name))
     for action in Grid.objects.filter(level__name=level_name):
-        c += user.actionmember_set.filter(action=action).count()
+        c += user.actionmember_set.filter(action=action.action).count()
     return c >= count
 
 
@@ -106,7 +106,7 @@ def submitted_some_of_level(user, level_name, count=1):
     """Returns true if the user has completed count Actions of the specified level."""
     c = 0
     for action in Grid.objects.filter(level__name=level_name):
-        c += user.actionmember_set.filter(action=action).count()
+        c += user.actionmember_set.filter(action=action.action).count()
     return c >= count
 
 
@@ -136,7 +136,7 @@ def completed_level(user, level_name):
     count += len(Grid.objects.filter(level__name=level_name, action__type='commitment'))
     c = 0
     for action in Grid.objects.filter(level__name=level_name):
-        c += user.actionmember_set.filter(action=action,
+        c += user.actionmember_set.filter(action=action.action,
                                           approval_status="approved").count()
     return c >= count
 
@@ -169,7 +169,7 @@ def unlock_on_date(user, date_string):
     """Returns true if the current date is equal to or after the date_string."""
     _ = user
     today = datetime.today()
-    unlock_date = datetime.strptime(date_string, "%y-%m-%d")
+    unlock_date = datetime.strptime(date_string, "%Y-%m-%d")
     return today >= unlock_date
 
 

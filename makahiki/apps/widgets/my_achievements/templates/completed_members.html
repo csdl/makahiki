@@ -7,14 +7,14 @@
             {% with log.related_object as member %}
                 {% if member.action %}
                             <td class="column-text">
-                                <a href="{% url activity_task member.action.type member.action.slug %}">
+                                <a href="{% url 'activity_task' member.action.type member.action.slug %}">
                                     {{ log.message }}
                                 </a>
                             </td>
                             <td class="column-text">{{ log.points }}</td>
                 {% elif member.type %} <!-- !!! Bad assumption should check the type of member -->
                             <td class="column-text">
-                                <a href="{% url activity_task member.type member.slug %}">
+                                <a href="{% url 'activity_task' member.type member.slug %}">
                                     {{ log.message }}
                                 </a>
                             </td>

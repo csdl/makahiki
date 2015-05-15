@@ -429,7 +429,7 @@ class QuestConditionsTest(TransactionTestCase):
 
     def testBadgeAwarded(self):
         """Tests that badge awarded works for a user."""
-        profile = self.user.get_profile()
+        profile = self.user.profile
         self.assertFalse(badge_awarded(self.user, "daily-visitor"),
             "New user should not be awarded the daily visitor badge.")
 
@@ -461,7 +461,7 @@ class QuestConditionsTest(TransactionTestCase):
 
     def testHasPointsOverall(self):
         """Tests that has_points works for a user."""
-        profile = self.user.get_profile()
+        profile = self.user.profile
         test_points = 10
         self.assertFalse(has_points(self.user, test_points), "User should not have any points")
         profile.add_points(test_points, datetime.datetime.today(), "test quest")
@@ -495,7 +495,7 @@ class QuestConditionsTest(TransactionTestCase):
         """
         group = Group.objects.create(name="test")
         team = Team.objects.create(name="a", group=group)
-        profile = self.user.get_profile()
+        profile = self.user.profile
         profile.team = team
         profile.save()
 

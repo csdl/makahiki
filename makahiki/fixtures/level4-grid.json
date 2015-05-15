@@ -1,0 +1,841 @@
+[
+{
+    "pk": 89, 
+    "model": "smartgrid.textpromptquestion", 
+    "fields": {
+        "action": 141, 
+        "answer": "Provides constant power, not intermittent", 
+        "question": "How does OTEC differ from solar and wind energy?"
+    }
+},
+{
+    "pk": 90, 
+    "model": "smartgrid.textpromptquestion", 
+    "fields": {
+        "action": 141, 
+        "answer": "Ocean Thermal Energy Conversion", 
+        "question": "What does OTEC stand for?"
+    }
+},
+{
+    "pk": 91, 
+    "model": "smartgrid.textpromptquestion", 
+    "fields": {
+        "action": 141, 
+        "answer": "Use the temperature difference between warm ocean surface and cold depths to spin turbine", 
+        "question": "How does OTEC generate energy?"
+    }
+},
+{
+    "pk": 92, 
+    "model": "smartgrid.textpromptquestion", 
+    "fields": {
+        "action": 141, 
+        "answer": "Equivalent to 250 billion barrels of oil", 
+        "question": "How much solar energy do tropical seas absorb in a day?"
+    }
+},
+
+
+{
+    "pk": 126, 
+    "model": "smartgrid.textpromptquestion", 
+    "fields": {
+        "action": 235, 
+        "answer": "PHEV adds electric motor and batteries that can be charged by plugging in", 
+        "question": "Briefly, what are the differences between a conventional car and a plug-in hybrid?"
+    }
+},
+{
+    "pk": 127, 
+    "model": "smartgrid.textpromptquestion", 
+    "fields": {
+        "action": 235, 
+        "answer": "Every Wednesday 7-8:30pm or Thursday from 12-2", 
+        "question": "When can you fix your bike at Cycle Manoa for free?"
+    }
+},
+{
+    "pk": 128, 
+    "model": "smartgrid.textpromptquestion", 
+    "fields": {
+        "action": 235, 
+        "answer": "The Prius!", 
+        "question": "Which has lower emissions, driving a Prius with three passengers or taking the bus?"
+    }
+},
+
+
+{
+    "pk": 234, 
+    "model": "smartgrid.action", 
+    "fields": {
+        "social_bonus": 0, 
+        "video_id": null, 
+        "name": "Compare Homes", 
+        "video_source": null, 
+        "pub_date": "2014-02-01", 
+        "image": "", 
+        "title": "Energy comparison between group member's homes", 
+        "unlock_condition_text": "", 
+        "related_resource": null, 
+        "embedded_widget": null, 
+        "point_value": 30, 
+        "expire_date": null, 
+        "type": "activity", 
+        "slug": "compare-homes", 
+        "unlock_condition": "True", 
+        "description": "Now that you know more about your energy use while you live in Hale Aloha, we want you to think about your family's energy use at home. Each member of your group should ask their own family for a copy of their latest energy bill (or the information from it), or even the last few bills if they have them.\r\n\r\nAs a group, sit down and compare the energy use between your families and think about the following questions:\r\n\r\n* How much energy does each family use on average?\r\n* How does the energy usage between families compare when you take into account the number of people living in the home?\r\n* The members of your groups probably live in different places, how do you think their locations affect the amount of energy they use? Mainland US vs. Hawaii or even International?\r\n* For each family, what do you think the 3 biggest consumers of energy are?\r\n\r\nOnce you are done, submit the results of your comparison below. What have you learned?"
+    }
+},
+{
+    "pk": 235, 
+    "model": "smartgrid.action", 
+    "fields": {
+        "social_bonus": 0, 
+        "video_id": null, 
+        "name": "Transport Video 2", 
+        "video_source": null, 
+        "pub_date": "2014-01-25", 
+        "image": "", 
+        "title": "Learn more about transportation", 
+        "unlock_condition_text": "Complete Transport video activity", 
+        "related_resource": null, 
+        "embedded_widget": null, 
+        "point_value": 15, 
+        "expire_date": null, 
+        "type": "activity", 
+        "slug": "transport-video-2", 
+        "unlock_condition": "submitted_action(\"transport-video\")", 
+        "description": "While you've watched the Transportation video once, this activity gives you a chance to learn more about the topic. You can rewatch the video below and explore the resource links provided. When you are done, you can get your points by answering a more difficult question. The question may require information from the video, the resource links or both.\r\n\r\n<div id=\"videoDiv\">Loading Video ...</div>\r\n<script type=\"text/javascript\">\r\n      google.load(\"swfobject\", \"2.1\");\r\n</script>\r\n<script type=\"text/javascript\">\r\n      google.setOnLoadCallback(function() \r\n         {\r\n            var videoID = \"Yt13tkdi_Dk\";\r\n            var width = \"471\";\r\n            var length = \"298\";\r\n            var params = { allowScriptAccess: \"always\", wmode: \"opaque\" };\r\n            var atts = { id: \"ytPlayer\" };\r\n            swfobject.embedSWF(\"http://www.youtube.com/v/\" + videoID + \r\n                           \"?fs=1&hl=en_US&rel=0&enablejsapi=1\", \r\n                           \"videoDiv\", width, length, \"8\", null, null, params, atts);\r\n         });\r\n</script>\r\n\r\nResource links (will open in new windows/tabs):\r\n\r\n* <a href=\"http://www.terrapass.com/carbon-footprint-calculator/#air\" target=\"_blank\">Carbon Footprint Calculator</a>\r\n* <a href=\"http://www.youtube.com/watch?v=UGlqkVirSI8\" target=\"_blank\">Keep Pedalling (bicycle hip hop)</a>\r\n* <a href=\"http://www.cyclemanoa.org/\" target=\"_blank\">Cycle Manoa</a>\r\n* <a href=\"http://planetgreen.discovery.com/tech-transport/plane-train-automobile-travel.html\" target=\"_blank\">Trains, Planes, and Automobiles: Which is the greenest way to travel long distances in the US?</a>"
+    }
+},
+{
+    "pk": 236, 
+    "model": "smartgrid.action", 
+    "fields": {
+        "social_bonus": 0, 
+        "video_id": null, 
+        "name": "Find Waste", 
+        "video_source": null, 
+        "pub_date": "2014-02-01", 
+        "image": "", 
+        "title": "Seek out campus energy waste", 
+        "unlock_condition_text": "", 
+        "related_resource": null, 
+        "embedded_widget": null, 
+        "point_value": 0, 
+        "expire_date": null, 
+        "type": "activity", 
+        "slug": "find-waste", 
+        "unlock_condition": "True", 
+        "description": "By now you're an expert in finding energy waste in your lounge. For this activity, you will roam around campus, looking for places where you think energy is being wasted on campus. Energy waste can happen in many ways, here are a few ideas to get you started:\r\n\r\n* Lights not getting turned off at night (try looking around campus after dark)\r\n* Air conditioners running when doors or windows are open\r\n* Air conditioning systems that make buildings too cold\r\n* Computers left on in a lab even when nobody is using them\r\n\r\nReport to us your list of energy waste going on around campus, and how each one might be fixed. For every distinct wasting situation you find, we'll award 5 Canopy Karma points, up to 50 points. We'll also pass your list on the the appropriate people to try to get the wasting stopped!"
+    }
+},
+{
+    "pk": 237, 
+    "model": "smartgrid.action", 
+    "fields": {
+        "social_bonus": 0, 
+        "video_id": "", 
+        "name": "Good Samaritan", 
+        "video_source": null, 
+        "pub_date": "2014-02-01", 
+        "image": "", 
+        "title": "Help a lounge doing poorly in energy competition", 
+        "unlock_condition_text": "", 
+        "related_resource": null, 
+        "embedded_widget": "", 
+        "point_value": 0, 
+        "expire_date": null, 
+        "type": "activity", 
+        "slug": "good-samaritan", 
+        "unlock_condition": "submitted_action(\"find-waste\")", 
+        "description": "The Kukui Cup is a competition, but the energy problems that Hawaii and the planet face will potentially affect everyone and everything. For this group activity, you will pick one of the lounges doing the worst in the energy competition, and go help them to conserve more.\r\n\r\nIf you have friends in the lounge, that might be a good place to start. You can also approach the RAs for the lounge to find out what steps they have taken so far.\r\n\r\nWhen you are done, click the button below and tell us what you did, and how much energy you think you are helping them to save. Depending on what you've done, you'll earn between 15 to 50 Canopy Karma."
+    }
+},
+{
+    "pk": 238, 
+    "model": "smartgrid.action", 
+    "fields": {
+        "social_bonus": 10, 
+        "video_id": "", 
+        "name": "Make Video", 
+        "video_source": null, 
+        "pub_date": "2014-02-01", 
+        "image": "", 
+        "title": "Make a video on a Kukui Cup topic", 
+        "unlock_condition_text": "Complete Energy Intuition video activity", 
+        "related_resource": null, 
+        "embedded_widget": "", 
+        "point_value": 0, 
+        "expire_date": null, 
+        "type": "activity", 
+        "slug": "make-video", 
+        "unlock_condition": "submitted_action(\"find-waste\")", 
+        "description": "This activity is an opportunity to creatively explore one of the topics of the Kukui Cup in more depth. For this activity, you will make a **video** on the subject of one of the categories from the Smart Grid such as energy, lighting, transportation and post it on YouTube. Note that this activity will require significantly more effort than normal activities, but it is also worth more points. This activity is worth a variable number of points, so the more effort and the higher quality of your video, the more points you will receive.\r\n\r\nMaking a interesting video can be hard work. You'll find it much easier if you write out a little \"screenplay\" beforehand and think about what you want to communicate. YouTube has a [Handbook](http://www.youtube.com/t/yt_handbook_produce) with lots of great tips on making videos. Points will be awarded based on your video's originality, quality, and impact. For example, you talking into your webcam will get fewer points than visualizing your points with images or outdoor video. Make sure you mention the Kukui Cup either in your video or in the description field. When your video is ready, you can submit the URL for verification and scoring.\r\n\r\n*When submitting a video created by a group of players, please let us know how many people are planning to submit the video for points so we can divide the credit.*"
+    }
+},
+{
+    "pk": 234, 
+    "model": "smartgrid.activity", 
+    "fields": {
+        "admin_note": null, 
+        "confirm_type": "free", 
+        "point_range_start": null, 
+        "confirm_prompt": "Submit the results of your energy comparison across families. What have you learned?", 
+        "expected_duration": 120, 
+        "point_range_end": null
+    }
+},
+{
+    "pk": 235, 
+    "model": "smartgrid.activity", 
+    "fields": {
+        "admin_note": null, 
+        "confirm_type": "text", 
+        "point_range_start": null, 
+        "confirm_prompt": "", 
+        "expected_duration": 15, 
+        "point_range_end": null
+    }
+},
+{
+    "pk": 236, 
+    "model": "smartgrid.activity", 
+    "fields": {
+        "admin_note": null, 
+        "confirm_type": "free", 
+        "point_range_start": 5, 
+        "confirm_prompt": "Provide us a list of the places you found energy being wasted on campus, and your suggestion on how to stop each one.", 
+        "expected_duration": 120, 
+        "point_range_end": 50
+    }
+},
+{
+    "pk": 237, 
+    "model": "smartgrid.activity", 
+    "fields": {
+        "admin_note": "", 
+        "confirm_type": "free", 
+        "point_range_start": 15, 
+        "confirm_prompt": "Tell us: which lounge you decided to help out, who you spoke to there, what you did, and how much energy you think you are helping them to save.", 
+        "expected_duration": 240, 
+        "point_range_end": 50
+    }
+},
+{
+    "pk": 238, 
+    "model": "smartgrid.activity", 
+    "fields": {
+        "admin_note": "", 
+        "confirm_type": "free", 
+        "point_range_start": 5, 
+        "confirm_prompt": "Send us a link to your video.", 
+        "expected_duration": 240, 
+        "point_range_end": 50
+    }
+},
+
+{
+    "pk": 135, 
+    "model": "smartgrid.action", 
+    "fields": {
+        "social_bonus": 10, 
+        "video_id": "", 
+        "name": "Window Art", 
+        "video_source": null, 
+        "pub_date": "2011-10-24", 
+        "image": "", 
+        "title": "Create Energy Window Art", 
+        "unlock_condition_text": "Complete door art", 
+        "related_resource": null, 
+        "embedded_widget": "", 
+        "point_value": 0, 
+        "expire_date": null, 
+        "type": "activity", 
+        "slug": "window-art", 
+        "unlock_condition": "submitted_action(\"door-art\")", 
+        "description": "Every night, the Hale Aloha residence halls create a mosaic of lit windows as students quietly study in their rooms. At least, that's what we hope you're doing in there.\r\n\r\nIt occurs to us that this mosaic of lit windows provides an opportunity for you to both be creative and inform fellow students coming back from the library about the Kukui Cup and/or energy conservation.\r\n\r\nSo, for this activity, create art on your room window that is visible from outside at night. The art should have some relationship to the theme of the Kukui Cup: use your imagination. To receive credit for this activity, take a picture of it (preferably at night) and include some text describing what your art is about. The more amazing, creative, and energy-related your window art, the more points you can earn. Since you still want to save energy, we recommend that you light up your art between 9-9:15 PM, you don't need to keep it lit all night long.\r\n\r\nAnother way to get more points for this activity is to enlist your neighbors beside you, above you, or below you to create a coordinated group window art effort. Take a photo of all of the windows, then tell us in the description which one is yours.\r\n\r\nThe more awesome your art, the closer to 50 points you'll earn.\r\n"
+    }
+},
+{
+    "pk": 136, 
+    "model": "smartgrid.action", 
+    "fields": {
+        "social_bonus": 10, 
+        "video_id": "", 
+        "name": "Design Tshirt", 
+        "video_source": null, 
+        "pub_date": "2011-10-31", 
+        "image": "", 
+        "title": "Design next year's Kukui Cup T-shirt", 
+        "unlock_condition_text": "Complete window art", 
+        "related_resource": null, 
+        "embedded_widget": "", 
+        "point_value": 0, 
+        "expire_date": null, 
+        "type": "activity", 
+        "slug": "design-tshirt", 
+        "unlock_condition": "submitted_action(\"window-art\")", 
+        "description": "We already have this year's awesome Kukui Cup T-shirts, but what about next year? For this activity, you will create a design for the next year's Kukui Cup T-shirt. Things to keep in mind:\r\n\r\n* Include our logo & the words \"Kukui Cup\"\r\n* Include the year somewhere\r\n* Include our URL: kukuicup.manoa.hawaii.edu\r\n* Make it stylin' and awesome\r\n\r\nYou will submit an image file with your T-shirt design for us to look at."
+    }
+},
+{
+    "pk": 137, 
+    "model": "smartgrid.action", 
+    "fields": {
+        "social_bonus": 10, 
+        "video_id": "", 
+        "name": "Interview", 
+        "video_source": null, 
+        "pub_date": "2011-10-24", 
+        "image": "", 
+        "title": "Interview someone about a Kukui Cup topic", 
+        "unlock_condition_text": "Complete Energy Intuition video activity, and wait for Round 2", 
+        "related_resource": null, 
+        "embedded_widget": "", 
+        "point_value": 0, 
+        "expire_date": null, 
+        "type": "activity", 
+        "slug": "interview", 
+        "unlock_condition": "submitted_action(\"energy-intuition\")", 
+        "description": "This activity is an opportunity to creatively explore one of the topics of the Kukui Cup in more depth. For this activity, you will **interview** an expert on one of the subjects used as categories in the Smart Grid such as energy, lighting, or transportation. Note that this activity will require significantly more effort than normal activities, but it is also worth more points. This activity is worth a variable number of points, so the more effort and the higher quality of your interview, the more points you will receive.\r\n\r\nSome possible interview subjects:\r\n\r\n* School administrators (Facilities Management, Sustainability Corps)\r\n* School faculty\r\n* Local environmental organizations (Blue Planet Foundation, Kanu Hawaii, Surfrider Foundation)\r\n* Local politicians (City Council, State Legislature, Congressional delegation)\r\n* Local industry (First Wind, solar installation companies)\r\n* Local government (DBEDT energy office, PUC)\r\n\r\nYou will have to find someone to interview, figure out what questions you want to ask them in advance, and then go interview them. You will probably want to record your interview so that you can refer to it later, but make sure you ask your subject if recording them is OK!\r\n\r\nYour resulting interview can be written (like you might see in a magazine), and audio recording, or even a video. Note that making a quality audio and video interview is quite challenging, so make sure you know what you are getting into."
+    }
+},
+{
+    "pk": 138, 
+    "model": "smartgrid.action", 
+    "fields": {
+        "social_bonus": 5, 
+        "video_id": null, 
+        "name": "DIY Commitment", 
+        "video_source": null, 
+        "pub_date": "2012-08-15", 
+        "image": "", 
+        "title": "DIY Commitment", 
+        "unlock_condition_text": "Complete DIY excursion", 
+        "related_resource": null, 
+        "embedded_widget": null, 
+        "point_value": 5, 
+        "expire_date": null, 
+        "type": "commitment", 
+        "slug": "diy-commitment", 
+        "unlock_condition": "submitted_action(\"diy-excursion\")", 
+        "description": "Create a commitment that you will keep for 3 days. Publicly share the commitment to facebook or twitter, with #kukuicup. "
+    }
+},
+{
+    "pk": 135, 
+    "model": "smartgrid.activity", 
+    "fields": {
+        "admin_note": "", 
+        "confirm_type": "free_image", 
+        "point_range_start": 5, 
+        "confirm_prompt": "Tell us about your concept for the window art, and upload a nice picture of it.", 
+        "expected_duration": 60, 
+        "point_range_end": 50
+    }
+},
+{
+    "pk": 136, 
+    "model": "smartgrid.activity", 
+    "fields": {
+        "admin_note": "", 
+        "confirm_type": "image", 
+        "point_range_start": 5, 
+        "confirm_prompt": "Provide us with an image of your design, preferably in JPEG, PDF, or PNG formats.", 
+        "expected_duration": 120, 
+        "point_range_end": 50
+    }
+},
+{
+    "pk": 137, 
+    "model": "smartgrid.activity", 
+    "fields": {
+        "admin_note": null, 
+        "confirm_type": "free", 
+        "point_range_start": 5, 
+        "confirm_prompt": "Paste your interview below, or provide us with a link to the results of your hard work.", 
+        "expected_duration": 240, 
+        "point_range_end": 50
+    }
+},
+{
+    "pk": 138, 
+    "model": "smartgrid.commitment", 
+    "fields": {
+        "commitment_length": 3
+    }
+},
+{
+    "pk": 141, 
+    "model": "smartgrid.action", 
+    "fields": {
+        "social_bonus": 0, 
+        "video_id": "bSFp6WXyOU4", 
+        "name": "OTEC video", 
+        "video_source": "youtube", 
+        "pub_date": "2011-10-31", 
+        "image": "", 
+        "title": "Watch a video about OTEC", 
+        "unlock_condition_text": "Complete Energy Intuition video activity to start", 
+        "related_resource": null, 
+        "embedded_widget": "", 
+        "point_value": 10, 
+        "expire_date": null, 
+        "type": "activity", 
+        "slug": "otec-video", 
+        "unlock_condition": "submitted_action(\"energy-intuition\")", 
+        "description": "Watch this video that explains how energy can be cleanly extracted from cold ocean depths here in Hawaii.\r\n"
+    }
+},
+{
+    "pk": 141, 
+    "model": "smartgrid.activity", 
+    "fields": {
+        "admin_note": null, 
+        "confirm_type": "text", 
+        "point_range_start": null, 
+        "confirm_prompt": "", 
+        "expected_duration": 6, 
+        "point_range_end": null
+    }
+},
+{
+    "pk": 120, 
+    "model": "smartgrid.action", 
+    "fields": {
+        "social_bonus": 0, 
+        "video_id": "", 
+        "name": "Lobby Legislator", 
+        "video_source": null, 
+        "pub_date": "2012-08-15", 
+        "image": "", 
+        "title": "Lobby Legislator", 
+        "unlock_condition_text": "", 
+        "related_resource": null, 
+        "embedded_widget": "", 
+        "point_value": 0, 
+        "expire_date": null, 
+        "type": "activity", 
+        "slug": "lobby-legislator", 
+        "unlock_condition": "True", 
+        "description": "Lobby your legislator on an issue that related to the Kukui Cup and important to you. You can find out who to contact here: http://www.capitol.hawaii.gov/   \r\n\r\nIf you live in another state, you can still get the points. Just send a letter to your legislator on an energy or sustainability that you are passionate about. You can find out who to contact here: http://openstates.org/find_your_legislator/\r\n\r\n"
+    }
+},
+{
+    "pk": 121, 
+    "model": "smartgrid.action", 
+    "fields": {
+        "social_bonus": 0, 
+        "video_id": "", 
+        "name": "Take Survey", 
+        "video_source": null, 
+        "pub_date": "2011-10-31", 
+        "image": "", 
+        "title": "Take a survey about the Kukui Cup", 
+        "unlock_condition_text": "Wait for Round 3 to start", 
+        "related_resource": null, 
+        "embedded_widget": "", 
+        "point_value": 40, 
+        "expire_date": null, 
+        "type": "activity", 
+        "slug": "take-survey", 
+        "unlock_condition": "True", 
+        "description": "We're in Round 3 of the Kukui Cup now, and we'd like to get some feedback from you about the competition. Click the following link to the survey, which will open in a new window. Once you are done, return here and just tell us you completed the survey, and we'll award your points.\r\n\r\n<center><a href=\"https://edu.surveygizmo.com/s3/696557/kukui-cup-survey\" target=\"_blank\">Round 3 Survey</a></center>\r\n"
+    }
+},
+{
+    "pk": 120, 
+    "model": "smartgrid.activity", 
+    "fields": {
+        "admin_note": "", 
+        "confirm_type": "free", 
+        "point_range_start": 5, 
+        "confirm_prompt": "Send us a copy of your letter or email. ", 
+        "expected_duration": 120, 
+        "point_range_end": 50
+    }
+},
+{
+    "pk": 121, 
+    "model": "smartgrid.activity", 
+    "fields": {
+        "admin_note": null, 
+        "confirm_type": "free", 
+        "point_range_start": null, 
+        "confirm_prompt": "Type anything below (because our system won't allow a blank answer) to get your points.", 
+        "expected_duration": 15, 
+        "point_range_end": null
+    }
+},
+{
+    "pk": 155, 
+    "model": "smartgrid.action", 
+    "fields": {
+        "social_bonus": 0, 
+        "video_id": "", 
+        "name": "Energy City", 
+        "video_source": null, 
+        "pub_date": "2012-06-12", 
+        "image": "", 
+        "title": "Play Energy City", 
+        "unlock_condition_text": "", 
+        "related_resource": "energy", 
+        "embedded_widget": "", 
+        "point_value": 20, 
+        "expire_date": null, 
+        "type": "activity", 
+        "slug": "energy-city", 
+        "unlock_condition": "submitted_action(\"compare-homes\")", 
+        "description": "This activity involves the student playing the online game <a href=\"http://www.filamentgames.com/projects/energy-city\" rel=\"nofollow\">Energy City</a>.  One of the scenarios, \"Pele's Island\", appears to be based on the Big Island's energy situation.  It is unclear how to award points for this activity, but we want to be able to:<div><ul><li>Verify that the student has played the game;</li><li>Find out the student's highest score;</li></ul>"
+    }
+},
+{
+    "pk": 155, 
+    "model": "smartgrid.activity", 
+    "fields": {
+        "admin_note": "", 
+        "confirm_type": "image", 
+        "point_range_start": null, 
+        "confirm_prompt": "Upload the screen shot of the energy city game that shows you are playing the game.", 
+        "expected_duration": 60, 
+        "point_range_end": null
+    }
+},
+{
+    "pk": 149, 
+    "model": "smartgrid.action", 
+    "fields": {
+        "social_bonus": 0, 
+        "video_id": "", 
+        "name": "DIY excursion", 
+        "video_source": null, 
+        "pub_date": "2012-08-15", 
+        "image": "", 
+        "title": "DIY Excursion", 
+        "unlock_condition_text": "", 
+        "related_resource": null, 
+        "embedded_widget": "", 
+        "point_value": 0, 
+        "expire_date": null, 
+        "type": "activity", 
+        "slug": "diy-excursion", 
+        "unlock_condition": "True", 
+        "description": "Come up with a Kukui Cup excursion and document the adventure. To get full points you should consider doing the following: bring other kukui cup participants with you on the excursion, document the excursion with video and pictures, share the video and pictures on facebook and twitter (with #kukuicup), and make sure the excursion has low environmental impact. \r\n"
+    }
+},
+{
+    "pk": 149, 
+    "model": "smartgrid.activity", 
+    "fields": {
+        "admin_note": "", 
+        "confirm_type": "free", 
+        "point_range_start": 5, 
+        "confirm_prompt": "Share your adventure describing what you did, and share links to pictures and videos you took and where you shared them on social media. ", 
+        "expected_duration": 480, 
+        "point_range_end": 50
+    }
+},
+{
+    "pk": 101, 
+    "model": "smartgrid.action", 
+    "fields": {
+        "social_bonus": 5, 
+        "video_id": null, 
+        "name": "DIY Commitment 2", 
+        "video_source": null, 
+        "pub_date": "2012-08-15", 
+        "image": "", 
+        "title": "DIY Commitment 2", 
+        "unlock_condition_text": "Complete DIY commitment 1", 
+        "related_resource": null, 
+        "embedded_widget": null, 
+        "point_value": 5, 
+        "expire_date": null, 
+        "type": "commitment", 
+        "slug": "diy-commitment-2", 
+        "unlock_condition": "submitted_action(\"diy-commitment\")", 
+        "description": "Create a commitment that you will keep for 3 days. Publicly share the commitment to facebook or twitter, with #kukuicup."
+    }
+},
+{
+    "pk": 101, 
+    "model": "smartgrid.commitment", 
+    "fields": {
+        "commitment_length": 3
+    }
+},
+{
+    "pk": 42, 
+    "model": "smartgrid.action", 
+    "fields": {
+        "social_bonus": 10, 
+        "video_id": "", 
+        "name": "Door Art", 
+        "video_source": null, 
+        "pub_date": "2011-09-14", 
+        "image": "media/smartgrid/actions/door-art-small.jpg", 
+        "title": "Door Art Challenge", 
+        "unlock_condition_text": "Complete Secrets of the Kukui Cup video activity", 
+        "related_resource": null, 
+        "embedded_widget": "", 
+        "point_value": 0, 
+        "expire_date": null, 
+        "type": "activity", 
+        "slug": "door-art", 
+        "unlock_condition": "submitted_action(\"cup-secrets\")", 
+        "description": "Show your support for the Kukui Cup by decorating your door in an \"energy conscious\" fashion. You can do any of the following: include Kukui Cup logos or screen shots, invent new tag lines, show pictures related to energy, or anything else that communicates energy consciousness. When completed, take a photo of your door and click the **I Did This** button to submit the picture. Based on the awesomeness of your design, you will get between 5-15 points!\r\n\r\n<!---\r\nIf you want to show off your mad skillz, in addition to uploading your photo to us, you can publicly post your door art picture to the <a href=\"http://www.flickr.com/groups/kukuicup-2011-door-art/\" target=\"_blank\">Kukui Cup 2011 Door Art Flickr group</a> (will open in a new window). If you don't already have a Flickr account, you can sign up for one for free.\r\n--->"
+    }
+},
+{
+    "pk": 42, 
+    "model": "smartgrid.activity", 
+    "fields": {
+        "admin_note": null, 
+        "confirm_type": "image", 
+        "point_range_start": 5, 
+        "confirm_prompt": "Please upload the picture of your door art.", 
+        "expected_duration": 60, 
+        "point_range_end": 15
+    }
+},
+{
+    "pk": 64, 
+    "model": "smartgrid.action", 
+    "fields": {
+        "social_bonus": 5, 
+        "video_id": null, 
+        "name": "Go meatless", 
+        "video_source": null, 
+        "pub_date": "2012-04-21", 
+        "image": "", 
+        "title": "I will not eat meat", 
+        "unlock_condition_text": "", 
+        "related_resource": null, 
+        "embedded_widget": null, 
+        "point_value": 5, 
+        "expire_date": null, 
+        "type": "commitment", 
+        "slug": "no-meat", 
+        "unlock_condition": "True", 
+        "description": "Commit to not eating any meat (beef, pork, chicken, fish, shellfish, etc) during the commitment period. Producing meat (beef in particular) uses a great deal of energy, and produces a great deal of greenhouse gasses. A vegetarian diet uses less energy and emits less greenhouse gas. There are many of vegetarian food options both on campus and around Honolulu, try them out!"
+    }
+},
+{
+    "pk": 64, 
+    "model": "smartgrid.commitment", 
+    "fields": {
+        "commitment_length": 3
+    }
+},
+
+{
+    "pk": 71, 
+    "model": "smartgrid.level", 
+    "fields": {
+        "priority": 4, 
+        "unlock_condition_text": null, 
+        "name": "Level 4 (Tesla Level)", 
+        "unlock_condition": "True", 
+        "slug": "level-4-tesla-level"
+    }
+},
+{
+    "pk": 387, 
+    "model": "smartgrid.columngrid", 
+    "fields": {
+        "column": 4, 
+        "name": 849, 
+        "level": 71
+    }
+},
+{
+    "pk": 388, 
+    "model": "smartgrid.columngrid", 
+    "fields": {
+        "column": 2, 
+        "name": 884, 
+        "level": 71
+    }
+},
+{
+    "pk": 389, 
+    "model": "smartgrid.columngrid", 
+    "fields": {
+        "column": 1, 
+        "name": 866, 
+        "level": 71
+    }
+},
+{
+    "pk": 390, 
+    "model": "smartgrid.columngrid", 
+    "fields": {
+        "column": 3, 
+        "name": 852, 
+        "level": 71
+    }
+},
+{
+    "pk": 1840, 
+    "model": "smartgrid.grid", 
+    "fields": {
+        "column": 1, 
+        "action": 234, 
+        "row": 1, 
+        "level": 71
+    }
+},
+{
+    "pk": 1841, 
+    "model": "smartgrid.grid", 
+    "fields": {
+        "column": 1, 
+        "action": 141, 
+        "row": 2, 
+        "level": 71
+    }
+},
+{
+    "pk": 1842, 
+    "model": "smartgrid.grid", 
+    "fields": {
+        "column": 1, 
+        "action": 235, 
+        "row": 3, 
+        "level": 71
+    }
+},
+{
+    "pk": 1843, 
+    "model": "smartgrid.grid", 
+    "fields": {
+        "column": 1, 
+        "action": 155, 
+        "row": 4, 
+        "level": 71
+    }
+},
+{
+    "pk": 1844, 
+    "model": "smartgrid.grid", 
+    "fields": {
+        "column": 2, 
+        "action": 137, 
+        "row": 1, 
+        "level": 71
+    }
+},
+{
+    "pk": 1845, 
+    "model": "smartgrid.grid", 
+    "fields": {
+        "column": 2, 
+        "action": 149, 
+        "row": 2, 
+        "level": 71
+    }
+},
+{
+    "pk": 1846, 
+    "model": "smartgrid.grid", 
+    "fields": {
+        "column": 2, 
+        "action": 138, 
+        "row": 3, 
+        "level": 71
+    }
+},
+{
+    "pk": 1847, 
+    "model": "smartgrid.grid", 
+    "fields": {
+        "column": 2, 
+        "action": 101, 
+        "row": 4, 
+        "level": 71
+    }
+},
+{
+    "pk": 1848, 
+    "model": "smartgrid.grid", 
+    "fields": {
+        "column": 3, 
+        "action": 120, 
+        "row": 1, 
+        "level": 71
+    }
+},
+{
+    "pk": 1849, 
+    "model": "smartgrid.grid", 
+    "fields": {
+        "column": 3, 
+        "action": 42, 
+        "row": 2, 
+        "level": 71
+    }
+},
+{
+    "pk": 1850, 
+    "model": "smartgrid.grid", 
+    "fields": {
+        "column": 3, 
+        "action": 135, 
+        "row": 3, 
+        "level": 71
+    }
+},
+{
+    "pk": 1851, 
+    "model": "smartgrid.grid", 
+    "fields": {
+        "column": 3, 
+        "action": 136, 
+        "row": 4, 
+        "level": 71
+    }
+},
+{
+    "pk": 1852, 
+    "model": "smartgrid.grid", 
+    "fields": {
+        "column": 4, 
+        "action": 236, 
+        "row": 1, 
+        "level": 71
+    }
+},
+{
+    "pk": 1853, 
+    "model": "smartgrid.grid", 
+    "fields": {
+        "column": 4, 
+        "action": 64, 
+        "row": 2, 
+        "level": 71
+    }
+},
+{
+    "pk": 1854, 
+    "model": "smartgrid.grid", 
+    "fields": {
+        "column": 4, 
+        "action": 237, 
+        "row": 3, 
+        "level": 71
+    }
+},
+{
+    "pk": 1855, 
+    "model": "smartgrid.grid", 
+    "fields": {
+        "column": 4, 
+        "action": 238, 
+        "row": 4, 
+        "level": 71
+    }
+}
+]

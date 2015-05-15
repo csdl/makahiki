@@ -1,6 +1,6 @@
 {% load markup %}
 
-{% if user.get_profile.setup_complete %}
+{% if user.profile.setup_complete %}
 {% load cache %}
 {% cache 1800 home request.user.username %}
 

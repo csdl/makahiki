@@ -19,7 +19,9 @@ def supply(request, page_name):
             (rounds[key]["display_scoreboard"] or page_name == "status"):
             round_participation_ranks[key] = participation.participation_ranks(key)
 
+    """
     round_participation_ranks["Overall"] = participation.participation_ranks("Overall")
+    """
 
     return {
         "round_participation_ranks": round_participation_ranks,

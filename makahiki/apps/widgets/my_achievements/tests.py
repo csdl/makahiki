@@ -126,7 +126,7 @@ class MyAchievementsTestCase(TransactionTestCase):
         )
         activity.save()
 
-        points = self.user.get_profile().points()
+        points = self.user.profile.points()
         member = ActionMember(
             user=self.user,
             action=activity,
@@ -135,11 +135,11 @@ class MyAchievementsTestCase(TransactionTestCase):
         member.points_awarded = 314159
         member.save()
 
-        self.assertEqual(self.user.get_profile().points(), points + 314159,
+        self.assertEqual(self.user.profile.points(), points + 314159,
             "Variable number of points should have been awarded.")
 
         # Kludge to change point value for the info bar.
-        profile = self.user.get_profile()
+        profile = self.user.profile
         profile.add_points(3, datetime.datetime.today(), "test")
         profile.save()
 

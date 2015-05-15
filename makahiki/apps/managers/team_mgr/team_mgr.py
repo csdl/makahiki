@@ -24,18 +24,18 @@ def team_normalize_size():
     return size
 
 
-def team_points_leader(round_name=None):
+def team_points_leader(round_name=None, place=1):
     """Returns the team points leader (the first place) across all groups, as a Team object."""
     if not round_name:
         round_name = challenge_mgr.get_round_name()
 
-    team_id = score_mgr.team_points_leader(round_name=round_name)
+    team_id = score_mgr.team_points_leader(round_name=round_name, place=place)
     if team_id:
         return Team.objects.get(id=team_id)
     else:
         teams = Team.objects.all()
-        if teams:
-            return teams[0]
+        if len(teams) >= place:
+            return teams[place - 1]
         else:
             return None
 
@@ -70,18 +70,18 @@ def team_points_leaders(num_results=None, round_name=None):
         return results
 
 
-def group_points_leader(round_name=None):
-    """Returns the team points leader (the first place) across all groups, as a Team object."""
+def group_points_leader(round_name=None, place=1):
+    """Returns the team points leader (the place) across all groups, as a Team object."""
     if not round_name:
         round_name = challenge_mgr.get_round_name()
 
-    group_id = score_mgr.group_points_leader(round_name=round_name)
+    group_id = score_mgr.group_points_leader(round_name=round_name, place=place)
     if group_id:
         return Group.objects.get(id=group_id)
     else:
         groups = Group.objects.all()
-        if groups:
-            return groups[0]
+        if len(groups) >= place:
+            return groups[place - 1]
         else:
             return None
 

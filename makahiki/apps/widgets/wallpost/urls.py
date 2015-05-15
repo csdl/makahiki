@@ -1,5 +1,5 @@
 """urls"""
-from django.conf.urls.defaults import url, patterns
+from django.conf.urls import url, patterns
 
 urlpatterns = patterns('',
     url(r'^more_posts/user/$', 'apps.widgets.wallpost.user_wallpost.views.more_posts',

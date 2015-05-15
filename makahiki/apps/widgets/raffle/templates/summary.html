@@ -17,7 +17,7 @@
     <div class="module">
         <b>Raffle winners:</b> <br/>
         {% for raffle in raffles %}
-        {{ raffle.title }} ${{ raffle.value }} {{ raffle.winner.get_profile }} ({{ raffle.winner.first_name }} {{ raffle.winner.last_name}}) <br/>
+        {{ raffle.title }} ${{ raffle.value }} {{ raffle.winner.profile }} ({{ raffle.winner.first_name }} {{ raffle.winner.last_name}}) <br/>
         {% endfor %}
     </div>
 {% endblock %}

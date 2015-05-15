@@ -1,6 +1,6 @@
 """urls definition for smartgrid widget."""
 
-from django.conf.urls.defaults import url, patterns
+from django.conf.urls import url, patterns
 
 urlpatterns = patterns('',
     url(r'^(?P<action_type>[\w]+)/(?P<slug>[\w\d\-]+)/$',

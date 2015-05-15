@@ -1,7 +1,7 @@
 """Provides utility methods for invalidating various caches."""
 
 from django.core.cache import cache
-from django.utils.hashcompat import md5_constructor
+import hashlib
 from django.utils.http import urlquote
 
 
@@ -35,6 +35,6 @@ def invalidate_template_cache(fragment_name, *variables):
     """Invalidates the cache associated with a template.
     Credit: `djangosnippets.org/snippets/1593/ <http://djangosnippets.org/snippets/1593/>`_"""
 
-    args = md5_constructor(u':'.join([urlquote(var) for var in variables]))
+    args = hashlib.md5(u':'.join([urlquote(var) for var in variables]))
     cache_key = 'template.cache.%s.%s' % (fragment_name, args.hexdigest())
     delete(cache_key)

@@ -62,8 +62,8 @@
     {
         "model": "quests.quest",
         "fields": {
-            "completion_conditions": "allocated_ticket()",
-            "unlock_conditions": "submitted_action('intro-video') and has_points(25) and not allocated_ticket()",
+            "completion_conditions": "allocated_raffle_ticket()",
+            "unlock_conditions": "submitted_action('intro-video') and has_points(25) and not allocated_raffle_ticket()",
             "name": "Participate in the Raffle",
             "priority": 4,
             "description": "An exciting side game in the Kukui Cup is the Raffle Game, which you can find on the Prizes page. Click on the Prizes icon in the navigation bar to get to the Prizes page. The Raffle Game is on the right hand side of the Prizes page.\r\n\r\nFor every 25 points you earn, you get a raffle ticket. You can allocate your ticket(s) to any of the prizes in the raffle, and each ticket gives you one chance to win the prize at the end of the round. However, all the other players are also allocating their raffle tickets to the prizes, which lowers your odds. You can change your allocation of tickets at any time until the Raffle Game deadline shown below the list of prizes. At the end of the round, the Raffle Game randomly picks one ticket for each prize, and the owner of that ticket wins the prize!\r\n\r\n**Step by step:**\r\n\r\n1. Go to the **Prizes** page\r\n2. Pick one of the raffle prizes\r\n3. Allocate one ticket to it using the **+1** button.",

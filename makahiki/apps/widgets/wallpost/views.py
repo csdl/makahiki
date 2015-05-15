@@ -1,12 +1,11 @@
 """Handles wall post widget request and rendering."""
-
+import json
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponse
 from django.template.context import RequestContext
 from django.template.loader import render_to_string
 from apps.managers.team_mgr.models import Post
 from apps.widgets.wallpost.forms import WallForm
-import simplejson as json
 
 DEFAULT_POST_COUNT = 10
 """Number of posts to load at a time."""
@@ -25,7 +24,7 @@ def super_supply(request, page_name, agent):
     """supply the view_objects."""
     agent_post = agent + "_post"
     user = request.user
-    team = user.get_profile().team
+    team = user.profile.team
 
     if "last_post" in request.GET:
         posts = Post.objects.filter(
@@ -89,7 +88,7 @@ def post(request):
         if form.is_valid():
             wall_post = Post(
                 user=request.user,
-                team=request.user.get_profile().team,
+                team=request.user.profile.team,
                 text=form.cleaned_data["post"]
             )
             wall_post.save()

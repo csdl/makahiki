@@ -1,10 +1,9 @@
 """handles reminders in smartgrid."""
-
+import json
 import datetime
 from django.contrib.auth.decorators import login_required
-import simplejson as json
 
-from django.http import  HttpResponse, Http404
+from django.http import HttpResponse, Http404
 from django.core.exceptions import ObjectDoesNotExist
 from django.template.loader import render_to_string
 from apps.widgets.smartgrid import smartgrid
@@ -19,7 +18,7 @@ def reminder(request, action_type, slug):
     _ = action_type
     if request.is_ajax():
         if request.method == "POST":
-            profile = request.user.get_profile()
+            profile = request.user.profile
             action = smartgrid.get_action(slug=slug)
             form = ReminderForm(request.POST)
             if form.is_valid():
@@ -108,8 +107,8 @@ def load_reminders(action, user):
     if action.type in ("event", "excursion"):
         # Store initial reminder fields.
         reminder_init = {"email": user.email,
-            "text_number": user.get_profile().contact_text,
-            "text_carrier": user.get_profile().contact_carrier}
+            "text_number": user.profile.contact_text,
+            "text_carrier": user.profile.contact_carrier}
         # Retrieve an existing reminder and update it accordingly.
         try:
             email = user.emailreminder_set.get(action=action)

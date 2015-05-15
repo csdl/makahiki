@@ -1,4 +1,4 @@
-{% with interval=view_objects.status__wattdepot.interval all_lounges=view_objects.status__wattdepot.data.all_lounges group_lounges=view_objects.status__wattdepot.data.group_lounges %}
+{% with interval=view_objects.status__wattdepot.interval wattdepot_version=view_objects.status__wattdepot.wattdepot_version all_lounges=view_objects.status__wattdepot.data.all_lounges group_lounges=view_objects.status__wattdepot.data.group_lounges %}
 <div class="content-box demi-widget">
     <div class="content-box-title">
           Watt-Depot Status
@@ -42,20 +42,21 @@
              var done = true;
             (function () {      
                 {% for team in all_lounges %}
-                    drawOne({{forloop.counter}}, "{{team}}")
+                    drawOne({{forloop.counter}}, "{{team.source_name}}")
                 {% endfor %}
             })();
 
-            function drawOne(id, team) {
+            function drawOne(id, source) {
                 var refreshInterval = {{interval}};
+                var wattdepot_version = "{{wattdepot_version}}";
                 var server_url = "{{ CHALLENGE.wattdepot_server_url }}";
-                var source = team;
                 var options = {
                     source: source,
                     width: 200,
                     powerRange: 2000};
 
                 new Makahiki_PowerMeterStatus( server_url,
+                        wattdepot_version,
                         source,
                         refreshInterval,
                         "visualization_",

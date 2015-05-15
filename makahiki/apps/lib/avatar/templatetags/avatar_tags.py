@@ -3,7 +3,7 @@ import urllib
 from django import template
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
-from django.utils.hashcompat import md5_constructor
+from hashlib import md5
 
 from apps.lib.avatar import AVATAR_DEFAULT_NO_URL, AVATAR_DEFAULT_YES_URL, AVATAR_GRAVATAR_BACKUP,\
     AVATAR_DEFAULT_NO_LG_URL
@@ -29,10 +29,10 @@ def avatar_url(user, size=80, first_login=False):
     else:
         if AVATAR_GRAVATAR_BACKUP:
             return "http://www.gravatar.com/avatar/%s/?%s" % (
-                md5_constructor(user.email).hexdigest(),
+                md5(user.email).hexdigest(),
                 urllib.urlencode({'s': str(size)}),)
         else:
-            if user.get_profile().setup_complete:
+            if user.profile.setup_complete:
                 return AVATAR_DEFAULT_YES_URL
             else:
                 if size > 60:

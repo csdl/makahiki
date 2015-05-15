@@ -1,15 +1,15 @@
 Namespace("org.wattdepot.makahiki");
 
-/**  Load the Visualization API and the bar chart package. */
+var host_uri = SERVER_URL;
+var wattdepot_version = WATTDEPOT_VERSION;
+
+/** Load the Visualization API and the bar chart package. */
 google.load("visualization", "1", {packages:['corechart', 'imagechart']});
 
 /** Set a callback to run when the Google Visualization API is loaded. */
 google.setOnLoadCallback(initialize);
 
 var title = "Energy Consumed";
-var host_uri = SERVER_URL;
-
-var dataType = "energyConsumed";
 var dateRange = "last7days"
 var goBack = 168;
 var interval = 60;
@@ -41,7 +41,8 @@ function initialize() {
 
     // Initialize beginning and ending variables to hold the timestamp
     // in XMLGregorian format that WattDepot requires.
-    // Use the appendZero function for hour and minutes to append extra 0 if the value is less than 10.
+    // Use the appendZero function for hour and minutes to append extra 0 if the
+	// value is less than 10.
     // This is used to conform to XMLGregorian format.
     var begHour = appendZero(begDate.getHours());
     var begMin = appendZero(begDate.getMinutes());
@@ -61,16 +62,28 @@ function initialize() {
     // Build the query URL to WattDepot based on user preference.
     // Format:
     // {host}/sources/{source}/calculated?startTime={timestamp}&endTime={timestamp}&samplingInterval={interval}&displaySubsources={boolean}&tq={queryString}
-    // More info. at http://code.google.com/p/wattdepot/wiki/UsingGoogleVisualization#Power/Energy/Carbon_URI
-    // In order to support multiple sources in a single visualization, need to create an array of queries
+    // More info. at
+	// http://code.google.com/p/wattdepot/wiki/UsingGoogleVisualization#Power/Energy/Carbon_URI
+    // In order to support multiple sources in a single visualization, need to
+	// create an array of queries
     // and store each as an element in the array.
 
-    var url = host_uri + '/sources/' + source + '/gviz/calculated?startTime=' +
+    var url = null;
+    if (wattdepot_version == "WATTDEPOT2") {
+      var dataType = "energyConsumed";
+      url = host_uri + '/sources/' + source + '/gviz/calculated?startTime=' +
         startTime + '&endTime=' + endTime + '&samplingInterval=' + interval;
+    }
+
+    if (wattdepot_version == "WATTDEPOT3") {
+      var dataType = "energy";
+      url = host_uri + '/depository/' + dataType + '/values/gviz/?sensor='+
+          source +'&start=' + startTime + '&end=' + endTime + '&interval='+interval;
+    }
+
     query = new google.visualization.Query(url);
     //debug(url);
-    query.setQuery('select timePoint, ' + dataType);
-
+    
     query.send(function(response) {
         responseHandler(response, query, source, 0);
     });
@@ -89,7 +102,7 @@ function initialize() {
 
 /** Once dorm data is retrieved, create and display the chart with tooltips. */
 function responseHandler(response, query, source, number) {
-    // Disable the loading gif 
+    // Disable the loading gif
     var loadingMsgContainer = document.getElementById('loading');
     if (loadingMsgContainer) {
         loadingMsgContainer.style.display = 'none';
@@ -107,7 +120,10 @@ function responseHandler(response, query, source, number) {
     makeHotSpotImageElement(data);
 }
 
-/**  Generate an img tag with a chart URL and an accompanying map element for displaying data.  */
+/**
+ * Generate an img tag with a chart URL and an accompanying map element for
+ * displaying data.
+ */
 function makeHotSpotImageElement(data) {
     var scaleView = new google.visualization.DataTable();
     var view = transpose(data, scaleView);
@@ -122,11 +138,11 @@ function makeHotSpotImageElement(data) {
 }
 
 /*
- * Transposes a response Data Table returned by the WattDepot
- * server used for a Google Visualization.  Response table contains
- * two columns, "datetime" and "numbers".  This method is used to
- * conform to a wanted view of rows of sources, and columns of dates.
- *
+ * Transposes a response Data Table returned by the WattDepot server used for a
+ * Google Visualization. Response table contains two columns, "datetime" and
+ * "numbers". This method is used to conform to a wanted view of rows of
+ * sources, and columns of dates.
+ * 
  * @param tempTable is a Google response table to be transposed.
  */
 function transpose(tempTable, scaleView) {
@@ -153,8 +169,8 @@ function transpose(tempTable, scaleView) {
     for (k = 0; k < rows; k++) {
         x = k % 24;
         y = Number(parseInt(k / 24));
-        size = Number(temp.getValue(k, 1).toFixed(0));
-        scalesize = Math.round(temp.getValue(k, 1) / 100);
+        size = Math.abs(Number(temp.getValue(k, 1).toFixed(0)));
+        scalesize = Math.abs(Math.round(temp.getValue(k, 1) / 100));
 
         var addedrow = new Array();
         var addedrow2 = new Array();
@@ -176,20 +192,21 @@ function transpose(tempTable, scaleView) {
 }
 
 /**
- * Returns the URL for generating the chart.
- * Temporarily use the google visualization call to do it to simplify creation of the data parameter.
- * This results in 'flicker' and an extra HTTP call.
- * We can generate the data param manually later in order to fix this.
- * Note we need to create a view containing just the (x,y,data) columns
+ * Returns the URL for generating the chart. Temporarily use the google
+ * visualization call to do it to simplify creation of the data parameter. This
+ * results in 'flicker' and an extra HTTP call. We can generate the data param
+ * manually later in order to fix this. Note we need to create a view containing
+ * just the (x,y,data) columns
  */
 function getChartUrl(tempTable, data) {
 
     var chart = new google.visualization.ImageChart(document.getElementById('chart_div'));
     chart.draw(data, getOptions(tempTable, data));
 
-    // Get the URL without URL encoding of commas, pipes, and colons, since they take up too many characters and we have a 2K limit
+    // Get the URL without URL encoding of commas, pipes, and colons, since they
+	// take up too many characters and we have a 2K limit
     var gvizChartUrl = chart.getImageUrl().replace(/%2C/g, ',').replace(/%7C/g, '|').replace(/%3A/g, ':');
-    //debug('Gviz URL is: ' + gvizChartUrl);
+    // debug('Gviz URL is: ' + gvizChartUrl);
 
     return gvizChartUrl;
 }
@@ -206,13 +223,15 @@ function getOptions(tempTable, data) {
     options.chxl = '0:|' + getXAxisLabels(tempTable) + '|1:|' + getYAxisLabels(tempTable);
     // Adjust the X & Y axis with -1 so that dots line up correctly.
     // The last two numbers indicate the scaling range.
-    // Supply the lowest and highest value in the dataset to get automatic dot scaling.
+    // Supply the lowest and highest value in the dataset to get automatic dot
+	// scaling.
     var valueColumn = 2;
     var maxValue = getMaxColumnValue(data, 2)
 
     options.chds = '-1,24,-1,7,0,' + maxValue;
 
-    // Shape marker: o = circle, 333333 = black, 1 = data series, -1 = allpoints, 20 = max size in pts.
+    // Shape marker: o = circle, 333333 = black, 1 = data series, -1 =
+	// allpoints, 20 = max size in pts.
     var maxSpotSize = 20;
     var defaultMarker = 'o,459E00,1,-1,' + maxSpotSize;
 
@@ -290,31 +309,35 @@ function getYAxisLabels(tempTable) {
 
 
 /*
- * Takes in a Date object and returns either a formatted date or time.
- * Times are formatted using AM/PM, dates are returned as Month/Day.
- *
+ * Takes in a Date object and returns either a formatted date or time. Times are
+ * formatted using AM/PM, dates are returned as Month/Day.
+ * 
  * @param date is a date object to be formatted.
  */
 function formatDate(date) {
-        // Format the date as Month/Day, year is optional, but seems too long for gadget use.
+        // Format the date as Month/Day, year is optional, but seems too long
+		// for gadget use.
         var columnMonth = date.getMonth() + 1;
         var columnDay = appendZero(date.getDate());
         var ColumnYear = date.getFullYear();
         return columnMonth + "-" + columnDay;
 }
 
-/** Create and return the image map element.  */
+/** Create and return the image map element. */
 function createMap(data) {
     var map = document.createElement('map');
     map.setAttribute('id', 'tooltipMap');
     map.setAttribute('name', 'tooltipMap');
 
-    // Initial offset into the chart to get the map aligned with the (x,y) values.
+    // Initial offset into the chart to get the map aligned with the (x,y)
+	// values.
     // (xOffSet, yOffset) must be the position of the bottom left dot.
-    // Note that these need to be custom set for each chart, I don't know any way to compute them!
-    // Use Firebug > HTML > div id="img" > map  and then move mouse over first area tag to see the location.
-    var yOffset = 158; //158;
-    var xOffset = 55; //75;
+    // Note that these need to be custom set for each chart, I don't know any
+	// way to compute them!
+    // Use Firebug > HTML > div id="img" > map and then move mouse over first
+	// area tag to see the location.
+    var yOffset = 158; // 158;
+    var xOffset = 55; // 75;
     var columnWidth = 18; // 17.3;
     var rowHeight = 21.5;
     var mapRadius = 8;
@@ -348,10 +371,10 @@ function debug(msg) {
     }
 }
 
-/* 
- * Appends a 0 at the beginning of a variable if it is less than 10.
- * Convenience method to convert to XML Gregorian standards. 
- *
+/*
+ * Appends a 0 at the beginning of a variable if it is less than 10. Convenience
+ * method to convert to XML Gregorian standards.
+ * 
  * @param number is the number to append '0' if less than 10.
  */
 function appendZero(number) {
@@ -385,7 +408,8 @@ function updateLounge() {
 
     source = document.getElementById("lounge").value;
 
-    // Clear the contents of the drop-down menus, and re-display the loading sign.
+    // Clear the contents of the drop-down menus, and re-display the loading
+	// sign.
     document.getElementById("img").innerHTML = "";
     document.getElementById("loading").style.display = '';
     initialize();

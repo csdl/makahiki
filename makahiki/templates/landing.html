@@ -26,21 +26,21 @@
             <div id="auth_buttons" style="display:none;">
                 {% if CHALLENGE.use_cas_auth %}
                 <button class="btn btn-widget landing-button-smaller"
-                        onclick="javascript:location.href='{% url home_index %}'">
+                        onclick="javascript:location.href='{% url 'home_index' %}'">
                     {{ CHALLENGE.cas_auth_text|markdown }}
                 </button>
                 <p/><p/>
                 {% endif %}
                 {% if CHALLENGE.use_ldap_auth %}
                 <button class="btn btn-widget landing-button-smaller"
-                        onclick="javascript:location.href='{% url account_login %}'">
+                        onclick="javascript:location.href='{% url 'account_login' %}'">
                     {{ CHALLENGE.ldap_auth_text|markdown }}
                 </button>
                 <p/><p/>
                 {% endif %}
                 {% if CHALLENGE.use_internal_auth %}
                 <button class="btn btn-widget landing-button-smaller"
-                        onclick="javascript:location.href='{% url account_login %}'">
+                        onclick="javascript:location.href='{% url 'account_login' %}'">
                     {{ CHALLENGE.internal_auth_text|markdown }}
                 </button>
                 {% endif %}
@@ -48,7 +48,7 @@
 
             <p>
             <button id="landing-button-non-participant" class="btn btn-widget landing-button"
-                    onclick="javascript:location.href='{% url about %}'">
+                    onclick="javascript:location.href='{% url 'about' %}'">
                 {{ CHALLENGE.landing_non_participant_text|markdown }}
             </button>
 
@@ -81,14 +81,14 @@
 
         function show_auth_buttons() {
             if (!jQuery.support.opacity) {
-                window.location.href = '{% url browser_check %}';
+                window.location.href = '{% url 'browser_check' %}';
             }
             else {
                 {% if not CHALLENGE.is_multi_auth %}
                     {% if CHALLENGE.use_cas_auth %}
-                        location.href='{% url home_index %}';
+                        location.href='{% url 'home_index' %}';
                     {% else %}
-                        location.href='{% url account_login %}';
+                        location.href='{% url 'account_login' %}';
                     {% endif %}
                 {% else %}
                     $('#landing-button-participant').hide();

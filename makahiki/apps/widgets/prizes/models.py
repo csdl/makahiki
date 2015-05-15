@@ -4,7 +4,6 @@ from apps.managers.player_mgr import player_mgr
 from apps.managers.resource_mgr import resource_mgr
 
 from apps.managers.team_mgr import team_mgr
-from apps.managers.team_mgr.models import Group, Team
 from apps.utils.utils import media_file_path
 from apps.widgets.resource_goal import resource_goal
 from apps.managers.challenge_mgr.models import RoundSetting
@@ -61,6 +60,12 @@ class Prize(models.Model):
         max_length=50,
         choices=AWARD_CRITERIA_CHOICES,
         help_text="The competition type of the award.")
+
+    place = models.IntegerField(
+        default=1,
+        help_text="The place of the prize. It is a number indicating first place or "
+                  "second place, etc.")
+
     admin_tool_tip = "Prizes for the highest score"
 
     def __unicode__(self):
@@ -71,25 +76,20 @@ class Prize(models.Model):
 
     class Meta:
         """meta"""
-        unique_together = ("round", "award_to", "competition_type")
-        ordering = ("round__name", "award_to", "competition_type")
+        unique_together = ("round", "award_to", "competition_type", "place")
+        ordering = ("round__name", "award_to", "competition_type", "place")
 
-    def num_awarded(self, team=None):
-        """Returns the number of prizes that will be awarded for this prize."""
-        _ = team
-        if self.award_to in ("individual_overall", "team_overall", "group"):
-            # For overall prizes, it is only possible to award one.
-            return 1
-
-        elif self.award_to in ("team_group", "individual_group"):
-            # For dorm prizes, this is just the number of groups.
-            return Group.objects.count()
-
-        elif self.award_to == "individual_team":
-            # This is awarded to each team.
-            return Team.objects.count()
-
-        raise Exception("Unknown award_to value '%s'" % self.award_to)
+    def place_text(self):
+        """return the human text for place, such as 1st, 2nd, 3rd. etc."""
+        place_dict = {
+            1: "1st",
+            2: "2nd",
+            3: "3rd",
+        }
+        if self.place <= 3:
+            return place_dict[self.place]
+        else:
+            return "%dth" % self.place
 
     def leader(self, team=None):
         """Return the prize leader."""
@@ -97,18 +97,28 @@ class Prize(models.Model):
             round_name = "Round 1"
         else:
             round_name = self.round.name
-        if self.competition_type == "points":
-            return self._points_leader(team)
-        elif self.competition_type == "energy":
-            return resource_mgr.resource_leader("energy", round_name=round_name)
-        elif self.competition_type == "energy_goal":
-            return resource_goal.resource_goal_leader("energy", round_name=round_name)
-        elif self.competition_type == "water":
-            return resource_mgr.resource_leader("water", round_name=round_name)
-        elif self.competition_type == "water_goal":
-            return resource_goal.resource_goal_leader("water", round_name=round_name)
 
-    def _points_leader(self, team=None):
+        place = self.place
+
+        if self.competition_type == "points":
+            return self._points_leader(team, place)
+
+        elif self.competition_type == "energy_usage":
+            return resource_mgr.resource_leader("energy", round_name=round_name, place=place)
+
+        elif self.competition_type == "energy_goal":
+            return resource_goal.resource_goal_leader("energy", round_name=round_name, place=place)
+
+        elif self.competition_type == "water_usage":
+            return resource_mgr.resource_leader("water", round_name=round_name, place=place)
+
+        elif self.competition_type == "water_goal":
+            return resource_goal.resource_goal_leader("water", round_name=round_name, place=place)
+
+        else:
+            raise Exception("'%s' is not implemented yet." % self.award_to)
+
+    def _points_leader(self, team=None, place=1):
         """Return the point leader."""
         if self.round == None:
             round_name = "Round 1"
@@ -118,21 +128,26 @@ class Prize(models.Model):
         leader = None
 
         if self.award_to == "individual_overall":
-            leader = player_mgr.points_leader(round_name=round_name)
+            leader = player_mgr.points_leader(round_name=round_name, place=place)
+
         elif self.award_to == "team_group":
             if team:
-                leaders = team.group.team_points_leaders(num_results=1, round_name=round_name)
-                if leaders:
-                    leader = leaders[0]
+                leaders = team.group.team_points_leaders(num_results=place, round_name=round_name)
+                if len(leaders) >= place:
+                    leader = leaders[place - 1]
+
         elif self.award_to == "team_overall":
-            leader = team_mgr.team_points_leader(round_name=round_name)
+            leader = team_mgr.team_points_leader(round_name=round_name, place=place)
+
         elif self.award_to == "group":
-            leader = team_mgr.group_points_leader(round_name=round_name)
+            leader = team_mgr.group_points_leader(round_name=round_name, place=place)
+
         elif self.award_to == "individual_team":
             if team:
-                leaders = team.points_leaders(num_results=1, round_name=round_name)
-                if leaders:
-                    leader = leaders[0]
+                leaders = team.points_leaders(num_results=place, round_name=round_name)
+                if len(leaders) >= place:
+                    leader = leaders[place - 1]
+
         else:
             raise Exception("'%s' is not implemented yet." % self.award_to)
 

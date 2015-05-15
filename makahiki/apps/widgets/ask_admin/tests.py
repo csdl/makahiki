@@ -28,4 +28,4 @@ class AskAdminFunctionalTests(TransactionTestCase):
 
         self.failUnlessEqual(response.status_code, 200)
         #self.assertEqual(len(mail.outbox), 1)
-        #self.assertTrue(mail.outbox[0].subject.find(self.user.get_profile().name) > 0)
+        #self.assertTrue(mail.outbox[0].subject.find(self.user.profile.name) > 0)

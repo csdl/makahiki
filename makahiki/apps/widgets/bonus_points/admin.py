@@ -11,45 +11,25 @@ Created on Aug 5, 2012
 '''
 
 from django.contrib import admin
-from django import forms
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from apps.widgets.bonus_points.models import BonusPoint
 from apps.managers.challenge_mgr import challenge_mgr
 
 
-class BonusPointAdminForm(forms.ModelForm):
-    """Bonus Points Admin Form."""
-    point_value = forms.IntegerField(initial=5,
-        label="Number of bonus points to award.",
-        help_text="The number of bonus points the player earns.")
-
-    class Meta:
-        """Meta"""
-        model = BonusPoint
-
-    def save(self, *args, **kwargs):
-        """Generates the number of bonus point codes."""
-        _ = args
-        _ = kwargs
-        num = self.cleaned_data.get("num_codes")
-        p = self.cleaned_data.get("point_value")
-        # Generate
-        if num > 0:
-            BonusPoint.generate_bonus_points(p, num)
-
-
 class BonusPointAdmin(admin.ModelAdmin):
     """admin for Bonus Points."""
     actions = ["delete_selected", "deactivate_selected", "view_selected",
                "print_selected"]
+    readonly_fields = ["pk", "code", "point_value", "create_date", "is_active",
+                    "printed_or_distributed", "user"]
+    fields = ["pk", "code", "point_value", "create_date", "is_active",
+                    "printed_or_distributed", "user"]
     list_display = ["pk", "code", "point_value", "create_date", "is_active",
                     "printed_or_distributed", "user"]
     ordering = ["-create_date", "is_active"]
     list_filter = ["point_value", "is_active", "printed_or_distributed"]
     date_hierarchy = "create_date"
-
-    form = BonusPointAdminForm
 
     def delete_selected(self, request, queryset):
         """override the delete selected method."""

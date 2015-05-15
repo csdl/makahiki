@@ -53,7 +53,7 @@ week.
 *What is the user interface?*  Let's assume that the baseline data collection resulted in
 an average energy consumption of 100 kWh on Monday for a given team.  Let's also assume
 that the goal is a 5% reduction, so we want to reward the team for using 95 kWh or less.
-How to we provide feedback to the team on their progress toward the goal? 
+How do we provide feedback to the team on their progress toward the goal? 
 
 One (naive) approach would be to simply divide the average daily consumption by 24 to get
 the average hourly consumption for the given day, and then compare the actual consumption
@@ -103,7 +103,7 @@ by the following figure:
 
    *The power meter visualization*
 
-This visualization displays the realtime power consumption which updates in a specified interval. This give players the sense of energy consumption at the monent. For example, some one turns on a high power microwave, they might see a spike in the realtime power meter reflecting the power usage at that monent.
+This visualization displays the realtime power consumption which updates in a specified interval. This give players the sense of energy consumption at the moment. For example, someone turns on a high power microwave, they might see a spike in the realtime power meter reflecting the power usage at that moment.
 
 Additional goal game interfaces: the calendar view
 **************************************************
@@ -166,7 +166,7 @@ resource.
 
 Currently, Makahiki provides built-in support for two resource goal games: energy and water.
 Each of those games, when enabled, results in a page devoted to that resource in the web
-application. The default configuration disables support for the Water Goal Game and the
+application. The default configuration enables support for the Water Goal Game and the
 Water page. 
 
 Extending Makahiki to support an additional resource goal game is straightforward, but 
@@ -201,7 +201,7 @@ actual challenge.   As a result, dynamic baselines do not attempt to characteriz
 predict "normal" behavior, but instead constantly recalibrate themselves to the team's
 most recent behavior by asking them to effectively "do a little better than they did
 before".  At some point, teams will not be able to conserve any more, and they will stop
-being able to achieve their goal.  If their consumption increases from their, the baseline
+being able to achieve their goal.  If their consumption increases from there, the baseline
 will reset itself and the goal will once again be achievable.   Evaluation of this
 strategy is still ongoing: while it overcomes certain problems with fixed baselines, it
 has its own trade-offs (such as the fact that a team will always reach a point at which

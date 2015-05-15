@@ -3,7 +3,7 @@ from django.conf import settings
 import re
 
 from django import forms
-from django.contrib.localflavor.us.forms import USPhoneNumberField
+from localflavor.us.forms import USPhoneNumberField
 
 from apps.managers.player_mgr.models import Profile
 from apps.widgets.smartgrid.models import TextReminder

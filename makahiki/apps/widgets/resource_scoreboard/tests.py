@@ -19,7 +19,7 @@ class EnergyFunctionalTestCase(TransactionTestCase):
     def setUp(self):
         """Initialize a user and log them in."""
         self.user = test_utils.setup_user(username="user", password="changeme")
-        self.team = self.user.get_profile().team
+        self.team = self.user.profile.team
         test_utils.set_competition_round()
 
         challenge_mgr.register_page_widget("energy", "resource_scoreboard.energy")

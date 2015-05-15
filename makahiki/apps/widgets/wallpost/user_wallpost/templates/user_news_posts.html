@@ -10,7 +10,7 @@
     {% if forloop.last and wallpost.more_posts %}
         <li id="view-more-user-posts">
             <a href="#" onclick='
-                    $.get("{% url news_more_user_posts %}?last_post={{post.id}}&page_name={{ wallpost.page_name }}", function(data) {
+                    $.get("{% url 'news_more_user_posts' %}?last_post={{post.id}}&page_name={{ wallpost.page_name }}", function(data) {
                     $("#view-more-user-posts").remove();
                     $(".user-wall-posts").append(data.contents);
                     });

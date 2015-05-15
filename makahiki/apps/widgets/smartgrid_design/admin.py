@@ -154,6 +154,7 @@ class DesignerActivityAdminForm(forms.ModelForm):
         return cleaned_data
 
     def save(self, *args, **kwargs):
+        """save"""
         activity = super(DesignerActivityAdminForm, self).save(*args, **kwargs)
         activity.type = 'activity'
         activity.save()
@@ -274,6 +275,7 @@ class DesignerCommitmentAdminForm(forms.ModelForm):
         return data
 
     def save(self, *args, **kwargs):
+        """save"""
         commitment = super(DesignerCommitmentAdminForm, self).save(*args, **kwargs)
         commitment.type = 'commitment'
         commitment.save()
@@ -368,6 +370,7 @@ class DesignerEventAdminForm(forms.ModelForm):
         return cleaned_data
 
     def save(self, *args, **kwargs):
+        """save"""
         event = super(DesignerEventAdminForm, self).save(*args, **kwargs)
         event.type = 'event'
         event.save()
@@ -426,6 +429,7 @@ class DesignerFillerAdminForm(forms.ModelForm):
         model = DesignerFiller
 
     def save(self, *args, **kwargs):
+        """save"""
         filler = super(DesignerFillerAdminForm, self).save(*args, **kwargs)
         filler.type = 'filler'
         filler.unlock_condition = "False"
@@ -592,7 +596,7 @@ class QuestionChoiceInline(admin.TabularInline):
 
 def redirect_urls(model_admin, url_type):
     """change the url redirection."""
-    from django.conf.urls.defaults import patterns, url
+    from django.conf.urls import patterns, url
     from functools import update_wrapper
 
     def wrap(view):
