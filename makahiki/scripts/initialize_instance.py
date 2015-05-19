@@ -3,6 +3,7 @@
 """
 Invocation:  scripts/initialize_instance .py -t|--type[=] default|demo|test
                                              -r|--heroku[=] <heroku_app>
+                                             -d|--docker
 
 Use this script to create an instance with different types of configuration:
 
@@ -42,7 +43,7 @@ def main(argv):
     fixture_path = "fixtures"
 
     try:
-        opts, args = getopt.getopt(argv, "t:r:h", ["type=", "heroku=", "help"])
+        opts, args = getopt.getopt(argv, "t:r:dh", ["type=", "heroku=", "docker", "help"])
     except getopt.GetoptError:
         script_utils.exit_with_help(__doc__)
 
@@ -54,6 +55,9 @@ def main(argv):
             script_utils.exit_with_help(__doc__)
         if opt[0] == "-t" or opt[0] == "--type":
             instance_type = opt[1]
+        if opt[0] == "-d" or opt[0] == "--docker":
+            is_docker = True
+            fixture_path = os.path.join("makahiki", fixture_path)
         if opt[0] == "-r" or opt[0] == "--heroku":
             heroku_app = opt[1]
             manage_command = "heroku run --app %s python makahiki/manage.py" % heroku_app
@@ -63,13 +67,14 @@ def main(argv):
 
     _ = args
 
-    if not heroku_app:
-        script_utils.install_requirements()
-    else:
-        script_utils.create_heroku_app(heroku_app)
-        script_utils.push_to_heroku(heroku_app)
+    if not is_docker:
+        if not heroku_app:
+            script_utils.install_requirements()
+        else:
+            script_utils.create_heroku_app(heroku_app)
+            script_utils.push_to_heroku(heroku_app)
 
-    script_utils.reset_db(heroku_app)
+        script_utils.reset_db(heroku_app)
 
     script_utils.syncdb(manage_command)
 
