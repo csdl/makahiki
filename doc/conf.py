@@ -259,7 +259,7 @@ texinfo_documents = [
 import inspect
 #import settings
 #from django.core.management import setup_environ
-from django.utils.html import strip_tags
+#from django.utils.html import strip_tags
 from django.utils.encoding import force_unicode
 
 #setup_environ(settings)
@@ -276,7 +276,8 @@ def process_docstring(app, what, name, obj, options, lines):
     
         for field in fields:
             # Decode and strip any html out of the field's help text
-            help_text = strip_tags(force_unicode(field.help_text))
+            #help_text = strip_tags(force_unicode(field.help_text))
+            help_text = force_unicode(field.help_text)
             
             # Decode and capitalize the verbose name, for use if there isn't
             # any help text
