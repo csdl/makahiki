@@ -1,7 +1,7 @@
 db:
   image: postgres
 web:
-  build: .
+  image: yongwen/makahiki
   env_file: .env
   command: python makahiki/manage.py runserver 0.0.0.0:8000
   volumes:
