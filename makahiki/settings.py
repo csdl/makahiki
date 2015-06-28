@@ -421,13 +421,16 @@ MAKAHIKI_USE_MEMCACHED = env('MAKAHIKI_USE_MEMCACHED', '').lower() == "true"
 if MAKAHIKI_USE_MEMCACHED:
     if os.environ.get('MEMCACHIER_SERVERS', ''):
         os.environ['MEMCACHE_SERVERS'] = os.environ.get('MEMCACHIER_SERVERS', '')
+    if os.environ.get('MEMCACHIER_USERNAME', ''):
         os.environ['MEMCACHE_USERNAME'] = os.environ.get('MEMCACHIER_USERNAME', '')
+    if os.environ.get('MEMCACHIER_PASSWORD', ''):
         os.environ['MEMCACHE_PASSWORD'] = os.environ.get('MEMCACHIER_PASSWORD', '')
 
+    if os.environ.get('MEMCACHE_SERVERS', ''):
         CACHES = {
             'default': {
                 'BACKEND': 'django_pylibmc.memcached.PyLibMCCache',
-                'LOCATION': os.environ.get('MEMCACHIER_SERVERS', ''),
+                'LOCATION': os.environ.get('MEMCACHE_SERVERS', ''),
                 'TIMEOUT': 500,
                 'BINARY': True,
                 }

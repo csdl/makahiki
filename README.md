@@ -1,7 +1,7 @@
 Makahiki
 ========
 
-Makahiki is an open source “serious game engine for sustainability”. It provides a framework for creating serious games for the purpose of education and behavioral change regarding energy, water, food, and waste generation and use.
+Makahiki is an open source “serious game framework for sustainability”. It provides a framework for creating serious games for the purpose of education and behavioral change regarding energy, water, food, and waste generation and use.
 
 The initial version of Makahiki (Version 1) was developed in support of first Kukui Cup energy challenge held at the University of Hawaii in Fall, 2011. Some of the goals of the Kukui Cup challenge are to support:
 
