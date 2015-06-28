@@ -1,12 +1,19 @@
 db:
   image: postgres
+cache:
+  image: memcached
 web:
   image: yongwen/makahiki
   env_file: .env
-  command: python makahiki/manage.py runserver 0.0.0.0:8000
-  volumes:
-    - .:/code
+  command: python makahiki/manage.py run_gunicorn -b 0.0.0.0:8000 -w 3
   ports:
     - "8000:8000"
+  links:
+    - db
+    - cache
+worker:
+  build: .
+  env_file: .env
+  command: python makahiki/manage.py celeryd -E -B --loglevel=INFO
   links:
     - db

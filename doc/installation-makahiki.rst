@@ -12,7 +12,7 @@ Developers of Makahiki will want to install the system locally.
 Organizations will want to install Makahiki locally if they wish to host
 the system themselves.  This requires sufficient hardware resources
 and IT support to do the installation, perform backups, and monitor the
-system during the challenge and deal with any outages that occur. 
+system during the challenge and deal with any outages that occur.
 
 Organizations can instead choose to host Makahiki with Heroku.  This incurs
 a cost (we estimate from $50-$100 per month of the challenge), but has the benefit
@@ -23,4 +23,4 @@ that no hardware or IT resources are required.
 
    installation-makahiki-local
    installation-makahiki-heroku
-
+   installation-makahiki-docker
