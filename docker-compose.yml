@@ -3,7 +3,7 @@ db:
 cache:
   image: memcached
 web:
-  build: .
+  image: yongwen/makahiki
   env_file: .env
   command: python makahiki/manage.py run_gunicorn -b 0.0.0.0:8000 -w 3
   ports:
